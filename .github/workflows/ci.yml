@@ -44,9 +44,16 @@ jobs:
           python-version: "3.12"
           cache: "pip"
 
-      - name: Install Python dependencies
+      - name: Initialize python venv in folder "/apps/backend" if not present
         working-directory: apps/backend
-        run: pip install -r requirements.txt
+        run: |
+          if [ ! -d "venv" ]; then
+            python -m venv venv
+          fi
+          source venv/bin/activate
+          echo "Virtual environment activated."
+          pip install -r requirements.txt
+          deactivate
 
       - name: Set up Nx affected base/head SHAs
         uses: nrwl/nx-set-shas@v4
@@ -132,10 +139,10 @@ jobs:
           if [ ! -d "venv" ]; then
             python -m venv venv
           fi
-
-      - name: Install Python dependencies
-        working-directory: apps/backend
-        run: pip install -r requirements.txt
+          source venv/bin/activate
+          echo "Virtual environment activated."
+          pip install -r requirements.txt
+          deactivate
 
       - name: Run Python Semantic Release for Backend
         working-directory: apps/backend
