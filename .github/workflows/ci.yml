@@ -74,8 +74,6 @@ jobs:
     needs: main-ci # Sicherstellen, dass der Haupt-CI-Job erfolgreich war
     if: |
       github.event_name == 'push' && github.ref == 'refs/heads/master' &&
-      # Nur ausführen, wenn Commits vorhanden sind, die einen Release auslösen könnten.
-      # Semantic Release wird dies letztendlich selbst entscheiden, aber dies spart CI-Minuten.
       (contains(github.event.head_commit.message, 'feat(frontend)') ||
        contains(github.event.head_commit.message, 'fix(frontend)') ||
        contains(github.event.head_commit.message, 'perf(frontend)') ||
@@ -122,7 +120,6 @@ jobs:
     needs: main-ci # Sicherstellen, dass der Haupt-CI-Job erfolgreich war
     if: |
       github.event_name == 'push' && github.ref == 'refs/heads/master' &&
-      # Nur ausführen, wenn Commits vorhanden sind, die einen Release auslösen könnten.
       (contains(github.event.head_commit.message, 'feat(backend)') ||
        contains(github.event.head_commit.message, 'fix(backend)') ||
        contains(github.event.head_commit.message, 'perf(backend)') ||
