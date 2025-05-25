@@ -26,6 +26,23 @@ exclude = [
     "examples", # Beispielverzeichnisse
     "scripts", # Skripte
     "docker", # Docker-spezifische Dateien
+    "docker-compose.yml", # Docker Compose-Datei
+    "tsconfig.json", # TypeScript-Konfiguration
+    "tsconfig.lib.json", # TypeScript Bibliothekskonfiguration
+    "tsconfig.app.json", # TypeScript Anwendungs-Konfiguration
+    "tsconfig.spec.json", # TypeScript Test-Konfiguration
+    "package.json", # Node.js Paketkonfiguration
+    "package-lock.json", # Node.js Paket-Abhängigkeiten
+    "yarn.lock", # Yarn Paket-Abhängigkeiten
+    "pnpm-lock.yaml", # pnpm Paket-Abhängigkeiten
+    "poetry.lock", # Poetry Paket-Abhängigkeiten
+    "Pipfile", # Pipenv Paket-Abhängigkeiten
+    "Pipfile.lock", # Pipenv Paket-Abhängigkeiten
+    "pyproject.toml", # Projektkonfiguration
+    "setup.py", # Python Setup-Skript
+    "setup.cfg", # Python Setup-Konfiguration
+    "requirements.txt", # Python Abhängigkeiten
+    ".mypy_cache", # Mypy Cache
 ]
 
 [tool.ruff.lint]
@@ -67,4 +84,11 @@ ignore= [
 # Konfiguration für isort, um Importe zu sortieren
 known-first-party = [
     "apps.backend",
+]
+known-third-party = [
+    "django",
+    "rest_framework",
+    "requests",
+    "numpy",
+    "pandas",
 ]
