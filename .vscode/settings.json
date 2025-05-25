@@ -1,4 +1,5 @@
 {
     "nxConsole.nxWorkspacePath": "",
-    "svn.ignoreMissingSvnWarning": true
+    "svn.ignoreMissingSvnWarning": true,
+    "git.ignoreLimitWarning": true
 }
