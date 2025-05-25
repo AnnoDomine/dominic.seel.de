@@ -64,7 +64,10 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "apps/backend",
-        "command": "./venv/bin/python -m mypy ."
+        "command": "./venv/bin/python -m mypy .",
+        "env": {
+          "DJANGO_SETTINGS_MODULE": "core.settings"
+        }
       },
       "outputs": ["{options.outputFile}"]
     }
