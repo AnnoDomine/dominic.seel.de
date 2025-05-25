@@ -1,46 +1,158 @@
+# .github/workflows/ci.yml
 name: CI
 
 on:
   push:
     branches:
-      - master
+      - master # Dein Haupt-Branch
   pull_request:
+    branches:
+      - master # Pull Requests gegen deinen Haupt-Branch
 
 permissions:
+  # Grundlegende Berechtigungen für alle Jobs
   actions: read
-  contents: read
+  contents: read # Zum Checkout des Codes
 
 jobs:
-  main:
+  # Job 1: Haupt-CI - Linting, Testing, Building aller betroffenen Projekte (Frontend & Backend)
+  # Dieser Job läuft immer bei Push und PR und stellt die Code-Qualität sicher.
+  main-ci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
+          # filter: tree:0 ist gut für Monorepos, um nur relevante Dateien zu holen
+          # fetch-depth: 0 ist entscheidend für Nx's "affected" Befehle, da sie die gesamte Git-Historie benötigen
           filter: tree:0
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.8.0 # Deine pnpm-Version
+          run_install: false # Wir installieren manuell nach Node.js-Setup
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # Deine Node.js-Version
+          cache: "pnpm"
+
+      - name: Install Node.js dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          # Wichtig: Verwende Python 3.12 für bessere Paketkompatibilität,
+          # wenn 3.13.3 Probleme mit mypy-django macht.
+          # Wenn 3.13.3 jetzt wirklich stabil ist, verwende '3.13.3'.
+          python-version: "3.12"
+          cache: "pip" # Pip-Cache aktivieren
+
+      - name: Install Python dependencies
+        working-directory: apps/backend # Sicherstellen, dass pip im Backend-Ordner läuft
+        run: pip install -r requirements.txt
+
+      - name: Set up Nx affected base/head SHAs
+        # Dies ist entscheidend, damit Nx weiß, welche Commits verglichen werden sollen.
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Run affected lint, test, build for all projects (FE & BE)
+        # Setzen der Django-Settings-Modul-Umgebungsvariable für MyPy und Django-Tests
+        env:
+          DJANGO_SETTINGS_MODULE: core.settings # Passt zu deinem Django-Projekt
+        run: pnpm exec nx affected -t lint test build
+
+  # Job 2: Frontend Release
+  # Dieser Job läuft nur bei Push auf master und nur, wenn das Frontend betroffen ist.
+  release-frontend:
+    name: Release Frontend
+    runs-on: ubuntu-latest
+    needs: main-ci # Sicherstellen, dass der Haupt-CI-Job erfolgreich war
+    if: |
+      github.event_name == 'push' && github.ref == 'refs/heads/master' &&
+      # Nur ausführen, wenn Commits vorhanden sind, die einen Release auslösen könnten.
+      # Semantic Release wird dies letztendlich selbst entscheiden, aber dies spart CI-Minuten.
+      (contains(github.event.head_commit.message, 'feat(frontend)') ||
+       contains(github.event.head_commit.message, 'fix(frontend)') ||
+       contains(github.event.head_commit.message, 'perf(frontend)') ||
+       contains(github.event.head_commit.message, 'refactor(frontend)!')) # Refactor mit BREAKING CHANGE
+    # Berechtigungen für das Erstellen von Tags und Releases
+    permissions:
+      contents: write # Zum Erstellen von Git-Tags und GitHub Releases
+      issues: write # Zum Verlinken von Issues im Changelog
+      pull-requests: write # Zum Erstellen von PRs für Release (falls konfiguriert)
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Volle Historie für semantic-release notwendig
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
           version: 9.8.0
           run_install: false
 
-      # This enables task distribution via Nx Cloud
-      # Run this command as early as possible, before dependencies are installed
-      # Learn more at https://nx.dev/ci/reference/nx-cloud-cli#npx-nxcloud-startcirun
-      # Uncomment this line to enable task distribution
-      # - run: pnpm dlx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="build"
-
-      # Cache node_modules
-      - uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "pnpm"
 
-      - run: pnpm install --frozen-lockfile
-      - uses: nrwl/nx-set-shas@v4
+      - name: Install Node.js dependencies
+        run: pnpm install --frozen-lockfile
 
-      # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
-      # - run: pnpm exec nx-cloud record -- echo Hello World
-      # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
-      - run: pnpm exec nx affected -t lint test build
+      - name: Run Semantic Release for Frontend
+        working-directory: apps/frontend # semantic-release im Frontend-Ordner ausführen
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Automatisch von GitHub Actions bereitgestellt
+          # Füge hier weitere Umgebungsvariablen hinzu, die semantic-release benötigt
+        run: npx semantic-release
+
+  # Job 3: Backend Release
+  # Dieser Job läuft nur bei Push auf master und nur, wenn das Backend betroffen ist.
+  release-backend:
+    name: Release Backend
+    runs-on: ubuntu-latest
+    needs: main-ci # Sicherstellen, dass der Haupt-CI-Job erfolgreich war
+    if: |
+      github.event_name == 'push' && github.ref == 'refs/heads/master' &&
+      # Nur ausführen, wenn Commits vorhanden sind, die einen Release auslösen könnten.
+      (contains(github.event.head_commit.message, 'feat(backend)') ||
+       contains(github.event.head_commit.message, 'fix(backend)') ||
+       contains(github.event.head_commit.message, 'perf(backend)') ||
+       contains(github.event.head_commit.message, 'refactor(backend)!'))
+
+    permissions:
+      contents: write # Zum Erstellen von Git-Tags und GitHub Releases
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Volle Historie für python-semantic-release notwendig
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12" # Wichtig: Nutze die Version, mit der mypy-django funktioniert
+          cache: "pip"
+
+      - name: Install Python dependencies
+        working-directory: apps/backend
+        run: pip install -r requirements.txt
+
+      - name: Run Python Semantic Release for Backend
+        working-directory: apps/backend # python-semantic-release im Backend-Ordner ausführen
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Automatisch von GitHub Actions bereitgestellt
+          DJANGO_SETTINGS_MODULE: core.settings # Sicherstellen, dass die Settings gefunden werden
+          # Füge hier weitere Umgebungsvariablen hinzu, die python-semantic-release benötigt
+        run: python -m python_semantic_release publish # Oder dein spezifischer Publish-Befehl
