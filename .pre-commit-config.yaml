@@ -31,7 +31,13 @@ repos:
     hooks:
       - id: eslint
         files: ^apps/frontend/.*\.(js|jsx|ts|tsx)$
-        args: ["--config", "apps/frontend/.eslintrc.js", "--ignore-path", "apps/frontend/.eslintignore"]
+        args:
+          [
+            "--config",
+            "apps/frontend/.eslintrc.js",
+            "--ignore-path",
+            "apps/frontend/.eslintignore"
+          ]
         language: node
         language_version: 20.12.2
         pass_filenames: false

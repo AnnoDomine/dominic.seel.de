@@ -5,7 +5,9 @@
   "scripts": {},
   "private": true,
   "commitlint": {
-    "extends": ["@commitlint/config-conventional"]
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "devDependencies": {
     "@commitlint/cli": "19.8.1",
