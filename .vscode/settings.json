@@ -2,5 +2,6 @@
     "nxConsole.nxWorkspacePath": "",
     "svn.ignoreMissingSvnWarning": true,
     "git.ignoreLimitWarning": true,
-    "nxConsole.generateAiAgentRules": true
+    "nxConsole.generateAiAgentRules": true,
+    "prettier.configPath": "./.prettierrc"
 }
