@@ -100,3 +100,31 @@ Thumbs.db
 
 vite.config.*.timestamp*
 vitest.config.*.timestamp*
+
+# Python dajngo
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+# Python virtual environments
+venv/
+# Python pipenv
+Pipfile.lock
+# Python poetry
+poetry.lock
+# Python pip
+pip-wheel-metadata/
+# Python egg
+*.egg-info/
+# Python cache
+.pytest_cache/
+# Python coverage
+.coverage
+# Python logs
+*.log
+# Python environment variables
+.env
+# Python Jupyter Notebook
+.ipynb_checkpoints/
+# Python virtual environment
+# Python cache
