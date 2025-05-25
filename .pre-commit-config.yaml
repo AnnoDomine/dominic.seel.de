@@ -23,7 +23,7 @@ repos:
         types_or: [javascript, css, markdown, yaml, json, ts, tsx]
         language: node
         language_version: 20.12.2
-        args: ["--ignore-path", "apps/frontend/.prettierignore"]
+        args: ["--ignore-path", ".prettierignore"]
         files: ^apps/frontend/
 
   - repo: https://github.com/pre-commit/mirrors-eslint
