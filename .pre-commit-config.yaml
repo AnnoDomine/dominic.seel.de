@@ -17,19 +17,23 @@ repos:
         args: ["apps/backend/"] # **Wichtig: Nur auf den Backend-Ordner anwenden**
 
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.3
+    rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
         types_or: [javascript, css, markdown, yaml, json, ts, tsx]
+        language: node
+        language_version: 20.12.2
         args: ["--ignore-path", "apps/frontend/.prettierignore"]
+        files: ^apps/frontend/
 
   - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v8.57.0
+    rev: v9.27.0
     hooks:
       - id: eslint
-        files: \.(js|jsx|ts|tsx)$
+        files: ^apps/frontend/.*\.(js|jsx|ts|tsx)$
         args: ["--config", "apps/frontend/.eslintrc.js", "--ignore-path", "apps/frontend/.eslintignore"]
-        language: system
+        language: node
+        language_version: 20.12.2
         pass_filenames: false
 
   - repo: local
@@ -38,4 +42,4 @@ repos:
         name: Commitlint
         entry: npx --no-install commitlint --edit ${1}
         language: system
-        types: [commit-msg]
+        stages: [commit-msg]
