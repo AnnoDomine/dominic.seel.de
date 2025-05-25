@@ -43,14 +43,14 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "apps/backend",
-        "command": "ruff check ."
+        "command": "./venv/bin/python -m ruff check ."
       }
     },
     "format": {
       "executor": "nx:run-commands",
       "options": {
         "cwd": "apps/backend",
-        "command": "ruff format ."
+        "command": "./venv/bin/python -m ruff format ."
       }
     },
     "test": {
@@ -59,6 +59,14 @@
         "cwd": "apps/backend",
         "command": "./venv/bin/python manage.py test"
       }
+    },
+    "check-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/backend",
+        "command": "./venv/bin/python -m mypy ."
+      },
+      "outputs": ["{options.outputFile}"]
     }
   },
   "tags": ["scope:backend", "type:app"]

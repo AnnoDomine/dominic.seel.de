@@ -1,8 +1,14 @@
-# apps/backend/pyproject.toml
+[tool.mypy]
+plugins = ["mypy_django_plugin.main"]
+python_version = "3.13"
+
+[tool.django-stubs]
+django_settings_module = "myproject.settings"
+strict_settings = true
+
 [tool.ruff]
-select = ["E", "F", "B", "I", "C", "D"] # Beispiel-Set: Errors, Flake8, Bugbear, isort, Complexity, Docstrings
-ignore = ["E501"] # Beispiel: Ignoriere "Line too long"
-line-length = 120 # Beispiel: Erhöhe die maximale Zeilenlänge
+target-version = "py313"
+line-length = 120
 
 exclude = [
     ".git",
@@ -10,10 +16,55 @@ exclude = [
     "venv",
     "migrations", # Django migrations
     "node_modules",
+    "static",
+    "media",
+    "build",
+    "dist",
+    "coverage",
+    "docs",
+    "tests", # Testverzeichnisse
+    "examples", # Beispielverzeichnisse
+    "scripts", # Skripte
+    "docker", # Docker-spezifische Dateien
 ]
 
 [tool.ruff.lint]
-# Spezifische Einstellungen für den Linter
+# Wähle die Regel-Sets aus, die Ruff aktivieren soll.
+# Dies ist eine "Best Practice" Auswahl, die ein breites Spektrum abdeckt:
+#
+# E: pycodestyle errors (Standard-Syntax- und Stilfehler)
+# F: Pyflakes (Erkennt ungenutzte Importe, nicht definierte Variablen etc.)
+# W: pycodestyle warnings (Standard-Stilwarnungen)
+# B: flake8-bugbear (Erkennt gängige Programmierfehler und potenzielle Bugs)
+# I: isort (Stellt sicher, dass Importe alphabetisch sortiert und gruppiert sind)
+# C901: McCabe complexity (Ein spezifischer Check für die Komplexität von Funktionen)
+# PL: Pylint (Eine Auswahl gängiger Pylint-Regeln, die in Ruff implementiert sind)
+#
+# Du kannst weitere hinzufügen (z.B. N für pep8-naming oder D für pydocstyle),
+# aber sei bereit, diese ggf. anzupassen oder zu ignorieren, da sie streng sein können.
+select = [
+    "E", "F", "W", "B", "I", "C901", "PL"
+]
 
-[tool.ruff.format]
-# Spezifische Einstellungen für den Formatter
+ignore= [
+    "PLR0913", # Too many arguments in function (kann für Django-Views etc. zu streng sein)
+    "PLR0911", # Too many return statements
+    "PLR0912", # Too many branches
+    "PLR0915", # Too many statements
+]
+
+# Per-Datei-Ignorierregeln
+# Hier kannst du bestimmte Regeln für spezifische Dateien oder Muster ignorieren.
+[tool.ruff.lint.per-file-ignores]
+# Ignoriere E501 (Line too long) und D (Docstrings) in Django-Settings-Dateien
+"apps/backend/core/settings.py" = ["E501", "D"]
+# Ignoriere die meisten Linting-Regeln in Django-Migrations-Dateien (da autogeneriert)
+"apps/backend/migrations/*.py" = ["E", "W", "D", "F", "I", "C901", "PL"]
+# Ignoriere Docstring-Regeln in Testdateien (wenn man nicht für jeden Test-Docstrings will)
+"apps/backend/tests/*.py" = ["D"]
+
+[tool.ruff.lint.isort]
+# Konfiguration für isort, um Importe zu sortieren
+known-first-party = [
+    "apps.backend",
+]
