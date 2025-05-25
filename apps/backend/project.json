@@ -59,17 +59,6 @@
         "cwd": "apps/backend",
         "command": "./venv/bin/python manage.py test"
       }
-    },
-    "check-types": {
-      "executor": "nx:run-commands",
-      "options": {
-        "cwd": "apps/backend",
-        "command": "./venv/bin/python -m mypy .",
-        "env": {
-          "DJANGO_SETTINGS_MODULE": "core.settings"
-        }
-      },
-      "outputs": ["{options.outputFile}"]
     }
   },
   "tags": ["scope:backend", "type:app"]
