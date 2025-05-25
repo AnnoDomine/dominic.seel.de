@@ -4,7 +4,14 @@
   "license": "MIT",
   "scripts": {},
   "private": true,
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
   "devDependencies": {
+    "@commitlint/cli": "19.8.1",
+    "@commitlint/config-conventional": "19.8.1",
     "@eslint/js": "^9.8.0",
     "@nx/devkit": "21.1.2",
     "@nx/eslint": "21.1.2",

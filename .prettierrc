@@ -1,0 +1,53 @@
+{
+  "tabWidth": 2,
+  "printWidth": 80,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "semi": true,
+  "endOfLine": "lf",
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+      "options": {
+        "tabWidth": 4,
+        "printWidth": 120,
+        "singleQuote": false,
+        "trailingComma": "all",
+        "semi": false,
+        "bracketSpacing": true,
+        "arrowParens": "always",
+        "endOfLine": "lf",
+        "useTabs": false
+      }
+    },
+    {
+      "files": ["**/*.json", "**/*.yaml", "**/*.yml"],
+      "options": {
+        "tabWidth": 2,
+        "printWidth": 80,
+        "singleQuote": false,
+        "trailingComma": "none",
+        "semi": false,
+        "bracketSpacing": true,
+        "arrowParens": "avoid",
+        "endOfLine": "lf",
+        "useTabs": false
+      }
+    },
+    {
+      "files": ["**/*.md"],
+      "options": {
+        "tabWidth": 2,
+        "printWidth": 100,
+        "proseWrap": "always",
+        "singleQuote": false,
+        "trailingComma": "none",
+        "semi": false,
+        "bracketSpacing": true,
+        "arrowParens": "avoid",
+        "endOfLine": "lf",
+        "useTabs": false
+      }
+    }
+  ]
+}
