@@ -1,32 +1,23 @@
 import styled from "@emotion/styled"
-import NxWelcome from "./nx-welcome"
-
 import { Route, Routes, Link } from "react-router-dom"
+import Layout from "./components/templates/layout/layout"
+import routes from "../utils/routes/routes"
 
 const StyledApp = styled.div`
-    // Your style here
+    width: 100%;
+    height: 100%;
 `
 
 export function App() {
     return (
         <StyledApp>
             <Routes>
-                <Route
-                    path="/"
-                    element={
-                        <div>
-                            This is the generated root route. <Link to="/page-2">Click here for page 2.</Link>
-                        </div>
-                    }
-                />
-                <Route
-                    path="/page-2"
-                    element={
-                        <div>
-                            <Link to="/">Click here to go back to root page.</Link>
-                        </div>
-                    }
-                />
+                <Route path="/" element={<Layout />}>
+                    <Route index path="" element={<div>Home Page</div>} />
+                    <Route path={routes.projects} element={<div>Project Page</div>} />
+                    <Route path={routes.roadmap} element={<div>Roadmap Page</div>} />
+                    <Route path="*" element={<div>404 Not Found</div>} />
+                </Route>
             </Routes>
         </StyledApp>
     )
