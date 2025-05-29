@@ -8,17 +8,20 @@ from .serializers import CertificateSerializer, ProjectSerializer, RoadmapItemSe
 class RoadmapItemViewSet(viewsets.ModelViewSet):
     queryset = RoadmapItem.objects.all()
     serializer_class = RoadmapItemSerializer
-    # Berechtigungen: Authentifizierte Benutzer können bearbeiten, andere nur lesen
     permission_classes = [IsAuthenticatedOrReadOnly]  # Initial, wird später für SSO angepasst
+    pagination_class = None  # Keine Paginierung für Roadmap-Items
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = None  # Keine Paginierung für Projekte
+    filterset_fields = ["status", "type"]  # Filtermöglichkeiten für Status und Typ
 
 
 class CertificateViewSet(viewsets.ModelViewSet):
     queryset = Certificate.objects.all()
     serializer_class = CertificateSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = None  # Keine Paginierung für Zertifikate
