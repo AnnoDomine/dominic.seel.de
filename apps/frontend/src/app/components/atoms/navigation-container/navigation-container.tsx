@@ -1,12 +1,10 @@
-import { styled } from "@mui/material"
+import { AppBar, styled } from "@mui/material"
 
-const NavigationContainer = styled("div")(({ theme }) => ({
+const NavigationContainer = styled(AppBar)(({ theme }) => ({
     display: "flex",
     flexDirection: "row",
-    width: "auto",
-    height: "100%",
-    backgroundColor: theme.palette.background.default,
     padding: "16px",
+    borderBottom: `1px solid ${theme.palette.divider}`,
 }))
 
 export default NavigationContainer

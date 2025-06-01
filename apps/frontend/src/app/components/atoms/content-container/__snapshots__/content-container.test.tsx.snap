@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ContentContainer > renders without crashing 1`] = `
+<div
+  class="css-13mi9bo-content-container-root"
+  data-testid="content-container"
+>
+  Content
+</div>
+`;
