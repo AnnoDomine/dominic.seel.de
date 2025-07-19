@@ -1,9 +1,10 @@
-import useUser from "../../../../redux/hooks/useUser.hooks"
-import Login from "../../organisams/login/login"
+import useUser from "../../../../redux/hooks/useUser.hooks";
+import Login from "../../organisams/login/login";
+import Profile from "../../organisams/profile/profile";
 
 const Acp = () => {
-    const { isAuthenticated } = useUser()
-    return !isAuthenticated ? <Login /> : "logged in"
-}
+    const { isAuthenticated } = useUser();
+    return !isAuthenticated ? <Login /> : <Profile />;
+};
 
-export default Acp
+export default Acp;

@@ -1,6 +1,6 @@
-import { createApi } from "@reduxjs/toolkit/query/react"
-import baseQuery from "./api/base-query"
-import { LoginResponse } from "../../types/redux/user"
+import { createApi } from "@reduxjs/toolkit/query/react";
+import baseQuery from "./api/base-query";
+import { LoginResponse } from "../../types/redux/user";
 
 const userQueries = createApi({
     reducerPath: "userQueries",
@@ -13,12 +13,28 @@ const userQueries = createApi({
             }),
             providesTags: (result, error) => {
                 if (error) {
-                    return []
+                    return [];
                 }
                 if (result) {
-                    return ["User"]
+                    return ["User"];
                 }
-                return []
+                return [];
+            },
+        }),
+        updateUser: builder.mutation<LoginResponse, Partial<LoginResponse>>({
+            query: (userData) => ({
+                url: "/auth/user",
+                method: "PATCH",
+                body: userData,
+            }),
+            invalidatesTags: ["User"],
+            async onQueryStarted(userData, { dispatch, queryFulfilled }) {
+                try {
+                    const { data: updatedUser } = await queryFulfilled;
+                    // Optionally, you can dispatch an action to update the state with the updated user data
+                } catch (error) {
+                    console.error("Update user failed:", error);
+                }
             },
         }),
         logout: builder.mutation<void, void>({
@@ -30,16 +46,16 @@ const userQueries = createApi({
             invalidatesTags: () => ["User"],
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
-                    await queryFulfilled
+                    await queryFulfilled;
                     // Optionally, you can dispatch an action to update the state after logout
-                    window.location.reload() // Reload the page to reflect the logout
+                    window.location.reload(); // Reload the page to reflect the logout
                 } catch (error) {
-                    console.error("Logout failed:", error)
+                    console.error("Logout failed:", error);
                 }
             },
         }),
     }),
-})
+});
 
-export const { useGetUserQuery, useLogoutMutation } = userQueries
-export default userQueries
+export const { useGetUserQuery, useLogoutMutation, useUpdateUserMutation } = userQueries;
+export default userQueries;
