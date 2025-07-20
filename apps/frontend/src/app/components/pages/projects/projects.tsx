@@ -1,7 +1,9 @@
-"use client"
+"use client";
+
+import ProjectList from "../../molecules/project-list/project-list";
 
 const Projects = () => {
-    return <div>Projects</div>
-}
+    return <ProjectList />;
+};
 
-export default Projects
+export default Projects;

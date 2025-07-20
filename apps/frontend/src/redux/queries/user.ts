@@ -1,11 +1,13 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery from "./api/base-query";
-import { LoginResponse } from "../../types/redux/user";
+import { LoginResponse, SingleUserItem, UserListItem } from "../../types/redux/user";
+import { PaginatedResponse, PaginationQueryParams } from "../../types/common";
+import { paginatedEndpoint } from "../helpers/endpoint";
 
 const userQueries = createApi({
     reducerPath: "userQueries",
     baseQuery: baseQuery,
-    tagTypes: ["User"],
+    tagTypes: ["User", "Users"],
     endpoints: (builder) => ({
         getUser: builder.query<LoginResponse, void, LoginResponse>({
             query: () => ({
@@ -21,21 +23,13 @@ const userQueries = createApi({
                 return [];
             },
         }),
-        updateUser: builder.mutation<LoginResponse, Partial<LoginResponse>>({
+        updateUser: builder.mutation<LoginResponse, Omit<LoginResponse, "email">>({
             query: (userData) => ({
-                url: "/auth/user",
+                url: `/users/${userData.pk}/`,
                 method: "PATCH",
                 body: userData,
             }),
             invalidatesTags: ["User"],
-            async onQueryStarted(userData, { dispatch, queryFulfilled }) {
-                try {
-                    const { data: updatedUser } = await queryFulfilled;
-                    // Optionally, you can dispatch an action to update the state with the updated user data
-                } catch (error) {
-                    console.error("Update user failed:", error);
-                }
-            },
         }),
         logout: builder.mutation<void, void>({
             query: () => ({
@@ -54,8 +48,40 @@ const userQueries = createApi({
                 }
             },
         }),
+        listUsers: builder.query<PaginatedResponse<UserListItem>, PaginationQueryParams>({
+            query: (queryParams) => ({
+                url: paginatedEndpoint("/users/", queryParams),
+            }),
+            providesTags: (result, error, params) => {
+                if (error) {
+                    return [];
+                }
+                return result
+                    ? [
+                          ...result.results.map(({ id }) => ({
+                              type: "Users" as const,
+                              id,
+                              params: JSON.stringify({ ...params }),
+                          })),
+                          { type: "Users", id: "LIST", params: JSON.stringify({ ...params }) },
+                      ]
+                    : [{ type: "Users", id: "LIST", params: JSON.stringify({ ...params }) }];
+            },
+        }),
+        getSingleUser: builder.query<SingleUserItem | undefined, { userId: number }>({
+            query: ({ userId }) => ({
+                url: `/users/${userId}/`,
+            }),
+        }),
     }),
 });
 
-export const { useGetUserQuery, useLogoutMutation, useUpdateUserMutation } = userQueries;
+export const {
+    useGetUserQuery,
+    useLogoutMutation,
+    useUpdateUserMutation,
+    useListUsersQuery,
+    useGetSingleUserQuery,
+    useLazyListUsersQuery,
+} = userQueries;
 export default userQueries;

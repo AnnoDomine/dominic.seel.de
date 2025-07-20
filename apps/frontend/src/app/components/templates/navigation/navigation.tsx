@@ -1,39 +1,40 @@
-import { Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from "@mui/material"
-import NavigationContainer from "../../atoms/navigation-container/navigation-container"
-import Spacer from "../../atoms/spacer/spacer"
-import { useLocation, useNavigate } from "react-router-dom"
-import { MouseEvent, useMemo, useState } from "react"
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded"
-import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded"
-import routes from "../../../../utils/routes/routes"
-import NavigationIcon from "../../molecules/navigation-icon/navigation-icon"
-import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone"
-import useUser from "../../../../redux/hooks/useUser.hooks"
+import { Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from "@mui/material";
+import NavigationContainer from "../../atoms/navigation-container/navigation-container";
+import Spacer from "../../atoms/spacer/spacer";
+import { useLocation, useNavigate } from "react-router-dom";
+import { MouseEvent, useMemo, useState } from "react";
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
+import routes from "../../../../utils/routes/routes";
+import NavigationIcon from "../../molecules/navigation-icon/navigation-icon";
+import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
+import useUser from "../../../../redux/hooks/useUser.hooks";
+import { useGetUserQuery } from "../../../../redux/queries/user";
 
-const logo = new URL("./logo_transparent.png", import.meta.url).href
+const logo = new URL("./logo_transparent.png", import.meta.url).href;
 
 const Navigation = () => {
-    const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null)
+    const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
 
-    const { isAuthenticated, logout } = useUser()
+    const { isAuthenticated, logout } = useUser();
 
-    const navigate = useNavigate()
-    const location = useLocation()
-    const isActive = (route: string) => location.pathname === route
+    const navigate = useNavigate();
+    const location = useLocation();
+    const isActive = (route: string) => location.pathname === route;
 
     const getPath = (pathname: string) => {
-        const paths = pathname.split("/").filter((path) => path)
-        if (paths.length === 0) return "home"
-        return paths.join(" - ")
-    }
+        const paths = pathname.split("/").filter((path) => path);
+        if (paths.length === 0) return "home";
+        return paths.join(" - ");
+    };
 
     const handleMenuClick = (event: MouseEvent<HTMLButtonElement>) => {
-        setMenuAnchorEl(event.currentTarget)
-    }
+        setMenuAnchorEl(event.currentTarget);
+    };
     const handleSelect = (route: string) => {
-        setMenuAnchorEl(null)
-        navigate(route)
-    }
+        setMenuAnchorEl(null);
+        navigate(route);
+    };
 
     const generatedMenuItems = useMemo(() => {
         const unAuthNavigation = Object.entries(routes).map(([key, route]) => (
@@ -48,7 +49,7 @@ const Navigation = () => {
                 </ListItemIcon>
                 <ListItemText>{key.toUpperCase()}</ListItemText>
             </MenuItem>
-        ))
+        ));
         const authNavigation = isAuthenticated
             ? [
                   <Divider key="divider" sx={{ my: 1 }} />,
@@ -56,8 +57,8 @@ const Navigation = () => {
                       key="logout"
                       id="navigation-item-logout"
                       onClick={() => {
-                          logout()
-                          navigate(routes.home)
+                          logout();
+                          navigate(routes.home);
                       }}
                   >
                       <ListItemIcon>
@@ -66,9 +67,9 @@ const Navigation = () => {
                       <ListItemText>LOGOUT</ListItemText>
                   </MenuItem>,
               ]
-            : []
-        return [...unAuthNavigation, ...authNavigation]
-    }, [isAuthenticated, logout, navigate, routes, isActive, handleSelect])
+            : [];
+        return [...unAuthNavigation, ...authNavigation];
+    }, [isAuthenticated, logout, navigate, routes, isActive, handleSelect]);
 
     return (
         <NavigationContainer position="static" color="default" enableColorOnDark>
@@ -114,7 +115,7 @@ const Navigation = () => {
                 {generatedMenuItems}
             </Menu>
         </NavigationContainer>
-    )
-}
+    );
+};
 
-export default Navigation
+export default Navigation;

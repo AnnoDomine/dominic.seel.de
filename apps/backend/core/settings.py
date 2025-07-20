@@ -74,6 +74,8 @@ REST_AUTH = {
     "LOGIN_METHOD": "allauth_account_settings.AuthenticationMethod.EMAIL",
 }
 
+REST_FRAMEWORK = {"DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"]}
+
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",

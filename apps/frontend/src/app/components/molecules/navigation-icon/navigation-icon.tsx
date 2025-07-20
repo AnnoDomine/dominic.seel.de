@@ -1,30 +1,30 @@
-import { FC } from "react"
-import routes from "../../../../utils/routes/routes"
-import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone"
-import AccountTreeTwoToneIcon from "@mui/icons-material/AccountTreeTwoTone"
-import RouteTwoToneIcon from "@mui/icons-material/RouteTwoTone"
-import HttpsTwoToneIcon from "@mui/icons-material/HttpsTwoTone"
-import LockOpenTwoToneIcon from "@mui/icons-material/LockOpenTwoTone"
-import useUser from "../../../../redux/hooks/useUser.hooks"
+import { FC } from "react";
+import routes from "../../../../utils/routes/routes";
+import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
+import AccountTreeTwoToneIcon from "@mui/icons-material/AccountTreeTwoTone";
+import RouteTwoToneIcon from "@mui/icons-material/RouteTwoTone";
+import HttpsTwoToneIcon from "@mui/icons-material/HttpsTwoTone";
+import LockOpenTwoToneIcon from "@mui/icons-material/LockOpenTwoTone";
+import useUser from "../../../../redux/hooks/useUser.hooks";
 
 type Props = {
-    type: keyof typeof routes
-}
+    type: keyof typeof routes;
+};
 
 const NavigationIcon: FC<Props> = ({ type }) => {
-    const { isAuthenticated } = useUser()
+    const { isAuthenticated } = useUser();
     switch (type) {
         case "home":
-            return <HomeTwoToneIcon />
+            return <HomeTwoToneIcon />;
         case "projects":
-            return <AccountTreeTwoToneIcon />
+            return <AccountTreeTwoToneIcon />;
         case "roadmap":
-            return <RouteTwoToneIcon />
-        case "admin-control-panel":
-            return isAuthenticated ? <LockOpenTwoToneIcon /> : <HttpsTwoToneIcon />
+            return <RouteTwoToneIcon />;
+        case "acp":
+            return isAuthenticated ? <LockOpenTwoToneIcon /> : <HttpsTwoToneIcon />;
         default:
-            return null
+            return null;
     }
-}
+};
 
-export default NavigationIcon
+export default NavigationIcon;

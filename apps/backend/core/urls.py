@@ -9,7 +9,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("portfolio.urls")),
     path("api/auth/", include("dj_rest_auth.urls")),
-    # Weitere API-Pfade könnten hier folgen
 ]
 
 # Wichtig: URLs für Mediendateien nur im Debug-Modus hinzufügen
