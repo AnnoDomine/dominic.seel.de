@@ -4,6 +4,19 @@
   "sourceRoot": "libs/utils/src",
   "projectType": "library",
   "tags": [],
-  "// targets": "to see all targets run: nx show project utils --web",
-  "targets": {}
+  "targets": {
+    "biome-lint": {
+      "executor": "@gitopslovers/nx-biome:biome-lint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "libs/utils/**/*.ts"
+        ],
+        "write": false,
+        "unsafe": false
+      }
+    }
+  }
 }
