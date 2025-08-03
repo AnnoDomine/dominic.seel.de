@@ -9,8 +9,6 @@
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
       "default",
-      "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/eslint.config.mjs",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/src/test-setup.[jt]s",
@@ -57,7 +55,7 @@
       "application": {
         "babel": true,
         "style": "@emotion/styled",
-        "linter": "eslint",
+        "linter": "biome",
         "bundler": "vite"
       },
       "component": {
@@ -65,7 +63,7 @@
       },
       "library": {
         "style": "@emotion/styled",
-        "linter": "eslint",
+        "linter": "biome",
         "unitTestRunner": "vitest"
       }
     }
