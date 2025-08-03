@@ -1,7 +1,7 @@
 import { styled } from "@mui/material";
+import { Outlet } from "react-router-dom";
 import useUser from "../../../../redux/hooks/useUser.hooks";
 import Login from "../../organisams/login/login";
-import { Outlet } from "react-router-dom";
 
 const AcpContainer = styled("div")({
     display: "flex",

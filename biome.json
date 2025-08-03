@@ -1,7 +1,19 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.1.3/schema.json",
   "vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
-  "files": { "ignoreUnknown": false },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!dist/**",
+      "!coverage/**",
+      "!.nx/**",
+      "!apps/backend/**",
+      "!.mypy_cache/**",
+      "!.ruff_cache/**"
+    ]
+  },
+  "root": true,
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
@@ -13,25 +25,9 @@
     "bracketSameLine": false,
     "bracketSpacing": true,
     "expand": "auto",
-    "useEditorconfig": true,
-    "includes": [
-      "!dist/**",
-      "!coverage/**",
-      "!.nx/**",
-      "apps/**/*.{ts,tsx,js,jsx,json,yaml,yml}",
-      "libs/**/*.{ts,tsx,js,jsx,json,yaml,yml}",
-      "!apps/backend/**"
-    ]
+    "useEditorconfig": true
   },
   "linter": {
-    "includes": [
-      "!dist/**",
-      "!coverage/**",
-      "!.nx/**",
-      "apps/**/*.{ts,tsx,js,jsx,json,yaml,yml}",
-      "libs/**/*.{ts,tsx,js,jsx,json,yaml,yml}",
-      "!apps/backend/**"
-    ],
     "enabled": true,
     "rules": {
       "recommended": true,
