@@ -58,10 +58,13 @@ jobs:
       - name: Set up Nx affected base/head SHAs
         uses: nrwl/nx-set-shas@v4
 
-      - name: Run affected lint, test, build for all projects (FE & BE)
+      - name: Run biome check
+        run: pnpm exec biome check
+
+      - name: Run affected test, build for all projects (FE & BE)
         env:
           DJANGO_SETTINGS_MODULE: core.settings
-        run: pnpm exec nx affected -t lint test build
+        run: pnpm exec nx affected -t test build
 
   release-frontend:
     name: Release Frontend

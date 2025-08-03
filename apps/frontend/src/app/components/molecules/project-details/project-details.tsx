@@ -1,14 +1,13 @@
-import { Divider, IconButton, styled } from "@mui/material";
-import useProjectDetails from "./project-details.hooks";
-import ListInformation from "../list-information/list-information";
-import ProjectStatusIcon from "../../atoms/project-status-icon/project-status-icon";
-import ProjectTypeIcon from "../../atoms/project-type-icon/project-type-icon";
-
-import HouseTwoToneIcon from "@mui/icons-material/HouseTwoTone";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import HouseTwoToneIcon from "@mui/icons-material/HouseTwoTone";
+import { Divider, IconButton, styled } from "@mui/material";
 import { openInNewTab } from "@utils";
 import ProjectRoleIcon from "../../atoms/project-role-icon/project-role-icon";
+import ProjectStatusIcon from "../../atoms/project-status-icon/project-status-icon";
+import ProjectTypeIcon from "../../atoms/project-type-icon/project-type-icon";
+import ListInformation from "../list-information/list-information";
 import TechnologyList from "../technology-list/technoligy-list";
+import useProjectDetails from "./project-details.hooks";
 
 const ProjectDetailsContainer = styled("div")({
     display: "flex",

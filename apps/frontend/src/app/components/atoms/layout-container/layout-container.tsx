@@ -1,4 +1,4 @@
-import { styled } from "@mui/material"
+import { styled } from "@mui/material";
 
 const LayoutContainer = styled("div")(({ theme }) => ({
     display: "flex",
@@ -6,6 +6,6 @@ const LayoutContainer = styled("div")(({ theme }) => ({
     width: "-webkit-fill-available",
     height: "-webkit-fill-available",
     backgroundColor: theme.palette.background.default,
-}))
+}));
 
-export default LayoutContainer
+export default LayoutContainer;

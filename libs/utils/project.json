@@ -7,13 +7,9 @@
   "targets": {
     "biome-lint": {
       "executor": "@gitopslovers/nx-biome:biome-lint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/utils/**/*.ts"
-        ],
+        "lintFilePatterns": ["libs/utils/**/*.ts"],
         "write": false,
         "unsafe": false
       }

@@ -1,4 +1,4 @@
-import { GridColType, GridFilterModel } from "@mui/x-data-grid";
+import type { GridColType, GridFilterModel } from "@mui/x-data-grid";
 
 function getStringLookup(operator: string): string {
     switch (operator) {
@@ -108,11 +108,13 @@ const getFilterParser = (operator: string, type: GridColType) => {
     }
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const parseFilterValue = (value: any, type: GridColType) => {
+export const parseFilterValue = (value: string | number | boolean | undefined, type: GridColType) => {
     switch (type) {
         case "date":
         case "dateTime":
+            if (typeof value !== "string") {
+                throw new Error("Date value must be a string");
+            }
             return new Date(value).toISOString();
         case "boolean":
             return value ? "true" : "false";
@@ -122,8 +124,8 @@ export const parseFilterValue = (value: any, type: GridColType) => {
 };
 
 export const parseFilterModel = (filterModel: GridFilterModel, filterTypeMap: Record<string, GridColType>) => {
-    const filters: Record<string, any> = {};
-    const excludes: Record<string, any> = {};
+    const filters: Record<string, string | number | boolean | undefined> = {};
+    const excludes: Record<string, string | number | boolean | undefined> = {};
 
     filterModel.items.forEach((item) => {
         const colType = filterTypeMap[item.field] || "string";

@@ -20,7 +20,7 @@
       "executor": "@gitopslovers/nx-biome:biome-lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/frontend/**/*.ts"],
+        "lintFilePatterns": ["apps/frontend/**"],
         "write": false,
         "unsafe": false
       }

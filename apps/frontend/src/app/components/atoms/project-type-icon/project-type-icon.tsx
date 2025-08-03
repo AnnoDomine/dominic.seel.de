@@ -1,9 +1,9 @@
-import { ProjectListItem } from "../../../../types/redux/project";
+import AutoFixHighTwoToneIcon from "@mui/icons-material/AutoFixHighTwoTone";
 
 import HomeWorkTwoToneIcon from "@mui/icons-material/HomeWorkTwoTone";
-import WorkTwoToneIcon from "@mui/icons-material/WorkTwoTone";
 import SchoolTwoToneIcon from "@mui/icons-material/SchoolTwoTone";
-import AutoFixHighTwoToneIcon from "@mui/icons-material/AutoFixHighTwoTone";
+import WorkTwoToneIcon from "@mui/icons-material/WorkTwoTone";
+import type { ProjectListItem } from "../../../../types/redux/project";
 
 type IconProps = {
     type: ProjectListItem["type"];

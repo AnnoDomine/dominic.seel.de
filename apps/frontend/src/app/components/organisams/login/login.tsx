@@ -1,35 +1,35 @@
-import { Button, Divider, FormControl, Paper, TextField, Typography } from "@mui/material"
-import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone"
-import VisibilityOffTwoToneIcon from "@mui/icons-material/VisibilityOffTwoTone"
-import { useState } from "react"
-import useUser from "../../../../redux/hooks/useUser.hooks"
+import VisibilityOffTwoToneIcon from "@mui/icons-material/VisibilityOffTwoTone";
+import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone";
+import { Button, Divider, FormControl, Paper, TextField, Typography } from "@mui/material";
+import { useState } from "react";
+import useUser from "../../../../redux/hooks/useUser.hooks";
 
 const Login = () => {
-    const { handleLogin } = useUser()
+    const { handleLogin } = useUser();
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [showPassword, setShowPassword] = useState(false)
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        console.log("Login attempt with:", { email, password })
-        handleLogin({ email, password })
-    }
+        event.preventDefault();
+        console.log("Login attempt with:", { email, password });
+        handleLogin({ email, password });
+    };
 
     const handleChangeValue = (type: "email" | "password") => (event: React.ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault()
+        event.preventDefault();
         switch (type) {
             case "email":
-                setEmail(event.target.value)
-                break
+                setEmail(event.target.value);
+                break;
             case "password":
-                setPassword(event.target.value)
-                break
+                setPassword(event.target.value);
+                break;
             default:
-                throw new Error("Invalid type provided")
+                throw new Error("Invalid type provided");
         }
-    }
+    };
 
     return (
         <Paper sx={{ maxWidth: "400px", width: "100%", margin: "auto" }} elevation={3}>
@@ -68,21 +68,21 @@ const Login = () => {
                             slotProps={{
                                 input: {
                                     id: "password",
-                                    tabIndex: 1,
+                                    tabIndex: 0,
                                     autoComplete: "current-password",
                                     endAdornment: showPassword ? (
                                         <VisibilityOffTwoToneIcon
                                             onClick={(e) => {
-                                                e.preventDefault()
-                                                setShowPassword(false)
+                                                e.preventDefault();
+                                                setShowPassword(false);
                                             }}
                                             sx={{ cursor: "pointer" }}
                                         />
                                     ) : (
                                         <VisibilityTwoToneIcon
                                             onClick={(e) => {
-                                                e.preventDefault()
-                                                setShowPassword(true)
+                                                e.preventDefault();
+                                                setShowPassword(true);
                                             }}
                                             sx={{ cursor: "pointer" }}
                                         />
@@ -97,7 +97,7 @@ const Login = () => {
                     type="submit"
                     variant="contained"
                     color="primary"
-                    tabIndex={2}
+                    tabIndex={0}
                     sx={{ margin: "20px" }}
                     data-testid="submit-button"
                 >
@@ -105,7 +105,7 @@ const Login = () => {
                 </Button>
             </form>
         </Paper>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;

@@ -1,4 +1,4 @@
-import { useRef, useCallback, useDebugValue } from "react";
+import { useCallback, useDebugValue, useRef } from "react";
 
 export const useInfinityScroll = (
     isLoading: boolean,

@@ -1,4 +1,4 @@
-import { PaginationQueryParams } from "../../types/common";
+import type { PaginationQueryParams } from "../../types/common";
 
 export const paginatedEndpoint = (endpoint: string, queryParams: PaginationQueryParams) => {
     const params = new URLSearchParams();

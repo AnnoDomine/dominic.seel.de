@@ -1,7 +1,7 @@
-import { Outlet } from "react-router-dom"
-import Navigation from "../navigation/navigation"
-import LayoutContainer from "../../atoms/layout-container/layout-container"
-import ContentContainer from "../../atoms/content-container/content-container"
+import { Outlet } from "react-router-dom";
+import ContentContainer from "../../atoms/content-container/content-container";
+import LayoutContainer from "../../atoms/layout-container/layout-container";
+import Navigation from "../navigation/navigation";
 
 const Layout = () => {
     return (
@@ -11,7 +11,7 @@ const Layout = () => {
                 <Outlet />
             </ContentContainer>
         </LayoutContainer>
-    )
-}
+    );
+};
 
-export default Layout
+export default Layout;

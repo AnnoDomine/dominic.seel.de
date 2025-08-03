@@ -2,16 +2,16 @@
 
 import styled from "@emotion/styled";
 import { Route, Routes } from "react-router-dom";
-import Layout from "./components/templates/layout/layout";
 import routes, { adminControlPanelRoutes, projectRoutes } from "../utils/routes/routes";
+import NavigationBack from "./components/molecules/navigation-back/navigation-back";
+import ProjectDetails from "./components/molecules/project-details/project-details";
+import UserDetails from "./components/molecules/user-details/user-details";
+import UserList from "./components/molecules/user-list/user-list";
+import AcpNavigation from "./components/organisams/acp-navigation/acp-navigation";
+import Acp from "./components/pages/acp/acp";
 import Home from "./components/pages/home/home";
 import Projects from "./components/pages/projects/projects";
-import Acp from "./components/pages/acp/acp";
-import AcpNavigation from "./components/organisams/acp-navigation/acp-navigation";
-import NavigationBack from "./components/molecules/navigation-back/navigation-back";
-import UserList from "./components/molecules/user-list/user-list";
-import UserDetails from "./components/molecules/user-details/user-details";
-import ProjectDetails from "./components/molecules/project-details/project-details";
+import Layout from "./components/templates/layout/layout";
 
 const StyledApp = styled.div`
     width: -webkit-fill-available;

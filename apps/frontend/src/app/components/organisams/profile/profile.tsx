@@ -1,7 +1,7 @@
-import useProfile from "./profile.hooks";
-import { Controller } from "react-hook-form";
-import { TextField, styled } from "@mui/material";
+import { styled, TextField } from "@mui/material";
 import clsx from "clsx";
+import { Controller } from "react-hook-form";
+import useProfile from "./profile.hooks";
 
 type Props = {
     isProfileOpen: boolean;

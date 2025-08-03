@@ -1,10 +1,11 @@
-import { useImmer } from "use-immer";
-import { useGetUserQuery, useUpdateUserMutation } from "../../../../redux/queries/user";
-import { LoginResponse } from "../../../../types/redux/user";
-import { useCallback, useEffect } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import * as zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useCallback, useEffect } from "react";
+import type { SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { useImmer } from "use-immer";
+import * as zod from "zod";
+import { useGetUserQuery, useUpdateUserMutation } from "../../../../redux/queries/user";
+import type { LoginResponse } from "../../../../types/redux/user";
 
 const useProfile = () => {
     const { data: user, isLoading } = useGetUserQuery();
@@ -40,7 +41,7 @@ const useProfile = () => {
                 console.error("Failed to update user:", error);
             }
         },
-        [updateUser]
+        [updateUser, user]
     );
 
     const onSubmit: SubmitHandler<Omit<LoginResponse, "pk" | "email">> = useCallback(

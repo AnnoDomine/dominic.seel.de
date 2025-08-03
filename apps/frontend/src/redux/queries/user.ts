@@ -1,8 +1,8 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery from "./api/base-query";
-import { LoginResponse, SingleUserItem, UserListItem } from "../../types/redux/user";
-import { PaginatedResponse, PaginationQueryParams } from "../../types/common";
+import type { PaginatedResponse, PaginationQueryParams } from "../../types/common";
+import type { LoginResponse, SingleUserItem, UserListItem } from "../../types/redux/user";
 import { paginatedEndpoint } from "../helpers/endpoint";
+import baseQuery from "./api/base-query";
 
 const userQueries = createApi({
     reducerPath: "userQueries",
@@ -38,7 +38,7 @@ const userQueries = createApi({
                 body: {},
             }),
             invalidatesTags: () => ["User"],
-            async onQueryStarted(_, { dispatch, queryFulfilled }) {
+            async onQueryStarted(_, { queryFulfilled }) {
                 try {
                     await queryFulfilled;
                     // Optionally, you can dispatch an action to update the state after logout

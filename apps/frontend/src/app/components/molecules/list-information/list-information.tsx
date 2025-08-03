@@ -1,6 +1,5 @@
 import { Divider, styled, Typography } from "@mui/material";
 import clsx from "clsx";
-import NavigationBack from "../navigation-back/navigation-back";
 
 type Props = {
     label: string;

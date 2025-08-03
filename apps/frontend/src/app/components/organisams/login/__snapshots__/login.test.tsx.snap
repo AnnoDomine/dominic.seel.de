@@ -36,7 +36,7 @@ exports[`Login Component > renders the login form elements correctly 4`] = `
 <button
   class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-42004o-MuiButtonBase-root-MuiButton-root"
   data-testid="submit-button"
-  tabindex="2"
+  tabindex="0"
   type="submit"
 >
   Submit

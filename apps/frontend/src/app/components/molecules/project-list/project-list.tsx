@@ -1,6 +1,6 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
-import { getRouteWithId, connectedRoutes } from "../../../../utils/routes/routes";
+import { connectedRoutes, getRouteWithId } from "../../../../utils/routes/routes";
 import useProjectList from "./project-list.hooks";
 
 const ProjectList = () => {
