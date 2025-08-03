@@ -1,6 +1,9 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "installation": { "packageManager": "pnpm", "version": "21.3.11" },
+  "installation": {
+    "packageManager": "pnpm",
+    "version": "21.3.11"
+  },
   "defaultBase": "master",
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
@@ -28,7 +31,6 @@
         "typecheckTargetName": "typecheck"
       }
     },
-    { "plugin": "@nx/eslint/plugin", "options": { "targetName": "lint" } },
     {
       "plugin": "@nx/vite/plugin",
       "options": {
@@ -43,7 +45,12 @@
         "watchDepsTargetName": "watch-deps"
       }
     },
-    { "plugin": "@nx/playwright/plugin", "options": { "targetName": "e2e" } }
+    {
+      "plugin": "@nx/playwright/plugin",
+      "options": {
+        "targetName": "e2e"
+      }
+    }
   ],
   "generators": {
     "@nx/react": {
@@ -53,7 +60,9 @@
         "linter": "eslint",
         "bundler": "vite"
       },
-      "component": { "style": "@emotion/styled" },
+      "component": {
+        "style": "@emotion/styled"
+      },
       "library": {
         "style": "@emotion/styled",
         "linter": "eslint",
