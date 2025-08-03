@@ -55,7 +55,7 @@ describe("NavigationIcon", () => {
 
     it("renders the correct icon for 'admin-control-panel' when not logged in", async () => {
         const { default: NavigationIcon } = await import("./navigation-icon");
-        render(<NavigationIcon type="admin-control-panel" />);
+        render(<NavigationIcon type="acp" />);
         const navigationIcon = screen.getByTestId("HttpsTwoToneIcon");
 
         expect(navigationIcon).toMatchSnapshot();
@@ -64,7 +64,7 @@ describe("NavigationIcon", () => {
     it("renders the correct icon for 'admin-control-panel' when logged in", async () => {
         mockUseUser(true);
         const { default: NavigationIcon } = await import("./navigation-icon");
-        render(<NavigationIcon type="admin-control-panel" />);
+        render(<NavigationIcon type="acp" />);
         const navigationIcon = screen.getByTestId("LockOpenTwoToneIcon");
 
         expect(navigationIcon).toMatchSnapshot();
