@@ -1,15 +1,9 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "installation": {
-    "packageManager": "pnpm",
-    "version": "21.3.0"
-  },
+  "installation": { "packageManager": "pnpm", "version": "21.3.11" },
   "defaultBase": "master",
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
       "default",
       "!{projectRoot}/.eslintrc.json",
@@ -19,9 +13,7 @@
       "!{projectRoot}/src/test-setup.[jt]s",
       "!{projectRoot}/biome.json"
     ],
-    "sharedGlobals": [
-      "{workspaceRoot}/.github/workflows/ci.yml"
-    ]
+    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
   "nxCloudId": "687b70b154b5de228b84a4c3",
   "plugins": [
@@ -36,12 +28,7 @@
         "typecheckTargetName": "typecheck"
       }
     },
-    {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "lint"
-      }
-    },
+    { "plugin": "@nx/eslint/plugin", "options": { "targetName": "lint" } },
     {
       "plugin": "@nx/vite/plugin",
       "options": {
@@ -56,12 +43,7 @@
         "watchDepsTargetName": "watch-deps"
       }
     },
-    {
-      "plugin": "@nx/playwright/plugin",
-      "options": {
-        "targetName": "e2e"
-      }
-    }
+    { "plugin": "@nx/playwright/plugin", "options": { "targetName": "e2e" } }
   ],
   "generators": {
     "@nx/react": {
@@ -71,9 +53,7 @@
         "linter": "eslint",
         "bundler": "vite"
       },
-      "component": {
-        "style": "@emotion/styled"
-      },
+      "component": { "style": "@emotion/styled" },
       "library": {
         "style": "@emotion/styled",
         "linter": "eslint",
@@ -83,10 +63,7 @@
   },
   "targetDefaults": {
     "lint-biome": {
-      "inputs": [
-        "default",
-        "{workspaceRoot}/biome.json"
-      ],
+      "inputs": ["default", "{workspaceRoot}/biome.json"],
       "cache": true
     }
   }
