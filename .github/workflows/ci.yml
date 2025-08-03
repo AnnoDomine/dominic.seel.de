@@ -59,7 +59,7 @@ jobs:
         uses: nrwl/nx-set-shas@v4
 
       - name: Run biome check
-        run: pnpm exec biome check --config-path
+        run: pnpm exec biome check
 
       - name: Run affected test, build for all projects (FE & BE)
         env:
