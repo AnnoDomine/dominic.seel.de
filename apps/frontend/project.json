@@ -4,6 +4,26 @@
   "sourceRoot": "apps/frontend/src",
   "projectType": "application",
   "tags": ["scope:frontend", "type:app"],
-  "// targets": "to see all targets run: nx show project frontend --web",
-  "targets": {}
+  "targets": {
+    "test watch": {
+      "executor": "@nx/vite:test",
+      "options": {
+        "config": "apps/my-app/vite.config.ts"
+      },
+      "configurations": {
+        "watch": {
+          "watch": true
+        }
+      }
+    },
+    "biome-lint": {
+      "executor": "@gitopslovers/nx-biome:biome-lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/frontend/**/*.ts"],
+        "write": false,
+        "unsafe": false
+      }
+    }
+  }
 }

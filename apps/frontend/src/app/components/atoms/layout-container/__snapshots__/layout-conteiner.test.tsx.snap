@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`LayoutContainer > renders without crashing 1`] = `
+<div
+  class="css-1c5db69"
+  data-testid="layout-container"
+>
+  Content
+</div>
+`;

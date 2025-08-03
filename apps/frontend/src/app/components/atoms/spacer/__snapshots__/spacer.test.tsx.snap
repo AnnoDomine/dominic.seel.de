@@ -1,0 +1,8 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Spacer > renders without crashing 1`] = `
+<div
+  class="css-s3l9e8"
+  data-testid="spacer"
+/>
+`;

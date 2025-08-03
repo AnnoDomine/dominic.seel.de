@@ -106,6 +106,8 @@ vitest.config.*.timestamp*
 *.pyo
 *.pyd
 __pycache__/
+**/__pycache__/
+*.pyc
 # Python virtual environments
 venv/
 # Python pipenv

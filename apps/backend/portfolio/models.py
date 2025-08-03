@@ -12,6 +12,21 @@ class BaseModel(models.Model):
         abstract = True  # Bedeutet, Django erstellt keine Tabelle für diese Klasse
 
 
+class Technology(BaseModel):
+    name: models.CharField = models.CharField(max_length=100, unique=True)
+    human_readable_name: models.CharField = models.CharField(
+        max_length=100, blank=True, null=True, help_text="Optional: Human-readable name for display"
+    )
+    description: models.TextField = models.TextField(blank=True, null=True)
+
+    class Meta:
+        ordering = ["name"]  # Sortierung nach Name
+        verbose_name_plural = "Technologies"  # Für bessere Anzeige im Admin
+
+    def __str__(self):
+        return self.name
+
+
 class RoadmapItem(BaseModel):
     STATUS_CHOICES = [
         ("planned", "Planned"),
@@ -40,15 +55,38 @@ class Project(BaseModel):
         ("concept", "Concept"),
     ]
 
+    TYPE_CHOICES = [
+        ("work", "Work"),
+        ("private", "Private"),
+        ("study", "Study"),
+        ("other", "Other"),
+    ]
+
+    ROLE_CHOICES = [
+        ("frontend", "Frontend"),
+        ("backend", "Backend"),
+        ("full_stack", "Full Stack"),
+        ("devops", "DevOps"),
+        ("designer", "Designer"),
+        ("pm", "Project Manager"),
+        ("other", "Other"),
+    ]
+
     title: models.CharField = models.CharField(max_length=250)
     description: models.TextField = models.TextField()
-    technologies: models.JSONField = models.JSONField(
-        default=list, blank=True, help_text="List of technologies used (e.g., ['Django', 'React'])"
+    technologies: models.ManyToManyField = models.ManyToManyField(
+        Technology, related_name="projects", blank=True, help_text="Technologies used in the project"
     )
+    start_date: models.DateField = models.DateField(blank=True, null=True, help_text="Start date of the project")
+    end_date: models.DateField = models.DateField(blank=True, null=True, help_text="End date of the project")
     project_url: models.URLField = models.URLField(max_length=500, blank=True, null=True)
     github_url: models.URLField = models.URLField(max_length=500, blank=True, null=True)
-    image: models.ImageField = models.ImageField(upload_to="projects/", blank=True, null=True)  # Benötigt Pillow
+    image: models.ImageField = models.ImageField(upload_to="projects/", blank=True, null=True)
     status: models.CharField = models.CharField(max_length=20, choices=STATUS_CHOICES, default="active")
+    type: models.CharField = models.CharField(max_length=20, choices=TYPE_CHOICES, default="private")
+    role: models.CharField = models.CharField(
+        max_length=20, choices=ROLE_CHOICES, default="full_stack", help_text="Project role"
+    )
     is_featured: models.BooleanField = models.BooleanField(default=False, help_text="Display on homepage?")
 
     class Meta:
