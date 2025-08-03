@@ -1,9 +1,10 @@
+import { Divider } from "@mui/material";
+import type { DataGridProps, GridColDef, GridColType, GridDataSource, GridGetRowsResponse } from "@mui/x-data-grid";
+import { GridRow } from "@mui/x-data-grid";
+import { parseFilterModel } from "@utils";
 import { useDebugValue, useMemo } from "react";
 import { useLazyListUsersQuery } from "../../../../redux/queries/user";
-import { DataGridProps, GridColDef, GridColType, GridDataSource, GridGetRowsResponse, GridRow } from "@mui/x-data-grid";
 import DataGridPagination from "../../atoms/data-grid-pagination/data-grid-pagination";
-import { Divider } from "@mui/material";
-import { parseFilterModel } from "@utils";
 
 const useUserList = () => {
     const [triggerFetchListUsers, { isFetching }] = useLazyListUsersQuery();
@@ -32,7 +33,14 @@ const useUserList = () => {
     );
 
     const filterTypeMap: Record<string, GridColType> = useMemo(
-        () => columns.reduce((acc, col) => ({ ...acc, [col.field]: col.type || "string" }), {}),
+        () =>
+            columns.reduce(
+                (acc, col) => {
+                    acc[col.field] = col.type || "string";
+                    return acc;
+                },
+                {} as Record<string, GridColType>
+            ),
         [columns]
     );
 

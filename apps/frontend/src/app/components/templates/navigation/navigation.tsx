@@ -1,15 +1,15 @@
+import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
+import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import { Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from "@mui/material";
+import type { MouseEvent } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import useUser from "../../../../redux/hooks/useUser.hooks";
+import routes from "../../../../utils/routes/routes";
 import NavigationContainer from "../../atoms/navigation-container/navigation-container";
 import Spacer from "../../atoms/spacer/spacer";
-import { useLocation, useNavigate } from "react-router-dom";
-import { MouseEvent, useMemo, useState } from "react";
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
-import routes from "../../../../utils/routes/routes";
 import NavigationIcon from "../../molecules/navigation-icon/navigation-icon";
-import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
-import useUser from "../../../../redux/hooks/useUser.hooks";
-import { useGetUserQuery } from "../../../../redux/queries/user";
 
 const logo = new URL("./logo_transparent.png", import.meta.url).href;
 
@@ -20,7 +20,7 @@ const Navigation = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const isActive = (route: string) => location.pathname === route;
+    const isActive = useCallback((route: string) => location.pathname === route, [location.pathname]);
 
     const getPath = (pathname: string) => {
         const paths = pathname.split("/").filter((path) => path);
@@ -31,10 +31,13 @@ const Navigation = () => {
     const handleMenuClick = (event: MouseEvent<HTMLButtonElement>) => {
         setMenuAnchorEl(event.currentTarget);
     };
-    const handleSelect = (route: string) => {
-        setMenuAnchorEl(null);
-        navigate(route);
-    };
+    const handleSelect = useCallback(
+        (route: string) => {
+            setMenuAnchorEl(null);
+            navigate(route);
+        },
+        [navigate]
+    );
 
     const generatedMenuItems = useMemo(() => {
         const unAuthNavigation = Object.entries(routes).map(([key, route]) => (
@@ -69,7 +72,7 @@ const Navigation = () => {
               ]
             : [];
         return [...unAuthNavigation, ...authNavigation];
-    }, [isAuthenticated, logout, navigate, routes, isActive, handleSelect]);
+    }, [isAuthenticated, logout, navigate, isActive, handleSelect]);
 
     return (
         <NavigationContainer position="static" color="default" enableColorOnDark>
@@ -78,6 +81,11 @@ const Navigation = () => {
                 alt="Logo"
                 style={{ height: "40px", width: "40px", cursor: "pointer" }}
                 onClick={() => handleSelect(routes.home)}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        handleSelect(routes.home);
+                    }
+                }}
             />
             <Spacer />
             <Typography

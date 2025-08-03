@@ -1,9 +1,8 @@
-import { render } from "@testing-library/react"
-import { BrowserRouter } from "react-router-dom"
-
-import App from "./app"
-import { Provider } from "react-redux"
-import store from "../redux/store"
+import { render } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import store from "../redux/store";
+import App from "./app";
 
 describe("App", () => {
     it("should render successfully", () => {
@@ -12,8 +11,8 @@ describe("App", () => {
                 <BrowserRouter>
                     <App />
                 </BrowserRouter>
-            </Provider>,
-        )
-        expect(baseElement).toBeTruthy()
-    })
-})
+            </Provider>
+        );
+        expect(baseElement).toBeTruthy();
+    });
+});

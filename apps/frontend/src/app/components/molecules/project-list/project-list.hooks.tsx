@@ -1,12 +1,13 @@
-import { useDebugValue, useMemo } from "react";
-import { DataGridProps, GridColDef, GridColType, GridDataSource, GridGetRowsResponse, GridRow } from "@mui/x-data-grid";
-import DataGridPagination from "../../atoms/data-grid-pagination/data-grid-pagination";
 import { Divider } from "@mui/material";
+import type { DataGridProps, GridColDef, GridColType, GridDataSource, GridGetRowsResponse } from "@mui/x-data-grid";
+import { GridRow } from "@mui/x-data-grid";
 import { parseFilterModel } from "@utils";
+import { useDebugValue, useMemo } from "react";
 import { useLazyListProjectsQuery } from "../../../../redux/queries/project";
-import { ProjectListItem } from "../../../../types/redux/project";
-import ProjectTypeIcon from "../../atoms/project-type-icon/project-type-icon";
+import type { ProjectListItem } from "../../../../types/redux/project";
+import DataGridPagination from "../../atoms/data-grid-pagination/data-grid-pagination";
 import ProjectStatusIcon from "../../atoms/project-status-icon/project-status-icon";
+import ProjectTypeIcon from "../../atoms/project-type-icon/project-type-icon";
 
 const useProjectList = () => {
     const [triggerFetchListProjects, { isFetching }] = useLazyListProjectsQuery();
@@ -43,7 +44,14 @@ const useProjectList = () => {
     );
 
     const filterTypeMap: Record<string, GridColType> = useMemo(
-        () => columns.reduce((acc, col) => ({ ...acc, [col.field]: col.type || "string" }), {}),
+        () =>
+            columns.reduce(
+                (acc, col) => {
+                    acc[col.field] = col.type || "string"; // Ensure all fields have a type
+                    return acc;
+                },
+                {} as Record<string, GridColType>
+            ),
         [columns]
     );
 

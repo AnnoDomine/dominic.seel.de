@@ -1,11 +1,11 @@
-import { FC } from "react";
-import routes from "../../../../utils/routes/routes";
-import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import AccountTreeTwoToneIcon from "@mui/icons-material/AccountTreeTwoTone";
-import RouteTwoToneIcon from "@mui/icons-material/RouteTwoTone";
+import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import HttpsTwoToneIcon from "@mui/icons-material/HttpsTwoTone";
 import LockOpenTwoToneIcon from "@mui/icons-material/LockOpenTwoTone";
+import RouteTwoToneIcon from "@mui/icons-material/RouteTwoTone";
+import type { FC } from "react";
 import useUser from "../../../../redux/hooks/useUser.hooks";
+import type routes from "../../../../utils/routes/routes";
 
 type Props = {
     type: keyof typeof routes;

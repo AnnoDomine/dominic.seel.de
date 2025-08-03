@@ -1,6 +1,6 @@
-import { createApi } from "@reduxjs/toolkit/query/react"
-import baseQuery from "./api/base-query"
-import { LoginPayload } from "../../types/redux/user"
+import { createApi } from "@reduxjs/toolkit/query/react";
+import type { LoginPayload } from "../../types/redux/user";
+import baseQuery from "./api/base-query";
 
 const authQueries = createApi({
     reducerPath: "authQuery",
@@ -14,7 +14,7 @@ const authQueries = createApi({
             }),
         }),
     }),
-})
+});
 
-export const { useLoginMutation } = authQueries
-export default authQueries
+export const { useLoginMutation } = authQueries;
+export default authQueries;

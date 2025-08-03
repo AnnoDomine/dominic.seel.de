@@ -1,4 +1,4 @@
-import { styled } from "@mui/material"
+import { styled } from "@mui/material";
 
 const ContentContainer = styled("div", {
     name: "content-container",
@@ -9,6 +9,6 @@ const ContentContainer = styled("div", {
     height: "-webkit-fill-available",
     backgroundColor: theme.palette.background.default,
     padding: "16px",
-}))
+}));
 
-export default ContentContainer
+export default ContentContainer;

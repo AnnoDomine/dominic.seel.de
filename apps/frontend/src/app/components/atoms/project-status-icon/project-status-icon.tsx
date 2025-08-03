@@ -1,9 +1,7 @@
-import React from "react";
-import { ProjectListItem } from "../../../../types/redux/project";
-
 import AccessTimeTwoToneIcon from "@mui/icons-material/AccessTimeTwoTone";
 import ArchiveTwoToneIcon from "@mui/icons-material/ArchiveTwoTone";
 import DesignServicesTwoToneIcon from "@mui/icons-material/DesignServicesTwoTone";
+import type { ProjectListItem } from "../../../../types/redux/project";
 
 type Props = {
     status: ProjectListItem["status"];

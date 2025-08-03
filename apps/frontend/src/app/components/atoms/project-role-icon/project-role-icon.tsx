@@ -1,12 +1,12 @@
-import PublicTwoToneIcon from "@mui/icons-material/PublicTwoTone";
-import DnsTwoToneIcon from "@mui/icons-material/DnsTwoTone";
 import AccountTreeTwoToneIcon from "@mui/icons-material/AccountTreeTwoTone";
-import ManageAccountsTwoToneIcon from "@mui/icons-material/ManageAccountsTwoTone";
-import ArchitectureTwoToneIcon from "@mui/icons-material/ArchitectureTwoTone";
 import ApartmentTwoToneIcon from "@mui/icons-material/ApartmentTwoTone";
+import ArchitectureTwoToneIcon from "@mui/icons-material/ArchitectureTwoTone";
 import Diversity3TwoToneIcon from "@mui/icons-material/Diversity3TwoTone";
+import DnsTwoToneIcon from "@mui/icons-material/DnsTwoTone";
+import ManageAccountsTwoToneIcon from "@mui/icons-material/ManageAccountsTwoTone";
+import PublicTwoToneIcon from "@mui/icons-material/PublicTwoTone";
 
-import { ProjectDetails } from "../../../../types/redux/project";
+import type { ProjectDetails } from "../../../../types/redux/project";
 
 type Props = {
     role: ProjectDetails["role"];

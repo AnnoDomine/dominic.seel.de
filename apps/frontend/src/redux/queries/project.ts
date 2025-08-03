@@ -1,8 +1,8 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery from "./api/base-query";
-import { PaginatedResponse, PaginationQueryParams } from "../../types/common";
-import { ProjectDetails, ProjectListItem } from "../../types/redux/project";
+import type { PaginatedResponse, PaginationQueryParams } from "../../types/common";
+import type { ProjectDetails, ProjectListItem } from "../../types/redux/project";
 import { paginatedEndpoint } from "../helpers/endpoint";
+import baseQuery from "./api/base-query";
 
 const projectQueries = createApi({
     reducerPath: "projectQueries",

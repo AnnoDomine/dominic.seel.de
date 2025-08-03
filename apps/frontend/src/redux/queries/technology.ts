@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
+import type { TechnologyListItem } from "../../types/redux/technology";
 import baseQuery from "./api/base-query";
-import { TechnologyListItem } from "../../types/redux/technology";
 
 const technologyQueries = createApi({
     reducerPath: "technologyQueries",

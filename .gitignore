@@ -42,7 +42,6 @@ venv/
 db.sqlite3 # If using sqlite3
 
 # VS Code
-.vscode/
 # If .vscode/ is only workspace-specific settings and not shared, otherwise keep it
 
 # IDEs
@@ -74,6 +73,7 @@ node_modules/
 *.sublime-workspace
 
 # IDE - VSCode
+.vscode/*.json
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
