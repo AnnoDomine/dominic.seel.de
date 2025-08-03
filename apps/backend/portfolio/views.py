@@ -29,6 +29,7 @@ class RoadmapItemViewSet(viewsets.ModelViewSet):
     serializer_class = RoadmapItemSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     pagination_class = StandardResultsSetPagination
+    filter_backends = [OrderingFilter, SearchFilter]
 
 
 class ProjectViewSet(viewsets.ModelViewSet):

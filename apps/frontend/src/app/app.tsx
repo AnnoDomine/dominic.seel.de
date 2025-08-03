@@ -1,17 +1,20 @@
 "use client";
 
 import styled from "@emotion/styled";
+import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import routes, { adminControlPanelRoutes, projectRoutes } from "../utils/routes/routes";
 import NavigationBack from "./components/molecules/navigation-back/navigation-back";
 import ProjectDetails from "./components/molecules/project-details/project-details";
 import UserDetails from "./components/molecules/user-details/user-details";
 import UserList from "./components/molecules/user-list/user-list";
-import AcpNavigation from "./components/organisams/acp-navigation/acp-navigation";
-import Acp from "./components/pages/acp/acp";
-import Home from "./components/pages/home/home";
-import Projects from "./components/pages/projects/projects";
+import AcpNavigation from "./components/organisms/acp-navigation/acp-navigation";
 import Layout from "./components/templates/layout/layout";
+
+const Acp = lazy(() => import("./components/pages/acp/acp"));
+const Home = lazy(() => import("./components/pages/home/home"));
+const Projects = lazy(() => import("./components/pages/projects/projects"));
+const Roadmap = lazy(() => import("./components/pages/roadmap/roadmap"));
 
 const StyledApp = styled.div`
     width: -webkit-fill-available;
@@ -30,7 +33,7 @@ export function App() {
                             <Route path={projectRoutes.project} element={<ProjectDetails />} />
                         </Route>
                     </Route>
-                    <Route path={routes.roadmap} element={<div>Roadmap Page</div>} />
+                    <Route path={routes.roadmap} element={<Roadmap />} />
                     <Route path={routes.acp} element={<Acp />}>
                         <Route index element={<AcpNavigation />} />
                         <Route path="*" element={<NavigationBack />}>

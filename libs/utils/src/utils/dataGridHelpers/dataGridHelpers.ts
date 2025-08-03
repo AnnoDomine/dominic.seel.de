@@ -123,7 +123,10 @@ export const parseFilterValue = (value: string | number | boolean | undefined, t
     }
 };
 
-export const parseFilterModel = (filterModel: GridFilterModel, filterTypeMap: Record<string, GridColType>) => {
+export const parseFilterModel = (
+    filterModel: GridFilterModel,
+    filterTypeMap: Record<string, GridColType>
+): Record<string, string | number | boolean | undefined> | undefined => {
     const filters: Record<string, string | number | boolean | undefined> = {};
     const excludes: Record<string, string | number | boolean | undefined> = {};
 
@@ -157,5 +160,16 @@ export const parseFilterModel = (filterModel: GridFilterModel, filterTypeMap: Re
         }
     });
 
-    return filters;
+    console.table(filters);
+    console.table(excludes);
+
+    // Combine filters and excludes
+    const combinedFilters: Record<string, string | number | boolean | undefined> = { ...filters, ...excludes };
+
+    // If there are no filters, return undefined
+    if (Object.keys(combinedFilters).length === 0) {
+        return undefined;
+    }
+
+    return combinedFilters;
 };
