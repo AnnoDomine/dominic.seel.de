@@ -26,7 +26,6 @@ describe("NavigationIcon", () => {
     });
     afterEach(() => {
         vi.clearAllMocks();
-        vi.restoreAllMocks();
     });
 
     it("renders the correct icon for 'home", async () => {

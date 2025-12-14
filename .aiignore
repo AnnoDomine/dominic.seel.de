@@ -1,0 +1,10 @@
+# Directories to ignore for AI indexing
+node_modules/
+.git/
+.vscode/
+dist/
+coverage/
+apps/backend/venv/
+.nx/
+.ruff_cache/
+.mypy_cache/

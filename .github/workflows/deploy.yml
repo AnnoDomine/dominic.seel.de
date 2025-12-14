@@ -1,0 +1,75 @@
+name: Deploy Dev
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm' # Use npm for caching if package-lock.json is used for frontend
+
+    - name: Install Frontend Dependencies
+      run: npm ci # Use npm ci for clean install if package-lock.json exists
+
+    - name: Build Frontend
+      run: npx nx build frontend
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Add SSH Host Key
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+        # Optional: Add other hostnames if needed
+        # ssh-keyscan -H dev.dominicseel.dev >> ~/.ssh/known_hosts
+
+    - name: Deploy Frontend
+      run: |
+        # Ensure directory exists
+        ssh deploy@${{ secrets.SSH_HOST }} "mkdir -p /var/www/dev.dominicseel.dev/html"
+        # Copy build artifacts to Nginx web root
+        scp -r dist/apps/frontend/* deploy@${{ secrets.SSH_HOST }}:/var/www/dev.dominicseel.dev/html/
+
+    - name: Deploy Backend
+      run: |
+        # Create backend directory
+        ssh deploy@${{ secrets.SSH_HOST }} "mkdir -p /var/www/dev.dominicseel.dev/backend"
+
+        # Copy backend source code, Dockerfile, and docker-compose.yml
+        # rsync is better for excluding unwanted files
+        rsync -avz --delete --exclude='venv/' --exclude='__pycache__/' --exclude='.git/' ./apps/backend/ deploy@${{ secrets.SSH_HOST }}:/var/www/dev.dominicseel.dev/backend/
+
+        # Execute deployment commands on server
+        ssh deploy@${{ secrets.SSH_HOST }} << 'EOF'
+          cd /var/www/dev.dominicseel.dev/backend
+
+          # Ensure .env exists (must be created manually or via secrets, for now we assume it exists)
+          if [ ! -f .env ]; then
+            echo "WARNING: .env file missing! Copying .env.example. REMEMBER TO EDIT THIS!"
+            cp .env.example .env
+          fi
+
+          # Rebuild and restart container
+          docker compose up -d --build
+
+          # Run migrations
+          docker compose exec -T backend python manage.py migrate --noinput
+
+          # Collect static files
+          docker compose exec -T backend python manage.py collectstatic --noinput
+        EOF

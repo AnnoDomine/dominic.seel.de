@@ -1,8 +1,12 @@
 {
   "recommendations": [
     "nrwl.angular-console",
-    "esbenp.prettier-vscode",
-    "dbaeumer.vscode-eslint",
-    "ms-playwright.playwright"
+    "ms-playwright.playwright",
+    "biomejs.biome",
+    "ms-python.python",
+    "charliermarsh.ruff",
+    "matangover.mypy",
+    "batisteo.vscode-django",
+    "tamasfe.even-better-toml"
   ]
 }

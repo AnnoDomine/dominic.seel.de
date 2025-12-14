@@ -52,6 +52,7 @@ export default defineConfig(() => ({
         coverage: {
             reportsDirectory: "../../coverage/libs/utils",
             provider: "v8" as const,
+            include: ["src/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
         },
     },
 }));
