@@ -6,9 +6,9 @@
   "tags": ["scope:frontend", "type:app"],
   "targets": {
     "test watch": {
-      "executor": "@nx/vite:test",
+      "executor": "@nx/vitest:test",
       "options": {
-        "config": "apps/my-app/vite.config.ts"
+        "config": "apps/frontend/vite.config.ts"
       },
       "configurations": {
         "watch": {
