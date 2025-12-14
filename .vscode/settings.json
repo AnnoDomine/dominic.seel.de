@@ -33,5 +33,6 @@
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
   "typescript.tsdk": "./node_modules/typescript/lib",
-  "typescript.preferences.importModuleSpecifier": "relative"
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "svn.ignoreMissingSvnWarning": true
 }

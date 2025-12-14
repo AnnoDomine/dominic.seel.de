@@ -59,6 +59,13 @@
         "cwd": "apps/backend",
         "command": "./venv/bin/python manage.py test"
       }
+    },
+    "install-deps": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/backend",
+        "command": "./venv/bin/python -m pip install -r requirements.txt"
+      }
     }
   },
   "tags": ["scope:backend", "type:app"]
