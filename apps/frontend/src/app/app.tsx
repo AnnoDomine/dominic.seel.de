@@ -5,6 +5,8 @@ import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import routes, { adminControlPanelRoutes, projectRoutes } from "../utils/routes/routes";
 import NavigationBack from "./components/molecules/navigation-back/navigation-back";
+import ProjectAcpDetails from "./components/molecules/project-acp-details/project-acp-details";
+import ProjectAcpList from "./components/molecules/project-acp-list/project-acp-list";
 import ProjectDetails from "./components/molecules/project-details/project-details";
 import UserDetails from "./components/molecules/user-details/user-details";
 import UserList from "./components/molecules/user-list/user-list";
@@ -39,6 +41,8 @@ export function App() {
                         <Route path="*" element={<NavigationBack />}>
                             <Route path={adminControlPanelRoutes.users} element={<UserList />} />
                             <Route path={adminControlPanelRoutes.user_details} element={<UserDetails />} />
+                            <Route path={adminControlPanelRoutes.projects} element={<ProjectAcpList />} />
+                            <Route path={adminControlPanelRoutes.project_details} element={<ProjectAcpDetails />} />
                         </Route>
                     </Route>
                     {/* Add more routes as needed */}

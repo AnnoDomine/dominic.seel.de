@@ -2,6 +2,7 @@ export type ProjectListItem = {
     id: number;
     title: string;
     created_at: string;
+    updated_at: string;
     status: "active" | "archived" | "concept";
     type: "work" | "private" | "study" | "other";
 };
