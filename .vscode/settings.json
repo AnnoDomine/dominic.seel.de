@@ -1,7 +1,5 @@
 {
   "nxConsole.nxWorkspacePath": "",
-  "svn.ignoreMissingSvnWarning": true,
-  "git.ignoreLimitWarning": true,
   "nxConsole.generateAiAgentRules": true,
   "npm.packageManager": "pnpm",
   "biome.configurationPath": "./biome.json",
@@ -31,13 +29,9 @@
   "[jsonc]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "[yaml]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[markdown]": {
-    "editor.defaultFormatter": "biomejs.biome"
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff"
   },
   "typescript.tsdk": "./node_modules/typescript/lib",
-  "typescript.preferences.importModuleSpecifier": "relative",
-  "cSpell.words": ["incasesensitive"]
+  "typescript.preferences.importModuleSpecifier": "relative"
 }
