@@ -9,7 +9,7 @@ const UserDetailsContainer = styled("div")({
 });
 
 const UserDetails = () => {
-    const { user, isLoading } = useUserDetails();
+    const { user, isLoading, handleUpdateUser } = useUserDetails();
     if (isLoading) {
         return <div>Loading...</div>;
     }
@@ -19,14 +19,30 @@ const UserDetails = () => {
     return (
         <UserDetailsContainer>
             <ListInformation label="ID" value={user.id} />
-            <ListInformation label="First name" value={user.first_name || "No first name stored"} />
-            <ListInformation label="Last name" value={user.last_name || "No last name stored"} />
+            <Divider orientation="horizontal" flexItem />
+            <ListInformation
+                label="First name"
+                value={user.first_name || ""}
+                isEditable
+                onEdit={(value) => {
+                    handleUpdateUser({ first_name: value });
+                }}
+            />
+            <ListInformation
+                label="Last name"
+                value={user.last_name || ""}
+                isEditable
+                onEdit={(value) => {
+                    handleUpdateUser({ last_name: value });
+                }}
+            />
             <ListInformation label="Email" value={user.email} />
             <Divider orientation="horizontal" flexItem />
             <ListInformation label="Username" value={user.username} />
             <ListInformation label="Is active" value={user.is_active} booleanAsIcon />
             <ListInformation label="Is superuser" value={user.is_superuser} booleanAsIcon />
             <ListInformation label="Is staff" value={user.is_staff} booleanAsIcon />
+            <Divider orientation="horizontal" flexItem />
             <ListInformation
                 label="Last login"
                 value={user.last_login ? new Date(user.last_login).toLocaleString() : "Never logged in"}

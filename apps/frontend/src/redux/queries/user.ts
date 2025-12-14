@@ -7,7 +7,7 @@ import baseQuery from "./api/base-query";
 const userQueries = createApi({
     reducerPath: "userQueries",
     baseQuery: baseQuery,
-    tagTypes: ["User", "Users"],
+    tagTypes: ["User", "Users", "SingleUser"],
     endpoints: (builder) => ({
         getUser: builder.query<LoginResponse, void, LoginResponse>({
             query: () => ({
@@ -23,13 +23,30 @@ const userQueries = createApi({
                 return [];
             },
         }),
-        updateUser: builder.mutation<LoginResponse, Omit<LoginResponse, "email">>({
+        updateUser: builder.mutation<
+            SingleUserItem,
+            Partial<Omit<SingleUserItem, "email">> & Pick<SingleUserItem, "id">
+        >({
             query: (userData) => ({
-                url: `/users/${userData.pk}/`,
+                url: `/users/${userData.id}/`,
                 method: "PATCH",
                 body: userData,
             }),
-            invalidatesTags: ["User"],
+            invalidatesTags: ["User", "Users", "SingleUser"],
+            onQueryStarted: async (args, { dispatch, queryFulfilled }) => {
+                // Optimistic update entry
+                const patchedResult = dispatch(
+                    userQueries.util.updateQueryData("getSingleUser", { userId: args.id }, (draft) => {
+                        Object.assign(draft || {}, args);
+                    })
+                );
+                try {
+                    await queryFulfilled;
+                } catch (error) {
+                    patchedResult.undo();
+                    console.error("Error updating user:", error);
+                }
+            },
         }),
         logout: builder.mutation<void, void>({
             query: () => ({
@@ -72,6 +89,15 @@ const userQueries = createApi({
             query: ({ userId }) => ({
                 url: `/users/${userId}/`,
             }),
+            providesTags: (result, error, { userId }) => {
+                if (error) {
+                    return [];
+                }
+                if (result) {
+                    return [{ type: "SingleUser", id: userId }];
+                }
+                return [];
+            },
         }),
     }),
 });
