@@ -57,7 +57,7 @@ jobs:
 
           # Copy backend source code, Dockerfile, and docker-compose.yml
           # rsync is better for excluding unwanted files
-          rsync -avz --delete --exclude='venv/' --exclude='__pycache__/' --exclude='.git/' ./apps/backend/ deploy@${{ secrets.SSH_HOST }}:/var/www/dev.dominicseel.dev/backend/
+          rsync -avz --delete --exclude='venv/' --exclude='__pycache__/' --exclude='.git/' --exclude='.env' ./apps/backend/ deploy@${{ secrets.SSH_HOST }}:/var/www/dev.dominicseel.dev/backend/
 
           # Execute deployment commands on server
           ssh deploy@${{ secrets.SSH_HOST }} << 'EOF'
