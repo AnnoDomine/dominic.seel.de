@@ -30,6 +30,8 @@ jobs:
 
       - name: Build Frontend
         run: pnpm exec nx build frontend
+        env:
+          VITE_API_URL: "https://dev.dominicseel.dev/api"
 
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.8.0
