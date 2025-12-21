@@ -1,4 +1,7 @@
 
+github_action_deploy_key
+github_action_deploy_key.pub
+
 .nx/installation
 .nx/cache
 .nx/workspace-data
