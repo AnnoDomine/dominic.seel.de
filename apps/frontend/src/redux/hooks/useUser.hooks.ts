@@ -1,9 +1,9 @@
 import { useCallback, useDebugValue } from "react";
 import { useLoginMutation } from "../queries/auth";
-import { useGetUserQuery, useLogoutMutation } from "../queries/user";
+import { useLazyGetUserQuery, useLogoutMutation } from "../queries/user";
 
 const useUser = () => {
-    const { data: user, refetch } = useGetUserQuery();
+    const [fetchUser, { data: user }] = useLazyGetUserQuery();
     const [login] = useLoginMutation();
     const [logout] = useLogoutMutation();
 
@@ -16,22 +16,20 @@ const useUser = () => {
                 .unwrap()
                 .then(() => {
                     console.log("Login successful");
-                    refetch();
+                    fetchUser();
                 })
                 .catch((error) => {
                     console.error("Login failed:", error);
                     logout();
                 });
         },
-        [login, refetch, logout]
+        [login, fetchUser, logout]
     );
 
     useDebugValue({ isAuthenticated, userData });
 
     return {
         isAuthenticated,
-        userData,
-        getUser: refetch,
         handleLogin,
         logout,
     };

@@ -104,6 +104,7 @@ const userQueries = createApi({
 
 export const {
     useGetUserQuery,
+    useLazyGetUserQuery,
     useLogoutMutation,
     useUpdateUserMutation,
     useListUsersQuery,
