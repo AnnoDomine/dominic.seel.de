@@ -1,0 +1,10 @@
+{
+  "nx-console": {
+    "initialGitRef": {
+      "ref": "390c5d8301147b241a15970059a5fa3acc2b842e",
+      "subject": "Merge branch 'master' into feat/frontend"
+    },
+    "targetVersion": "latest",
+    "confirmedPackageUpdates": true
+  }
+}
