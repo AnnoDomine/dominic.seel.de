@@ -55,11 +55,20 @@ export const useLogger = () => {
     }, []);
 
     const generateLogMessage = useCallback(
-        <C extends ConsoleMethodKeys = ConsoleMethodKeys>(log: ConsoleInstance[C], name: string) => {
+        <C extends ConsoleMethodKeys = ConsoleMethodKeys>(
+            meta: [log: ConsoleInstance[C], timestamp: number],
+            name: string
+        ) => {
+            const [log, timestamp] = meta;
             console.groupCollapsed(
-                `[${new Date().toISOString()} - Log ${name}] ${Array.from(Array(15))
+                `[${new Date(timestamp).toISOString()} - Log ${name}] ${Array.from(Array(15))
                     .map(() => "-")
                     .join("")}`
+            );
+            console.log(
+                Array.from(Array(15))
+                    .map(() => "-")
+                    .join("")
             );
             log();
             console.log(
@@ -72,28 +81,31 @@ export const useLogger = () => {
         []
     );
 
-    const generateLog = useCallback((logs: ConsoleInstance[ConsoleMethodKeys][], id: string) => {
-        const name = getGroupName(id);
-        console.groupCollapsed(
-            `[${new Date().toISOString()} - Log ${name}] ${Array.from(Array(15))
-                .map(() => "-")
-                .join("")}`
-        );
-        console.log(
-            Array.from(Array(15))
-                .map(() => "-")
-                .join("")
-        );
-        logs.forEach((log) => {
-            generateLogMessage(log, name);
-        });
-        console.log(
-            Array.from(Array(15))
-                .map(() => "-")
-                .join("")
-        );
-        console.groupEnd();
-    }, []);
+    const generateLog = useCallback(
+        (logs: [log: ConsoleInstance[ConsoleMethodKeys], timestamp: number][], id: string) => {
+            const name = getGroupName(id);
+            console.groupCollapsed(
+                `[${new Date().toISOString()} - Log ${name}] ${Array.from(Array(15))
+                    .map(() => "-")
+                    .join("")}`
+            );
+            console.log(
+                Array.from(Array(15))
+                    .map(() => "-")
+                    .join("")
+            );
+            logs.forEach((log) => {
+                generateLogMessage(log, name);
+            });
+            console.log(
+                Array.from(Array(15))
+                    .map(() => "-")
+                    .join("")
+            );
+            console.groupEnd();
+        },
+        []
+    );
 
     /**
      * We process over a log group and show the log to the related console.
@@ -101,6 +113,11 @@ export const useLogger = () => {
      * Every single log entry will be grouped in a collapsed group.
      */
     const showLog = useCallback(async (id: string) => {
+        const isProd = process.env.NODE_ENV === "production";
+        if (isProd) {
+            // Do not log while production environment
+            return;
+        }
         const log = logGroup[id];
         if (!log) {
             if (groupName[id]) {
@@ -126,7 +143,7 @@ export const useLogger = () => {
                 const logFn = (console[item.type] as (...args: any[]) => void)
                     .bind(console)
                     .bind(null, ...item.message);
-                return logFn;
+                return [logFn, item.timestamp] as [ConsoleInstance[ConsoleMethodKeys], number];
             });
             await new Promise(() => {
                 generateLog(logs, id);
