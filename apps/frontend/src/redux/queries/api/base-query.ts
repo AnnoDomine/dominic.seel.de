@@ -19,6 +19,7 @@ function getCsrfToken(): string | null {
 const baseQuery = fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL || "http://localhost:8000/api",
     prepareHeaders: (headers, { type }) => {
+        console.error(import.meta.env.VITE_API_URL);
         if (type === "mutation") {
             const csrftoken = getCsrfToken();
             if (csrftoken) {
