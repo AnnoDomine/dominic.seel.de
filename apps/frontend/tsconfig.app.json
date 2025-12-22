@@ -9,7 +9,8 @@
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts",
       "vite/client"
-    ]
+    ],
+    "moduleResolution": "bundler"
   },
   "exclude": [
     "src/**/*.spec.ts",
