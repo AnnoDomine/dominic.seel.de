@@ -1,9 +1,80 @@
-import { Divider, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import type { Theme } from "@mui/material";
+import {
+    Button,
+    Divider,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    styled,
+    TextField,
+    Typography,
+    useMediaQuery,
+} from "@mui/material";
 import { ROLE_MENU, STATUS_MENU, TYPE_MENU } from "./project-acp-details.constants";
 import useProjectAcpDetails from "./project-acp-details.hooks";
 
+const ProjectContainer = styled("div")(() => ({
+    display: "flex",
+    flexDirection: "column",
+    gap: "16px",
+    height: "100%",
+}));
+
+const BaseInfoContainer = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+    [`${theme.breakpoints.down("md")}`]: {
+        flexDirection: "column",
+        alignItems: "flex-start",
+        width: "100%",
+    },
+}));
+
+const SelectContainer = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    [`${theme.breakpoints.down("md")}`]: {
+        flexDirection: "column",
+        alignItems: "flex-start",
+        width: "100%",
+        gap: "16px",
+    },
+}));
+
+const SelectFormControl = styled(FormControl)(({ theme }) => ({
+    width: "30%",
+    [`${theme.breakpoints.down("md")}`]: {
+        width: "100%",
+    },
+}));
+
+const ActionContainer = styled("div")(({ theme }) => ({
+    display: "flex",
+    gap: "16px",
+    justifyContent: "flex-end",
+    width: "100%",
+    [`${theme.breakpoints.down("md")}`]: {
+        flexDirection: "column",
+        alignItems: "strech",
+        width: "100%",
+        gap: "16px",
+        position: "sticky",
+        bottom: "0px",
+        backgroundColor: "white",
+        padding: "16px 0px",
+        zIndex: theme.zIndex.appBar + 1,
+        borderTop: `1px solid ${theme.palette.divider}`,
+    },
+}));
+
 const ProjectAcpDetails = () => {
-    const { project, isLoading, handleChangeValue, changedValues } = useProjectAcpDetails();
+    const { project, isLoading, handleChangeValue, changedValues, hasAnyChanges } = useProjectAcpDetails();
+    const downMd = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
+    const baseInforDividerOrientation = !downMd ? "vertical" : "horizontal";
     if (isLoading) {
         return <div>Loading...</div>;
     }
@@ -11,41 +82,28 @@ const ProjectAcpDetails = () => {
         return <div>Project not found</div>;
     }
     return (
-        <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "16px",
-                height: "100%",
-            }}
-        >
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
-                }}
-            >
+        <ProjectContainer>
+            <BaseInfoContainer>
                 <Typography>ID: {project.id}</Typography>
-                <Divider flexItem orientation="vertical" />
+                <Divider flexItem orientation={baseInforDividerOrientation} />
                 <Typography>
                     Start: {project.start_date ? new Date(project.start_date).toLocaleDateString() : "Not started yet"}
                 </Typography>
-                <Divider flexItem orientation="vertical" />
+                <Divider flexItem orientation={baseInforDividerOrientation} />
                 <Typography>
                     End: {project.end_date ? new Date(project.end_date).toLocaleDateString() : "In progress"}
                 </Typography>
-                <Divider flexItem orientation="vertical" />
+                <Divider flexItem orientation={baseInforDividerOrientation} />
                 <Typography>
                     Created:{" "}
                     {project.created_at ? new Date(project.created_at).toLocaleDateString() : "Not created yet"}
                 </Typography>
-                <Divider flexItem orientation="vertical" />
+                <Divider flexItem orientation={baseInforDividerOrientation} />
                 <Typography>
                     Last updated:{" "}
                     {project.updated_at ? new Date(project.updated_at).toLocaleDateString() : "Not updated yet"}
                 </Typography>
-            </div>
+            </BaseInfoContainer>
             <Divider flexItem />
             <TextField
                 id="title"
@@ -65,20 +123,9 @@ const ProjectAcpDetails = () => {
                 rows={4}
                 color={changedValues.description ? "success" : "primary"}
             />
-            <div
-                style={{
-                    display: "flex",
-                    gap: "16px",
-                    width: "100%",
-                    justifyContent: "space-between",
-                }}
-            >
-                <FormControl
-                    sx={{
-                        width: "30%",
-                    }}
-                    color={changedValues.status ? "success" : "primary"}
-                >
+            <Divider flexItem />
+            <SelectContainer>
+                <SelectFormControl color={changedValues.status ? "success" : "primary"}>
                     <InputLabel id="status-label">Status</InputLabel>
                     <Select
                         id="status"
@@ -92,13 +139,8 @@ const ProjectAcpDetails = () => {
                             </MenuItem>
                         ))}
                     </Select>
-                </FormControl>
-                <FormControl
-                    sx={{
-                        width: "30%",
-                    }}
-                    color={changedValues.type ? "success" : "primary"}
-                >
+                </SelectFormControl>
+                <SelectFormControl color={changedValues.type ? "success" : "primary"}>
                     <InputLabel id="type-label">Type</InputLabel>
                     <Select
                         id="type"
@@ -112,13 +154,8 @@ const ProjectAcpDetails = () => {
                             </MenuItem>
                         ))}
                     </Select>
-                </FormControl>
-                <FormControl
-                    sx={{
-                        width: "30%",
-                    }}
-                    color={changedValues.role ? "success" : "primary"}
-                >
+                </SelectFormControl>
+                <SelectFormControl color={changedValues.role ? "success" : "primary"}>
                     <InputLabel id="role-label">Role</InputLabel>
                     <Select
                         id="role"
@@ -132,8 +169,9 @@ const ProjectAcpDetails = () => {
                             </MenuItem>
                         ))}
                     </Select>
-                </FormControl>
-            </div>
+                </SelectFormControl>
+            </SelectContainer>
+            <Divider flexItem />
             <TextField
                 id="project_url"
                 label="Project URL"
@@ -150,9 +188,18 @@ const ProjectAcpDetails = () => {
                 fullWidth
                 color={changedValues.github_url ? "success" : "primary"}
             />
-            <Divider flexItem />
-            <Divider flexItem />
-        </div>
+            {!downMd && <Divider flexItem />}
+            <ActionContainer>
+                <Button variant="outlined">Technologies</Button>
+                <Button variant="outlined" color="secondary">
+                    Add new
+                </Button>
+                <Button variant="contained" disabled={!hasAnyChanges} color="primary">
+                    Update
+                </Button>
+            </ActionContainer>
+            {!downMd && <Divider flexItem />}
+        </ProjectContainer>
     );
 };
 

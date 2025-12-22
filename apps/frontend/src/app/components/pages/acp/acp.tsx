@@ -14,7 +14,11 @@ const AcpContainer = styled("div")({
 const Acp = () => {
     const { isAuthenticated } = useUser();
     return !isAuthenticated ? (
-        <Login />
+        <>
+            isAuthenticated: {isAuthenticated.toString()}
+            <br />
+            <Login />
+        </>
     ) : (
         <AcpContainer>
             <Outlet />

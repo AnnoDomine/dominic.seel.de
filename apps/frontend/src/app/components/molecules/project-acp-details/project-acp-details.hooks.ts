@@ -40,6 +40,16 @@ const useProjectAcpDetails = () => {
         [project, cachedData]
     );
 
+    const untrackedFields: Array<keyof ProjectDetails> = ["created_at", "id", "end_date", "start_date", "updated_at"];
+
+    const hasAnyChanges = useMemo(
+        () =>
+            Object.entries(changedValues)
+                .filter(([k, _v]) => !untrackedFields.includes(k as keyof ProjectDetails))
+                .some(([_, v]) => v),
+        [changedValues]
+    );
+
     // biome-ignore lint/correctness/useExhaustiveDependencies: Runs initial
     useEffect(() => {
         if (projectId !== -1) {
@@ -56,6 +66,7 @@ const useProjectAcpDetails = () => {
         isLoading,
         handleChangeValue,
         changedValues,
+        hasAnyChanges,
     };
 };
 
