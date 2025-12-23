@@ -2,7 +2,7 @@
 
 import styled from "@emotion/styled";
 import { lazy } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 import routes, { adminControlPanelRoutes, projectRoutes } from "../utils/routes/routes";
 import NavigationBack from "./components/molecules/navigation-back/navigation-back";
 import ProjectAcpDetails from "./components/molecules/project-acp-details/project-acp-details";

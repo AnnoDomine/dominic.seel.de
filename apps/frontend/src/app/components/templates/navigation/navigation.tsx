@@ -4,7 +4,7 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import { Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from "@mui/material";
 import type { MouseEvent } from "react";
 import { useCallback, useMemo, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import useUser from "../../../../redux/hooks/useUser.hooks";
 import routes from "../../../../utils/routes/routes";
 import NavigationContainer from "../../atoms/navigation-container/navigation-container";

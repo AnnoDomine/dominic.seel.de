@@ -1,6 +1,6 @@
 import type { SelectChangeEvent } from "@mui/material";
 import { useCallback, useEffect, useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useImmer } from "use-immer";
 import { useLazyGetProjectQuery } from "../../../../redux/queries/project";
 import type { ProjectDetails } from "../../../../types/redux/project";

@@ -1,6 +1,6 @@
 import KeyboardBackspaceTwoToneIcon from "@mui/icons-material/KeyboardBackspaceTwoTone";
 import { Button, Divider, styled } from "@mui/material";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router";
 
 const NavigationBackContainer = styled("div")({
     display: "flex",

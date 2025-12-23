@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useGetSingleUserQuery, useUpdateUserMutation } from "../../../../redux/queries/user";
 import type { SingleUserItem } from "../../../../types/redux/user";
 

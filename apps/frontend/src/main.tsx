@@ -2,7 +2,7 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import { StrictMode } from "react";
 import * as ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import App from "./app/app";
 import store from "./redux/store";
 

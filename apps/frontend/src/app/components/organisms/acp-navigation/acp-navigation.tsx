@@ -1,5 +1,5 @@
 import { Button, styled } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { ACP_NAVIGATION_ITEMS } from "./acp-navigation.constants";
 
 const AcpNavigationContainer = styled("div")({

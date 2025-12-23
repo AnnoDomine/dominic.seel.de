@@ -1,5 +1,5 @@
 import { styled } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import useUser from "../../../../redux/hooks/useUser.hooks";
 import Login from "../../organisms/login/login";
 
