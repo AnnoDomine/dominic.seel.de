@@ -24,6 +24,13 @@
         "write": false,
         "unsafe": false
       }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview",
+      "options": {
+        "buildTarget": "frontend:build",
+        "port": 4300
+      }
     }
   }
 }
