@@ -30,7 +30,7 @@ export default defineConfig({
     reporter: process.env.CI ? "github" : "list",
     /* Run your local dev server before starting the tests */
     webServer: {
-        command: "npx serve ../../dist/apps/frontend -l 4300",
+        command: "pnpm exec nx run frontend:preview",
         url: "http://localhost:4300",
         reuseExistingServer: true,
         cwd: workspaceRoot,
