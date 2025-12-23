@@ -50,7 +50,6 @@ const useProjectAcpDetails = () => {
         [changedValues]
     );
 
-    // biome-ignore lint/correctness/useExhaustiveDependencies: Runs initial
     useEffect(() => {
         if (projectId !== -1) {
             fetchProject(projectId)
@@ -59,7 +58,7 @@ const useProjectAcpDetails = () => {
                     setProject(data);
                 });
         }
-    }, []);
+    }, [projectId, fetchProject, setProject]);
 
     return {
         project,

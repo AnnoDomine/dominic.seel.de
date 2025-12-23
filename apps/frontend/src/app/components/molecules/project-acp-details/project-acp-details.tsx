@@ -59,7 +59,7 @@ const ActionContainer = styled("div")(({ theme }) => ({
     width: "100%",
     [`${theme.breakpoints.down("md")}`]: {
         flexDirection: "column",
-        alignItems: "strech",
+        alignItems: "stretch",
         width: "100%",
         gap: "16px",
         position: "sticky",

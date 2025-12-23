@@ -50,9 +50,12 @@ export const useLogger = () => {
         []
     );
 
-    const getGroupName = useCallback((id: string) => {
-        return groupName[id] || "unnamed";
-    }, []);
+    const getGroupName = useCallback(
+        (id: string) => {
+            return groupName[id] || "unnamed";
+        },
+        [groupName]
+    );
 
     const generateLogMessage = useCallback(
         <C extends ConsoleMethodKeys = ConsoleMethodKeys>(
@@ -104,7 +107,7 @@ export const useLogger = () => {
             );
             console.groupEnd();
         },
-        []
+        [getGroupName, generateLogMessage]
     );
 
     /**
@@ -112,51 +115,52 @@ export const useLogger = () => {
      * The group is shown in a collapsed grouped.
      * Every single log entry will be grouped in a collapsed group.
      */
-    const showLog = useCallback(async (id: string) => {
-        const isProd = process.env.NODE_ENV === "production";
-        if (isProd) {
-            // Do not log while production environment
-            return;
-        }
-        const log = logGroup[id];
-        if (!log) {
-            if (groupName[id]) {
-                setGroupName((draft) => {
+    const showLog = useCallback(
+        async (id: string) => {
+            const isProd = process.env.NODE_ENV === "production";
+            if (isProd) {
+                // Do not log while production environment
+                return;
+            }
+            const log = logGroup[id];
+            if (!log) {
+                if (groupName[id]) {
+                    setGroupName((draft) => {
+                        delete draft[id];
+                    });
+                }
+                return;
+            }
+            if (log.length === 0) {
+                if (groupName[id]) {
+                    setGroupName((draft) => {
+                        delete draft[id];
+                    });
+                }
+                setLogGroup((draft) => {
                     delete draft[id];
                 });
+                return;
             }
-            return;
-        }
-        if (log.length === 0) {
-            if (groupName[id]) {
-                setGroupName((draft) => {
-                    delete draft[id];
+            try {
+                const logs = log.map((item) => {
+                    const logFn = (console[item.type] as (...args: any[]) => void)
+                        .bind(console)
+                        .bind(null, ...item.message);
+                    return [logFn, item.timestamp] as [ConsoleInstance[ConsoleMethodKeys], number];
                 });
-            }
-            setLogGroup((draft) => {
-                delete draft[id];
-            });
-            return;
-        }
-        try {
-            const logs = log.map((item) => {
-                const logFn = (console[item.type] as (...args: any[]) => void)
-                    .bind(console)
-                    .bind(null, ...item.message);
-                return [logFn, item.timestamp] as [ConsoleInstance[ConsoleMethodKeys], number];
-            });
-            await new Promise(() => {
                 generateLog(logs, id);
-            });
-        } finally {
-            setLogGroup((draft) => {
-                delete draft[id];
-            });
-            setGroupName((draft) => {
-                delete draft[id];
-            });
-        }
-    }, []);
+            } finally {
+                setLogGroup((draft) => {
+                    delete draft[id];
+                });
+                setGroupName((draft) => {
+                    delete draft[id];
+                });
+            }
+        },
+        [logGroup, groupName, setGroupName, setLogGroup, generateLog]
+    );
 
     class Logger {
         private id: string;
