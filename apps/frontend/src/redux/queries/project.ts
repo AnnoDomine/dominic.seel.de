@@ -22,7 +22,7 @@ const projectQueries = createApi({
         }),
         listProjects: builder.query<PaginatedResponse<ProjectListItem>, PaginationQueryParams>({
             query: (queryParams) => ({
-                url: paginatedEndpoint("/projects/", queryParams),
+                url: paginatedEndpoint("projects/", queryParams),
             }),
             providesTags: (result, error, params) => {
                 if (error) {
