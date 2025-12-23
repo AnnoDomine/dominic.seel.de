@@ -1,6 +1,6 @@
 import { useCallback, useDebugValue, useMemo } from "react";
 import { useLoginMutation } from "../queries/auth";
-import { useGetUserQuery, useLogoutMutation } from "../queries/user";
+import { useLazyGetUserQuery, useLogoutMutation } from "../queries/user";
 
 const useUser = () => {
     const { data: user, refetch: fetchUser } = useGetUserQuery();
