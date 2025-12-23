@@ -26,11 +26,12 @@
       }
     },
     "preview": {
-      "executor": "@nx/vite:preview",
+      "executor": "nx:run-commands",
       "options": {
-        "buildTarget": "frontend:build",
-        "port": 4300
-      }
+        "cwd": "apps/frontend",
+        "command": "vite preview --host 0.0.0.0 --port 4300"
+      },
+      "dependsOn": ["build"]
     }
   }
 }
