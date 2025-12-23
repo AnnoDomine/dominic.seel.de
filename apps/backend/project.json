@@ -57,7 +57,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "apps/backend",
-        "command": "./venv/bin/python manage.py test"
+        "command": "DB_ENGINE=sqlite3 ./venv/bin/python manage.py test"
       }
     },
     "install-deps": {
