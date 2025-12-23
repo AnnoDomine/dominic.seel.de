@@ -38,7 +38,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install Node.js dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -113,7 +113,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install Node.js dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Run Semantic Release for Frontend
         working-directory: apps/frontend
