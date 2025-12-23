@@ -53,6 +53,13 @@
         "command": "./venv/bin/python -m ruff format ."
       }
     },
+    "test-no-coverage": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/backend",
+        "command": "DB_ENGINE=sqlite3 ./venv/bin/python manage.py test"
+      }
+    },
     "test": {
       "executor": "nx:run-commands",
       "options": {
