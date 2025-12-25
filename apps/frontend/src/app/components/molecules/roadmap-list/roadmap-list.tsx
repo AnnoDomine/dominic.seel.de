@@ -10,6 +10,14 @@ const RoadmapList = () => {
                 "& .pointer": {
                     cursor: "pointer",
                 },
+                "& .MuiDataGrid-row": {
+                    height: "130px !important",
+                    "--height": "130px !important",
+                    maxHeight: "130px !important",
+                },
+                "& .MuiDataGrid-virtualScrollerContent": {
+                    flexBasis: "130px !important",
+                },
             }}
             {...dataGridParams}
         />
