@@ -29,7 +29,11 @@ class RoadmapItemViewSet(viewsets.ModelViewSet):
     serializer_class = RoadmapItemSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     pagination_class = StandardResultsSetPagination
-    filter_backends = [OrderingFilter, SearchFilter]
+    filter_backends = [OrderingFilter, SearchFilter, DjangoFilterBackend]
+    filterset_fields = ["status"]
+    search_fields = ["title", "description"]
+    ordering_fields = ["target_date", "order", "status", "created_at"]
+    ordering = ["order", "target_date"]
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
