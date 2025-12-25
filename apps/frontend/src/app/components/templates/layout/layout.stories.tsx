@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "react-redux";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { combinedReducers } from "../../../../redux/combinedReducers";
+import { MemoryRouter, Route, Routes } from "react-router";
+import combinedReducers from "../../../../redux/combinedReducers";
+import userQueries from "../../../../redux/queries/user";
 import type { RootState } from "../../../../redux/store";
+import Layout from "./layout";
 
 const createMockStore = () =>
     configureStore({
@@ -14,6 +16,13 @@ const createMockStore = () =>
                 user: { id: 1, username: "testuser" },
             },
         } as Partial<RootState>,
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware({
+                serializableCheck: {
+                    // Ignore non-serializable actions
+                    ignoredActions: ["some/actionType"],
+                },
+            }).concat(userQueries.middleware),
     });
 
 const meta: Meta<typeof Layout> = {

@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "react-redux";
-import { combinedReducers } from "../../../../redux/combinedReducers";
+import combinedReducers from "../../../../redux/combinedReducers";
+import userQueries from "../../../../redux/queries/user";
 import type { RootState } from "../../../../redux/store";
+import Login from "./login";
 
 // Mock store
 const createMockStore = () =>
@@ -15,6 +17,7 @@ const createMockStore = () =>
                 user: null,
             },
         } as Partial<RootState>,
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(userQueries.middleware),
     });
 
 const meta: Meta<typeof Login> = {

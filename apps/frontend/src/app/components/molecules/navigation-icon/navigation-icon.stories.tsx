@@ -1,7 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "react-redux";
-import { combinedReducers } from "../../../../redux/combinedReducers"; // Assuming this is your root reducer
+import combinedReducers from "../../../../redux/combinedReducers"; // Assuming this is your root reducer
+import userQueries from "../../../../redux/queries/user";
+import type { RootState } from "../../../../redux/store";
 import connectedRoutes from "../../../../utils/routes/routes"; // Import routes object
 import NavigationIcon from "./navigation-icon";
 
@@ -16,26 +18,33 @@ const createMockStore = (isAuthenticated: boolean) =>
             },
             // Add other slices if NavigationIcon implicitly uses them
         } as Partial<RootState>, // Cast as Partial<RootState> for type safety in mock
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(userQueries.middleware),
     });
 
 const meta: Meta<typeof NavigationIcon> = {
     component: NavigationIcon,
     title: "Molecules/NavigationIcon",
+    args: {
+        type: "home",
+    },
     argTypes: {
         type: {
             control: "select",
-            options: Object.keys(connectedRoutes), // Use keys of your routes object
+            options: Object.keys(connectedRoutes),
+            description: "The type of navigation icon to render",
         },
-        // Add a control for isAuthenticated in Storybook UI
+    },
+    parameters: {
         isAuthenticated: {
             control: "boolean",
-            defaultValue: false,
+            defaultValue: true,
+            description: "Whether the user is authenticated or not",
         },
     },
     decorators: [
         (Story, context) => {
             // Create a store based on the isAuthenticated arg
-            const store = createMockStore(context.args.isAuthenticated);
+            const store = createMockStore(context.parameters.isAuthenticated);
             return (
                 <Provider store={store}>
                     <Story />
@@ -48,37 +57,8 @@ const meta: Meta<typeof NavigationIcon> = {
 export default meta;
 type Story = StoryObj<typeof NavigationIcon>;
 
-export const HomeRoute: Story = {
-    args: {
-        type: "home",
-        isAuthenticated: false,
-    },
-};
-
-export const ProjectsRoute: Story = {
-    args: {
-        type: "projects",
-        isAuthenticated: false,
-    },
-};
-
-export const RoadmapRoute: Story = {
-    args: {
-        type: "roadmap",
-        isAuthenticated: false,
-    },
-};
-
-export const AcpRouteAuthenticated: Story = {
+export const Route: Story = {
     args: {
         type: "acp",
-        isAuthenticated: true,
-    },
-};
-
-export const AcpRouteUnauthenticated: Story = {
-    args: {
-        type: "acp",
-        isAuthenticated: false,
     },
 };

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import AcpNavigation from "./acp-navigation";
 
 const meta: Meta<typeof AcpNavigation> = {

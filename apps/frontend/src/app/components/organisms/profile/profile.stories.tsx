@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "react-redux";
-import { combinedReducers } from "../../../../redux/combinedReducers";
+import combinedReducers from "../../../../redux/combinedReducers";
 import userApi from "../../../../redux/queries/user";
 import Profile from "./profile";
 

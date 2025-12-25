@@ -1,9 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "react-redux";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { combinedReducers } from "../../../../redux/combinedReducers";
+import { MemoryRouter, Route, Routes } from "react-router";
+import combinedReducers from "../../../../redux/combinedReducers";
+
+import userQueries from "../../../../redux/queries/user";
 import type { RootState } from "../../../../redux/store";
+import Acp from "./acp";
 
 const createMockStore = (isAuthenticated: boolean) =>
     configureStore({
@@ -14,6 +17,7 @@ const createMockStore = (isAuthenticated: boolean) =>
                 user: isAuthenticated ? { id: 1, username: "testuser" } : null,
             },
         } as Partial<RootState>,
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(userQueries.middleware),
     });
 
 const meta: Meta<typeof Acp> = {
@@ -27,7 +31,7 @@ const meta: Meta<typeof Acp> = {
     },
     decorators: [
         (Story, context) => (
-            <Provider store={createMockStore(context.args.isAuthenticated)}>
+            <Provider store={createMockStore((context.args as { isAuthenticated: boolean }).isAuthenticated)}>
                 <MemoryRouter initialEntries={["/acp"]}>
                     <Routes>
                         <Route path="/acp" element={<Story />}>

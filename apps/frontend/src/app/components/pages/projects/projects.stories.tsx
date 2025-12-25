@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
-import { combinedReducers } from "../../../../redux/combinedReducers";
+import { MemoryRouter } from "react-router";
+import combinedReducers from "../../../../redux/combinedReducers";
 import projectApi from "../../../../redux/queries/project";
 import Projects from "./projects";
 
