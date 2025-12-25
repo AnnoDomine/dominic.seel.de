@@ -36,7 +36,7 @@ const useProfile = () => {
     const handleUpdateUser = useCallback(
         async (userData: Omit<LoginResponse, "pk" | "email">) => {
             try {
-                await updateUser({ ...userData, pk: user?.pk || -1 }).unwrap();
+                await updateUser({ ...userData, id: user?.pk || -1 }).unwrap();
             } catch (error) {
                 console.error("Failed to update user:", error);
             }

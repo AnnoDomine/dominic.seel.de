@@ -10,6 +10,7 @@ const useTechnologyList = (technologies: number[]) => {
     }, [data, technologies]);
 
     return {
+        data,
         technologyList,
         isLoading: isFetching,
     };

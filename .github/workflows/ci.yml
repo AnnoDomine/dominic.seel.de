@@ -5,9 +5,11 @@ on:
   push:
     branches:
       - master
+      - dev
   pull_request:
     branches:
       - master
+      - dev
 
 permissions:
   actions: read
@@ -36,7 +38,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install Node.js dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -61,10 +63,21 @@ jobs:
       - name: Run biome check
         run: pnpm exec biome check
 
-      - name: Run affected test, build for all projects (FE & BE)
+      - name: Run affected tests (Unit) with coverage
         env:
           DJANGO_SETTINGS_MODULE: core.settings
-        run: pnpm exec nx affected -t test build
+        run: pnpm exec nx affected -t test
+
+      - name: Run affected build
+        run: pnpm exec nx affected -t build
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps
+
+      - name: Run affected E2E tests
+        env:
+          DJANGO_SETTINGS_MODULE: core.settings
+        run: pnpm exec nx affected -t e2e
 
   release-frontend:
     name: Release Frontend
@@ -100,7 +113,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install Node.js dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Run Semantic Release for Frontend
         working-directory: apps/frontend

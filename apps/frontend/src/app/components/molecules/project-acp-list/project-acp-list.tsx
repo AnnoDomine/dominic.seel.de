@@ -1,17 +1,17 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router";
 import { connectedRoutes, getRouteWithId } from "../../../../utils/routes/routes";
-import useUserList from "./user-list.hooks";
+import useProjectList from "../project-list/project-list.hooks";
 
-const UserList = () => {
-    const { dataGridParams } = useUserList();
+const ProjectAcpList = () => {
+    const { dataGridParams } = useProjectList();
     const navigate = useNavigate();
     return (
         <DataGrid
             disableRowSelectionOnClick
             onRowClick={(params, event) => {
                 event.preventDefault();
-                navigate(getRouteWithId(connectedRoutes.acp_user_details, "user", params.id));
+                navigate(getRouteWithId(connectedRoutes.acp_project_details, "project", params.id));
             }}
             sx={{
                 "& .pointer": {
@@ -23,4 +23,4 @@ const UserList = () => {
     );
 };
 
-export default UserList;
+export default ProjectAcpList;

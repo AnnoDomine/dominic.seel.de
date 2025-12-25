@@ -11,7 +11,7 @@ const roadmapQueries = createApi({
     endpoints: (builder) => ({
         getRoadmap: builder.query<TRoadmapList, PaginationQueryParams>({
             query: (params) => ({
-                url: paginatedEndpoint("roadmap", params),
+                url: paginatedEndpoint("/roadmap/", params),
             }),
             providesTags: (result, _error, params) => {
                 return [

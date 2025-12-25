@@ -2,7 +2,7 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "installation": {
     "packageManager": "pnpm",
-    "version": "22.2.3"
+    "version": "22.3.3"
   },
   "defaultBase": "master",
   "namedInputs": {

@@ -1,0 +1,63 @@
+name: Branch Policy
+
+on: ["pull_request"]
+
+jobs:
+  enforce-dev-only:
+    runs-on: ubuntu-latest
+    if: github.base_ref == 'master'
+    steps:
+      - name: Check source branch
+        if: github.head_ref != 'dev'
+        run: |
+          echo "---------------------------------------------------------------------"
+          echo "HEAD REF: ${{ github.head_ref }}"
+          echo "BASE REF: ${{ github.base_ref }}"
+          echo "REFS/HEAD: ${{ github.ref }}"
+          echo "---------------------------------------------------------------------"
+          echo "Error: Pull requests to master must come from the 'dev' branch."
+          echo "Current source branch: ${{ github.head_ref }}"
+          echo "---------------------------------------------------------------------"
+          exit 1
+  enforce-branch-name:
+    runs-on: ubuntu-latest
+    if: github.base_ref != 'master' && github.head_ref != 'dev'
+    steps:
+      - name: Check branch name
+        run: |
+          echo "---------------------------------------------------------------------"
+          echo "HEAD REF: ${{ github.head_ref }}"
+          echo "---------------------------------------------------------------------"
+          echo "The branch policy restricts the naming of branches."
+          echo "We enforce to use a logic folder structure."
+          echo "---------------------------------------------------------------------"
+          echo "Branch folder: 'docs/'"
+          echo "Branches which have changes to documentation."
+          echo "---------------------------------------------------------------------"
+          echo "Branch folder: 'feat/'"
+          echo "Branches which adds, updates or removes features."
+          echo "---------------------------------------------------------------------"
+          echo "Branch folder: 'fix/'"
+          echo "Branches which have bugfixes and minor patches (Last version number)."
+          echo "---------------------------------------------------------------------"
+          echo "Branch folder: 'test/'"
+          echo "Branches which have changes to unit and e2e tests."
+          echo "---------------------------------------------------------------------"
+
+      - name: Check branch name regex
+        id: check-branch-name-regex
+        run: |
+          if [[ "${{ github.head_ref }}" =~ ^(docs|feat|fix|test)/ ]]; then
+            echo "---------------------------------------------------------------------"
+            echo "Branch name '${{ github.head_ref }}' follows the required naming convention."
+            echo "---------------------------------------------------------------------"
+          else
+            echo "---------------------------------------------------------------------"
+            echo "Error: Branch name '${{ github.head_ref }}' does not follow the required naming convention."
+            echo "Branch names must start with 'docs/', 'feat/', 'fix/', or 'test/'."
+            echo "Examples:"
+            echo "  - docs/update-readme"
+            echo "  - feat/add-new-feature"
+            echo "---------------------------------------------------------------------"
+            exit 1
+          fi

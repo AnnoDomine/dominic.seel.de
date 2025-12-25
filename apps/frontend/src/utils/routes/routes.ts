@@ -17,12 +17,16 @@ const projectRoutes = {
 const adminControlPanelRoutes = {
     users: "users",
     user_details: `users/${pathIds.user}`,
+    projects: "projects",
+    project_details: `projects/${pathIds.project}`,
 };
 
 const connectedRoutes = {
     acp_users: `${routes.acp}/${adminControlPanelRoutes.users}`,
     acp_user_details: `${routes.acp}/${adminControlPanelRoutes.users}/${pathIds.user}`,
     project_details: `${routes.projects}/${pathIds.project}`,
+    acp_projects: `${routes.acp}/${adminControlPanelRoutes.projects}`,
+    acp_project_details: `${routes.acp}/${adminControlPanelRoutes.projects}/${pathIds.project}`,
 };
 
 const getRouteWithId = (route: string, path: keyof typeof pathIds, id: string | number) => {

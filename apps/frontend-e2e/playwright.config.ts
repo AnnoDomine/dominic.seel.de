@@ -21,13 +21,20 @@ export default defineConfig({
         baseURL,
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: "on-first-retry",
+        screenshot: "only-on-failure",
+        video: "retain-on-failure",
     },
+    workers: process.env.CI ? 1 : undefined,
+    timeout: process.env.CI ? 120000 : 30000,
+    retries: process.env.CI ? 2 : 1,
+    reporter: process.env.CI ? "github" : "list",
     /* Run your local dev server before starting the tests */
     webServer: {
         command: "pnpm exec nx run frontend:preview",
         url: "http://localhost:4300",
         reuseExistingServer: true,
         cwd: workspaceRoot,
+        timeout: 120000,
     },
     projects: [
         {

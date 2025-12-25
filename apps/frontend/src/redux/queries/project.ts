@@ -22,7 +22,7 @@ const projectQueries = createApi({
         }),
         listProjects: builder.query<PaginatedResponse<ProjectListItem>, PaginationQueryParams>({
             query: (queryParams) => ({
-                url: paginatedEndpoint("/projects/", queryParams),
+                url: paginatedEndpoint("projects/", queryParams),
             }),
             providesTags: (result, error, params) => {
                 if (error) {
@@ -40,9 +40,33 @@ const projectQueries = createApi({
                     : [{ type: "Projects", id: "LIST", params: JSON.stringify({ ...params }) }];
             },
         }),
+        updateProject: builder.mutation<ProjectDetails, Partial<ProjectDetails> & Pick<ProjectDetails, "id">>({
+            query: (projectData) => ({
+                url: `/projects/${projectData.id}/`,
+                method: "PATCH",
+                body: projectData,
+            }),
+            invalidatesTags: (_result, _error, projectData) => {
+                return [{ type: "Project", id: projectData.id }];
+            },
+            onQueryStarted: async (args, { dispatch, queryFulfilled }) => {
+                // Optimistic update entry
+                const patchedResult = dispatch(
+                    projectQueries.util.updateQueryData("getProject", args.id, (draft) => {
+                        Object.assign(draft || {}, args);
+                    })
+                );
+                try {
+                    await queryFulfilled;
+                } catch (error) {
+                    patchedResult.undo();
+                    console.error("Error updating project:", error);
+                }
+            },
+        }),
     }),
 });
 
-export const { useGetProjectQuery, useLazyListProjectsQuery } = projectQueries;
+export const { useGetProjectQuery, useLazyGetProjectQuery, useLazyListProjectsQuery } = projectQueries;
 
 export default projectQueries;
