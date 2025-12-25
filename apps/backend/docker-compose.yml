@@ -9,3 +9,6 @@ services:
       - .env
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    volumes:
+      - "./staticfiles:/app/staticfiles"
+      - "./media:/app/media"
