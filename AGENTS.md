@@ -83,4 +83,10 @@ The following checks run automatically on commit. You should anticipate these fa
 ## Aditional instruction
 
 - All answers have to be in english
-- Add to every component, function, variable, class, method,... Docstrings in english
+- Add to every component, function, variable, class, method,... docstrings in english
+- Branch naming have a specific convention. Only branchnames are valid with the prefix "feat/", "docs/", "fix/" and "test/"
+    - feat: Feature branch with major changes on existing features or add new or delete old features
+    - docs: Changes to documentations (README.md, LICENSE.txt,...)
+    - fix: Minor patches and bugfix branches
+    - test: Branches with major changes to unit and e2e tests
+- Mixed branches (With multiple change types) are use "feat/" as prefix.
