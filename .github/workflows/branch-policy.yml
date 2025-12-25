@@ -8,7 +8,7 @@ on:
 jobs:
   enforce-dev-only:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    if: github.base_ref == 'master'
     steps:
       - name: Check source branch
         if: github.head_ref != 'dev'
