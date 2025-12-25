@@ -79,4 +79,7 @@ jobs:
 
             # Collect static files
             docker compose exec -T backend python manage.py collectstatic --noinput
+
+            # Create cache table
+            docker compose exec -T backend python manage.py createcachetable
           EOF
