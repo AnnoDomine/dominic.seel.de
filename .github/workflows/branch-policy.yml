@@ -21,6 +21,7 @@ jobs:
           exit 1
   enforce-branch-name:
     runs-on: ubuntu-latest
+    if: github.base_ref != 'master' && github.head_ref != 'dev'
     steps:
       - name: Check branch name
         run: |
