@@ -40,6 +40,9 @@ class RoadmapItem(BaseModel):
     target_date: models.DateField = models.DateField(blank=True, null=True)
     status: models.CharField = models.CharField(max_length=20, choices=STATUS_CHOICES, default="planned")
     order: models.IntegerField = models.IntegerField(default=0, help_text="Order in which items appear")
+    related_project: models.ForeignKey = models.ForeignKey(
+        "Project", on_delete=models.CASCADE, blank=True, null=True, help_text="Related project", default=None
+    )
 
     class Meta:
         ordering = ["order", "target_date", "created_at"]  # Sortierung nach Reihenfolge
