@@ -10,6 +10,7 @@ export type TRoadmapItem = {
     description: string;
     target_date: string;
     status: RoadmapStatus;
+    related_project: number | null;
 };
 
 export type TRoadmapList = PaginatedResponse<TRoadmapItem>;

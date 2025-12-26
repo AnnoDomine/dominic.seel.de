@@ -1,7 +1,9 @@
 import { useDraggable } from "@dnd-kit/core";
 import { Button, Skeleton, styled, Typography } from "@mui/material";
 import clsx from "clsx";
+import { useState } from "react";
 import type { RoadmapStatus, TRoadmapItem } from "../../../../types/redux/roadmap";
+import RoadmapDetails from "../roadmap-details/roadmap-details";
 
 const RoadmapItemContainer = styled("div")(({ theme }) => ({
     margin: theme.spacing(1, 1, 1, 1),
@@ -14,7 +16,7 @@ const RoadmapItemContainer = styled("div")(({ theme }) => ({
     outline: `1px solid ${theme.palette.primary.main}`,
     backgroundColor: theme.palette.background.paper,
     opacity: 0.7,
-    height: "90px",
+    height: "110px",
     borderRadius: theme.shape.borderRadius,
     "&:hover": {
         outline: `2px solid ${theme.palette.primary.light}`,
@@ -48,6 +50,7 @@ type Props = {
 };
 
 const RoadmapItem = ({ type, item, triggerLoadMore, status, isOverlay }: Props) => {
+    const [isDetailsOpen, setIsDetailsOpen] = useState<boolean>(false);
     const dragProps = useDraggable({
         id: item.id,
         data: { ...item, type: "item" },
@@ -104,6 +107,7 @@ const RoadmapItem = ({ type, item, triggerLoadMore, status, isOverlay }: Props) 
                         onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
+                            console.log(`load more triggered (${status})`);
                             triggerLoadMore(status);
                         }}
                     >
@@ -115,27 +119,50 @@ const RoadmapItem = ({ type, item, triggerLoadMore, status, isOverlay }: Props) 
             break;
     }
     return (
-        <RoadmapItemContainer {...draggingProps} key={item.id}>
-            <RoadmapItemHeader variant="h4">{item.title}</RoadmapItemHeader>
-            <RoadmapItemTarget variant="body1">
-                Target: {new Date(item.target_date).toLocaleDateString()}
-            </RoadmapItemTarget>
-            <div
-                style={{
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
+        <>
+            <RoadmapItemContainer
+                {...draggingProps}
+                key={item.id}
+                onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setIsDetailsOpen(true);
                 }}
             >
-                <RoadmapItemCreated variant="caption">
-                    Created: {new Date(item.created_at).toLocaleDateString()}
-                </RoadmapItemCreated>
-                <RoadmapItemUpdated variant="caption">
-                    Updated: {new Date(item.updated_at).toLocaleDateString()}
-                </RoadmapItemUpdated>
-            </div>
-        </RoadmapItemContainer>
+                <RoadmapItemHeader
+                    variant="h4"
+                    sx={{
+                        textOverflow: "ellipsis",
+                        overflow: "hidden",
+                        textWrap: "nowrap",
+                        whiteSpace: "nowrap",
+                        width: "100%",
+                    }}
+                    title={item.title}
+                >
+                    {item.title}
+                </RoadmapItemHeader>
+                <RoadmapItemTarget variant="body1">
+                    Target: {new Date(item.target_date).toLocaleDateString()}
+                </RoadmapItemTarget>
+                <div
+                    style={{
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    <RoadmapItemCreated variant="caption">
+                        Created: {new Date(item.created_at).toLocaleDateString()}
+                    </RoadmapItemCreated>
+                    <RoadmapItemUpdated variant="caption">
+                        Updated: {new Date(item.updated_at).toLocaleDateString()}
+                    </RoadmapItemUpdated>
+                </div>
+            </RoadmapItemContainer>
+            <RoadmapDetails item={item} open={isDetailsOpen} onClose={() => setIsDetailsOpen(false)} />
+        </>
     );
 };
 

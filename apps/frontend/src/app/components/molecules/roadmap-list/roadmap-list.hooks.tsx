@@ -1,6 +1,6 @@
 import type { DragEndEvent, DragMoveEvent, DragStartEvent } from "@dnd-kit/core";
 import type { Props } from "@dnd-kit/core/dist/components/DndContext/DndContext";
-import { useCallback, useDebugValue, useMemo, useState } from "react";
+import { useCallback, useDebugValue, useMemo, useRef, useState } from "react";
 import { useImmer } from "use-immer";
 import { useListRoadmapInfiniteQuery, usePartialUpdateRoadmapItemMutation } from "../../../../redux/queries/roadmap";
 import type { PaginationQueryParams } from "../../../../types/common";
@@ -45,6 +45,28 @@ const columnMap: Array<{ field: RoadmapStatus; label: string }> = [
 const useRoadmapList = () => {
     const [getPreferences, setPreferences] = useLocalPreferences();
 
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+    const [search, setSearch] = useState<string | null>(null);
+    const [searchValue, setSearchValue] = useState<string | null>(null);
+
+    const handleChangeSearchValue = useCallback((value: string | null) => {
+        setSearchValue(value);
+        if (timerRef.current) clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(() => {
+            setSearch(value);
+        }, 500);
+    }, []);
+
+    const handleChangeSearch = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            e.stopPropagation();
+            e.preventDefault();
+            handleChangeSearchValue(e.target.value);
+        },
+        [handleChangeSearchValue]
+    );
+
     const [draggedItem, setDraggedItem] = useImmer<DragStartEvent | null>(null);
 
     const [columnOrder, setColumnOrder] = useState<Array<(typeof columnMap)[number]["field"]> | null>(
@@ -61,17 +83,19 @@ const useRoadmapList = () => {
         return usedColumnOrder;
     }, [columnOrder, usedColumnOrder, draggedItem]);
 
-    const parseQueryParams = useCallback((status: RoadmapStatus): Omit<PaginationQueryParams, "page" | "page_size"> => {
-        const params: Omit<PaginationQueryParams, "page" | "page_size"> = {};
-        const search = undefined;
-        if (search) params.search = search;
-        const ordering = undefined;
-        if (ordering) params.ordering = ordering;
-        const filters = {};
-        if (filters) params.filters = filters;
+    const parseQueryParams = useCallback(
+        (status: RoadmapStatus): Omit<PaginationQueryParams, "page" | "page_size"> => {
+            const params: Omit<PaginationQueryParams, "page" | "page_size"> = {};
+            if (search) params.search = search;
+            const ordering = undefined;
+            if (ordering) params.ordering = ordering;
+            const filters = {};
+            if (filters) params.filters = filters;
 
-        return { ...params, filters: { ...params.filters, status } };
-    }, []);
+            return { ...params, filters: { ...params.filters, status } };
+        },
+        [search]
+    );
 
     const plannedQueryParams = useMemo(() => parseQueryParams("planned"), [parseQueryParams]);
     const inProgressQueryParams = useMemo(() => parseQueryParams("in_progress"), [parseQueryParams]);
@@ -218,6 +242,7 @@ const useRoadmapList = () => {
 
     const fetchNextPage = useCallback(
         (type: RoadmapStatus) => {
+            console.log(`fetch next page (${type})`);
             switch (type) {
                 case "planned":
                     fetchPlannedNextPage();
@@ -238,15 +263,18 @@ const useRoadmapList = () => {
         [fetchPlannedNextPage, fetchInProgressNextPage, fetchCompletedNextPage, fetchOnHoldNextPage]
     );
 
-    const parseFlatMap = useCallback((map: TRoadmapItem[], isLoading: boolean, hasMore: boolean) => {
-        const mapCache = [...map];
-        if (isLoading) {
-            mapCache.push(LOADING_ITEM);
-        } else if (hasMore) {
-            mapCache.push(LOAD_MORE_ITEM);
-        }
-        return mapCache;
-    }, []);
+    const parseFlatMap = useCallback(
+        (map: TRoadmapItem[], isLoading: boolean, hasMore: boolean, status: RoadmapStatus) => {
+            const mapCache = [...map];
+            if (isLoading) {
+                mapCache.push({ ...LOADING_ITEM, status });
+            } else if (hasMore) {
+                mapCache.push({ ...LOAD_MORE_ITEM, status });
+            }
+            return mapCache;
+        },
+        []
+    );
 
     const getLastPageItem = useCallback((pages: TRoadmapList[] | undefined) => {
         if (!pages) return undefined;
@@ -274,22 +302,26 @@ const useRoadmapList = () => {
         const flatPlanned = parseFlatMap(
             planned?.pages.flatMap((page) => page.results) || [],
             isFetchingPlanned,
-            plannedHaveMore
+            plannedHaveMore,
+            "planned"
         );
         const flatInProgress = parseFlatMap(
             inProgress?.pages.flatMap((page) => page.results) || [],
             isFetchingInProgress,
-            inProgressHaveMore
+            inProgressHaveMore,
+            "in_progress"
         );
         const flatCompleted = parseFlatMap(
             completed?.pages.flatMap((page) => page.results) || [],
             isFetchingCompleted,
-            completedHaveMore
+            completedHaveMore,
+            "completed"
         );
         const flatOnHold = parseFlatMap(
             onHold?.pages.flatMap((page) => page.results) || [],
             isFetchingOnHold,
-            onHoldHaveMore
+            onHoldHaveMore,
+            "on_hold"
         );
 
         // Now we need to know, which status have the highest amount of items currently fetched
@@ -382,7 +414,15 @@ const useRoadmapList = () => {
 
     useDebugValue({ data, hasPlannedNextPage, generateDropClassname, appliedColumnOrder });
 
-    return { data, dndProviderProps, draggedItem, fetchNextPage };
+    return {
+        data,
+        dndProviderProps,
+        draggedItem,
+        fetchNextPage,
+        searchValue,
+        handleChangeSearch,
+        handleChangeSearchValue,
+    };
 };
 
 export default useRoadmapList;

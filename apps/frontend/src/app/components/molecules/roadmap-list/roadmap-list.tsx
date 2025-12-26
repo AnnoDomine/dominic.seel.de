@@ -1,8 +1,19 @@
 import type { Active, CollisionDetection, DroppableContainer } from "@dnd-kit/core";
-import { DndContext, DragOverlay, pointerWithin, rectIntersection } from "@dnd-kit/core";
+import {
+    DndContext,
+    DragOverlay,
+    MouseSensor,
+    pointerWithin,
+    rectIntersection,
+    TouchSensor,
+    useSensor,
+    useSensors,
+} from "@dnd-kit/core";
 import type { RectMap } from "@dnd-kit/core/dist/store";
 import type { ClientRect, Coordinates } from "@dnd-kit/core/dist/types";
-import { TextField } from "@mui/material";
+import ClearTwoToneIcon from "@mui/icons-material/ClearTwoTone";
+import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
+import { IconButton, TextField } from "@mui/material";
 import { theme } from "../../../../main";
 import type { TRoadmapItem } from "../../../../types/redux/roadmap";
 import RoadmapItem from "../../atoms/roadmap-item/roadmap-item";
@@ -32,7 +43,27 @@ const customCollisionDetectionAlgorithm: CollisionDetection = (args: CollisionDe
 };
 
 const RoadmapList = () => {
-    const { dndProviderProps, draggedItem, data, fetchNextPage, searchValue, handleChangeSearch } = useRoadmapList();
+    const mouseSensor = useSensor(MouseSensor, {
+        activationConstraint: {
+            distance: 10,
+        },
+    });
+    const touchSensor = useSensor(TouchSensor, {
+        activationConstraint: {
+            delay: 250,
+            tolerance: 5,
+        },
+    });
+    const sensors = useSensors(mouseSensor, touchSensor);
+    const {
+        dndProviderProps,
+        draggedItem,
+        data,
+        fetchNextPage,
+        searchValue,
+        handleChangeSearch,
+        handleChangeSearchValue,
+    } = useRoadmapList();
     return (
         <div
             style={{
@@ -45,9 +76,34 @@ const RoadmapList = () => {
             }}
         >
             <div>
-                <TextField value={searchValue} onChange={handleChangeSearch} />
+                <TextField
+                    value={searchValue}
+                    onChange={handleChangeSearch}
+                    variant="standard"
+                    placeholder="Search..."
+                    slotProps={{
+                        input: {
+                            startAdornment: !searchValue ? (
+                                <SearchTwoToneIcon color="primary" sx={{ marginRight: "8px" }} fontSize="small" />
+                            ) : undefined,
+                            endAdornment: searchValue ? (
+                                <IconButton
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+                                        handleChangeSearchValue("");
+                                    }}
+                                    size="small"
+                                    sx={{ marginLeft: "8px" }}
+                                >
+                                    <ClearTwoToneIcon color="primary" fontSize="small" />
+                                </IconButton>
+                            ) : undefined,
+                        },
+                    }}
+                />
             </div>
-            <DndContext {...dndProviderProps} collisionDetection={customCollisionDetectionAlgorithm}>
+            <DndContext {...dndProviderProps} sensors={sensors} collisionDetection={customCollisionDetectionAlgorithm}>
                 <div
                     style={{
                         display: "grid",

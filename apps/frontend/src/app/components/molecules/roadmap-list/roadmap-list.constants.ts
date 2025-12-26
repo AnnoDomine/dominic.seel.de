@@ -8,6 +8,7 @@ export const EMPTY_ITEM: Omit<TRoadmapItem, "title"> = {
     description: "",
     target_date: "",
     status: "planned",
+    related_project: null,
 };
 
 export const LOADING_ITEM: TRoadmapItem = { ...EMPTY_ITEM, title: RoadmapAdditionalItems.LOADING };
