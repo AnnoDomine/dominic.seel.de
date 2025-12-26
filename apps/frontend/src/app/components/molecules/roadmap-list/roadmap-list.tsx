@@ -2,6 +2,8 @@ import type { Active, CollisionDetection, DroppableContainer } from "@dnd-kit/co
 import { DndContext, DragOverlay, pointerWithin, rectIntersection } from "@dnd-kit/core";
 import type { RectMap } from "@dnd-kit/core/dist/store";
 import type { ClientRect, Coordinates } from "@dnd-kit/core/dist/types";
+import { TextField } from "@mui/material";
+import { theme } from "../../../../main";
 import type { TRoadmapItem } from "../../../../types/redux/roadmap";
 import RoadmapItem from "../../atoms/roadmap-item/roadmap-item";
 import type { RoadmapBoardProps } from "../roadmap-board/roadmap-board";
@@ -30,42 +32,55 @@ const customCollisionDetectionAlgorithm: CollisionDetection = (args: CollisionDe
 };
 
 const RoadmapList = () => {
-    const { dndProviderProps, draggedItem, data, fetchNextPage } = useRoadmapList();
+    const { dndProviderProps, draggedItem, data, fetchNextPage, searchValue, handleChangeSearch } = useRoadmapList();
     return (
-        <DndContext {...dndProviderProps} collisionDetection={customCollisionDetectionAlgorithm}>
-            <div
-                style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(4, 1fr)",
-                    margin: "16px",
-                    border: "1px solid #ccc",
-                    height: "100%",
-                }}
-            >
-                {data.map((col) => (
-                    <RoadmapBoard key={col.field} {...col} fetchNextPage={fetchNextPage} />
-                ))}
+        <div
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                padding: theme.spacing(0, 2),
+                height: "100%",
+                overflow: "clip",
+                gap: "8px",
+            }}
+        >
+            <div>
+                <TextField value={searchValue} onChange={handleChangeSearch} />
             </div>
-            {draggedItem && (
-                <DragOverlay>
-                    {(draggedItem.active.data.current as RoadmapBoardProps).type === "status" ? (
-                        <RoadmapBoard
-                            key={(draggedItem.active.data.current as RoadmapBoardProps).field}
-                            {...(draggedItem.active.data.current as RoadmapBoardProps)}
-                            isOverlay
-                        />
-                    ) : (
-                        <RoadmapItem
-                            isOverlay
-                            type="item"
-                            item={draggedItem.active.data.current as TRoadmapItem}
-                            triggerLoadMore={() => null}
-                            status={(draggedItem.active.data.current as TRoadmapItem).status}
-                        />
-                    )}
-                </DragOverlay>
-            )}
-        </DndContext>
+            <DndContext {...dndProviderProps} collisionDetection={customCollisionDetectionAlgorithm}>
+                <div
+                    style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(4, 1fr)",
+                        border: "1px solid #ccc",
+                        height: "100%",
+                    }}
+                >
+                    {data.map((col) => (
+                        <RoadmapBoard key={col.field} {...col} fetchNextPage={fetchNextPage} />
+                    ))}
+                </div>
+                {draggedItem && (
+                    <DragOverlay>
+                        {(draggedItem.active.data.current as RoadmapBoardProps).type === "status" ? (
+                            <RoadmapBoard
+                                key={(draggedItem.active.data.current as RoadmapBoardProps).field}
+                                {...(draggedItem.active.data.current as RoadmapBoardProps)}
+                                isOverlay
+                            />
+                        ) : (
+                            <RoadmapItem
+                                isOverlay
+                                type="item"
+                                item={draggedItem.active.data.current as TRoadmapItem}
+                                triggerLoadMore={() => null}
+                                status={(draggedItem.active.data.current as TRoadmapItem).status}
+                            />
+                        )}
+                    </DragOverlay>
+                )}
+            </DndContext>
+        </div>
     );
 };
 

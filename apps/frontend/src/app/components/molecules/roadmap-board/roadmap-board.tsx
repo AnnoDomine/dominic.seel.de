@@ -51,7 +51,7 @@ const RoadmapBoard = ({ field, cells, headerName, fetchNextPage, isOverlay }: Pr
                 border: isDropable
                     ? `2px dashed ${theme.palette.primary.main}`
                     : `0.5px solid ${theme.palette.divider}`,
-                minHeight: "800px",
+                height: "100%",
                 transition: "background-color 0.3s ease, box-shadow 0.3s ease",
                 opacity: isOverlay || isDragging ? 0.3 : 1,
                 overflow: isOverlay ? "hidden" : "auto",
