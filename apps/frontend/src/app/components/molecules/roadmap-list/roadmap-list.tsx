@@ -53,7 +53,8 @@ const RoadmapList = () => {
                         display: "grid",
                         gridTemplateColumns: "repeat(4, 1fr)",
                         border: "1px solid #ccc",
-                        height: "100%",
+                        flex: 1,
+                        minHeight: 0,
                     }}
                 >
                     {data.map((col) => (
