@@ -1,17 +1,12 @@
-import type { DragEndEvent, DragStartEvent } from "@dnd-kit/core";
+import type { DragEndEvent, DragMoveEvent, DragStartEvent } from "@dnd-kit/core";
 import type { Props } from "@dnd-kit/core/dist/components/DndContext/DndContext";
-import { Divider } from "@mui/material";
-import type { DataGridProps, GridColDef, GridColType, GridFilterModel } from "@mui/x-data-grid";
-import { GridLogicOperator, GridRow } from "@mui/x-data-grid";
-import { useCallback, useDebugValue, useMemo } from "react";
+import { useCallback, useDebugValue, useMemo, useState } from "react";
 import { useImmer } from "use-immer";
-import { parseFilterModel } from "../../../../../../../libs/utils/src";
-import { theme } from "../../../../main";
 import { useListRoadmapInfiniteQuery, usePartialUpdateRoadmapItemMutation } from "../../../../redux/queries/roadmap";
 import type { PaginationQueryParams } from "../../../../types/common";
 import type { RoadmapStatus, TRoadmapItem, TRoadmapList } from "../../../../types/redux/roadmap";
-import DataGridPagination from "../../atoms/data-grid-pagination/data-grid-pagination";
-import RoadmapItem from "../../atoms/roadmap-item/roadmap-item";
+import useLocalPreferences from "../../../../utils/local-preferences/local-preferences";
+import type { RoadmapBoardProps } from "../roadmap-board/roadmap-board";
 import { LOAD_MORE_ITEM, LOADING_ITEM } from "./roadmap-list.constants";
 import { RoadmapAdditionalItems } from "./roadmap-list.enums";
 
@@ -22,11 +17,10 @@ export type ItemDef = {
 };
 
 export type RowDef = {
-    id: number;
-    planned: ItemDef | null;
-    in_progress: ItemDef | null;
-    completed: ItemDef | null;
-    on_hold: ItemDef | null;
+    planned: ItemDef[];
+    in_progress: ItemDef[];
+    completed: ItemDef[];
+    on_hold: ItemDef[];
 };
 
 const columnMap: Array<{ field: RoadmapStatus; label: string }> = [
@@ -49,69 +43,35 @@ const columnMap: Array<{ field: RoadmapStatus; label: string }> = [
 ];
 
 const useRoadmapList = () => {
-    const columns = useCallback(
-        (triggerLoadMore: (type: RoadmapStatus) => void): GridColDef<RowDef>[] =>
-            columnMap.map((c) => ({
-                field: c.field,
-                headerName: c.label,
-                flex: 1,
-                headerAlign: "center",
-                disableColumnMenu: true,
-                sortable: false,
-                renderCell: (params) =>
-                    params.row[c.field] ? (
-                        <RoadmapItem
-                            type={params.row[c.field]?.type || "loading"}
-                            item={params.row[c.field]?.item || LOADING_ITEM}
-                            triggerLoadMore={triggerLoadMore}
-                            status={c.field}
-                        />
-                    ) : null,
-            })),
-        []
-    );
-
-    const [filterModel, setFilterModel] = useImmer<GridFilterModel>({
-        items: [],
-        logicOperator: GridLogicOperator.And,
-    });
+    const [getPreferences, setPreferences] = useLocalPreferences();
 
     const [draggedItem, setDraggedItem] = useImmer<DragStartEvent | null>(null);
 
-    const columnByType: Record<string, GridColType> = useMemo(
-        () =>
-            columns(() => null).reduce(
-                (acc, col): Record<string, GridColType> => {
-                    acc[col.field] = (col.type || "string") as GridColType;
-                    return acc;
-                },
-                {} as Record<string, GridColType>
-            ),
-        [columns]
+    const [columnOrder, setColumnOrder] = useState<Array<(typeof columnMap)[number]["field"]> | null>(
+        getPreferences("roadmap_column_order") || columnMap.map((c) => c.field)
+    );
+    const [usedColumnOrder, setUsedColumnOrder] = useState<Array<(typeof columnMap)[number]["field"]>>(
+        getPreferences("roadmap_column_order") || columnMap.map((c) => c.field)
     );
 
-    const parsedFilterParams = useMemo((): Partial<Record<string, string | number | boolean>> | undefined => {
-        if (!filterModel.items.length) return undefined;
+    const appliedColumnOrder = useMemo(() => {
+        if (draggedItem && (draggedItem.active.data.current as RoadmapBoardProps).type === "status") {
+            return columnOrder || usedColumnOrder;
+        }
+        return usedColumnOrder;
+    }, [columnOrder, usedColumnOrder, draggedItem]);
 
-        // Parse the filter
-        const parsedItems = parseFilterModel(filterModel, columnByType, ["status"]);
-        return parsedItems;
-    }, [filterModel, columnByType]);
+    const parseQueryParams = useCallback((status: RoadmapStatus): Omit<PaginationQueryParams, "page" | "page_size"> => {
+        const params: Omit<PaginationQueryParams, "page" | "page_size"> = {};
+        const search = undefined;
+        if (search) params.search = search;
+        const ordering = undefined;
+        if (ordering) params.ordering = ordering;
+        const filters = {};
+        if (filters) params.filters = filters;
 
-    const parseQueryParams = useCallback(
-        (status: RoadmapStatus): Omit<PaginationQueryParams, "page" | "page_size"> => {
-            const params: Omit<PaginationQueryParams, "page" | "page_size"> = {};
-            const search = undefined;
-            if (search) params.search = search;
-            const ordering = undefined;
-            if (ordering) params.ordering = ordering;
-            const filters = parsedFilterParams;
-            if (filters) params.filters = filters;
-
-            return { ...params, filters: { ...params.filters, status } };
-        },
-        [parsedFilterParams]
-    );
+        return { ...params, filters: { ...params.filters, status } };
+    }, []);
 
     const plannedQueryParams = useMemo(() => parseQueryParams("planned"), [parseQueryParams]);
     const inProgressQueryParams = useMemo(() => parseQueryParams("in_progress"), [parseQueryParams]);
@@ -163,6 +123,52 @@ const useRoadmapList = () => {
         [refetchCompleted, refetchOnHold, refetchInProgress, refetchPlanned]
     );
 
+    const orderSetterHelper = useCallback(
+        (draft: Array<RoadmapStatus>, dropId: RoadmapStatus, draggedId: RoadmapStatus) => {
+            // Get the current index of the dragged item
+            const draggedIdx = draft.indexOf(draggedId);
+            // Get the index of the dropped item. Over means always befor the column
+            const dropIdx = draft.indexOf(dropId);
+
+            const currentColumnOrder = [...draft];
+            console.table({ currentColumnOrder, draggedIdx, dropIdx });
+            currentColumnOrder.splice(dropIdx, 0, currentColumnOrder.splice(draggedIdx, 1)[0]);
+            return currentColumnOrder;
+        },
+        []
+    );
+
+    const handleColumOrderChanges = useCallback(
+        (item: DragMoveEvent | DragEndEvent, apply = false) => {
+            if (
+                !item.over ||
+                !draggedItem ||
+                (draggedItem.active.data.current as RoadmapBoardProps).type !== "status"
+            ) {
+                return;
+            }
+
+            // Now lets place the dragged item one index befor the dropped item
+            if (apply) {
+                setUsedColumnOrder((draft) => {
+                    const newOrder = columnOrder || draft;
+                    setPreferences("roadmap_column_order", newOrder);
+                    setColumnOrder(null);
+                    return newOrder;
+                });
+            } else {
+                setColumnOrder((draft) =>
+                    orderSetterHelper(
+                        draft || usedColumnOrder,
+                        item.over?.id as RoadmapStatus,
+                        (draggedItem.active.data.current as RoadmapBoardProps).field
+                    )
+                );
+            }
+        },
+        [draggedItem, setPreferences, orderSetterHelper, usedColumnOrder, columnOrder]
+    );
+
     const [updateRoadmapItem] = usePartialUpdateRoadmapItemMutation();
 
     const onDragStart = useCallback(
@@ -174,15 +180,15 @@ const useRoadmapList = () => {
 
     const onDragEnd = useCallback(
         (item: DragEndEvent | null) => {
-            console.table({ item, draggedItem });
-            if (
-                item?.over &&
-                (item.over.data.current as TRoadmapItem).status !==
-                    (draggedItem?.active.data.current as TRoadmapItem).status
-            ) {
+            if (!draggedItem) return;
+            if (item && (draggedItem.active.data.current?.type as unknown as string) === "status") {
+                handleColumOrderChanges(item, true);
+                return;
+            }
+            if (item?.over && item.over.id !== (draggedItem?.active.data.current as TRoadmapItem).status) {
                 updateRoadmapItem({
-                    id: (draggedItem?.active.data.current as TRoadmapItem).id,
-                    status: (item.over.data.current as TRoadmapItem).status,
+                    id: draggedItem.active.id as number,
+                    status: item.over.id as RoadmapStatus,
                 })
                     .unwrap()
                     .then(() => {
@@ -191,15 +197,23 @@ const useRoadmapList = () => {
             }
             setDraggedItem(null);
         },
-        [setDraggedItem, draggedItem, updateRoadmapItem, refetchInfinityQueries]
+        [setDraggedItem, draggedItem, updateRoadmapItem, refetchInfinityQueries, handleColumOrderChanges]
+    );
+
+    const onDragOver = useCallback(
+        (item: DragMoveEvent) => {
+            handleColumOrderChanges(item);
+        },
+        [handleColumOrderChanges]
     );
 
     const dndProviderProps = useMemo(
         (): Props => ({
             onDragEnd,
             onDragStart,
+            onDragOver,
         }),
-        [onDragEnd, onDragStart]
+        [onDragEnd, onDragStart, onDragOver]
     );
 
     const fetchNextPage = useCallback(
@@ -248,35 +262,7 @@ const useRoadmapList = () => {
         return "item";
     }, []);
 
-    const createColumnCss = useCallback((status: RoadmapStatus) => {
-        let color = theme.palette.primary.main;
-        switch (status) {
-            case "completed":
-                color = theme.palette.primary.main;
-                break;
-            case "in_progress":
-                color = theme.palette.success.main;
-                break;
-            case "planned":
-                color = theme.palette.warning.main;
-                break;
-            case "on_hold":
-                color = theme.palette.error.main;
-                break;
-            default:
-                break;
-        }
-
-        return {
-            transition: "background-color 0.2s ease-in-out",
-            background: `linear-gradient(to right, ${color} 0%, ${color} 2%, transparent 8%, transparent 92%, ${color} 98%, ${color} 100%)`,
-            [`&.dropable-${status}`]: {
-                background: `linear-gradient(to right, ${color} 0%, ${color} 8%, transparent 13%, transparent 87%, ${color} 92%, ${color} 100%)`,
-            },
-        };
-    }, []);
-
-    const createdRows = useMemo((): RowDef[] => {
+    const createdRows = useMemo((): RowDef => {
         // We need to know, if there are nore items in the related status
         // We will archive this, by getting the last fetched page and check if there is "next" defined
         const plannedHaveMore = !!getLastPageItem(planned?.pages)?.next;
@@ -319,44 +305,45 @@ const useRoadmapList = () => {
         // item = { id: item.id, type: "item" | "loading" | "load_more", item: item }
         // First we create an array based on the amount of the kighest item map.
         const itemArray = Array.from({ length: highestAmount }, (_, index) => index);
-        return itemArray.map((idx): RowDef => {
-            const p = flatPlanned[idx]
-                ? {
-                      id: flatPlanned[idx].id.toString(),
-                      type: getItemType(flatPlanned[idx]),
-                      item: flatPlanned[idx],
-                  }
-                : null;
-            const iP = flatInProgress[idx]
-                ? {
-                      id: flatInProgress[idx].id.toString(),
-                      type: getItemType(flatInProgress[idx]),
-                      item: flatInProgress[idx],
-                  }
-                : null;
-            const c = flatCompleted[idx]
-                ? {
-                      id: flatCompleted[idx].id.toString(),
-                      type: getItemType(flatCompleted[idx]),
-                      item: flatCompleted[idx],
-                  }
-                : null;
-            const oH = flatOnHold[idx]
-                ? {
-                      id: flatOnHold[idx].id.toString(),
-                      type: getItemType(flatOnHold[idx]),
-                      item: flatOnHold[idx],
-                  }
-                : null;
 
-            return {
-                id: idx,
-                planned: p,
-                in_progress: iP,
-                completed: c,
-                on_hold: oH,
-            };
+        const cells: RowDef = {
+            planned: [],
+            in_progress: [],
+            completed: [],
+            on_hold: [],
+        };
+
+        itemArray.forEach((idx) => {
+            if (flatPlanned[idx]) {
+                cells.planned.push({
+                    id: flatPlanned[idx].id.toString(),
+                    type: getItemType(flatPlanned[idx]),
+                    item: flatPlanned[idx],
+                });
+            }
+            if (flatInProgress[idx]) {
+                cells.in_progress.push({
+                    id: flatInProgress[idx].id.toString(),
+                    type: getItemType(flatInProgress[idx]),
+                    item: flatInProgress[idx],
+                });
+            }
+            if (flatCompleted[idx]) {
+                cells.completed.push({
+                    id: flatCompleted[idx].id.toString(),
+                    type: getItemType(flatCompleted[idx]),
+                    item: flatCompleted[idx],
+                });
+            }
+            if (flatOnHold[idx]) {
+                cells.on_hold.push({
+                    id: flatOnHold[idx].id.toString(),
+                    type: getItemType(flatOnHold[idx]),
+                    item: flatOnHold[idx],
+                });
+            }
         });
+        return cells;
     }, [
         parseFlatMap,
         planned,
@@ -381,48 +368,21 @@ const useRoadmapList = () => {
             .join(" ");
     }, [draggedItem]);
 
-    const dataGridParams = useMemo(
-        (): DataGridProps<RowDef> => ({
-            rows: createdRows,
-            columns: columns(fetchNextPage),
-            rowHeight: 130,
-            sortingMode: "server",
-            sortingOrder: ["asc", "desc"],
-            slots: {
-                pagination: null,
-                footer: () => (
-                    <>
-                        <Divider />
-                        <DataGridPagination />
-                    </>
-                ),
-                row: (params) => <GridRow {...params} className="pointer" />,
-            },
-            pageSizeOptions: [],
-            paginationModel: {
-                page: 0,
-                pageSize: 25,
-            },
-            filterMode: "server",
-            filterModel,
-            onFilterModelChange: setFilterModel,
-            getCellClassName: (params) => `${params.colDef.field} ${generateDropClassname}`,
-            sx: {
-                "& .completed": createColumnCss("completed"),
-                "& .in_progress": createColumnCss("in_progress"),
-                "& .planned": createColumnCss("planned"),
-                "& .on_hold": createColumnCss("on_hold"),
-                "& .pointer": {
-                    cursor: "pointer",
-                },
-            },
-        }),
-        [columns, createdRows, filterModel, setFilterModel, fetchNextPage, createColumnCss, generateDropClassname]
+    const data = useMemo(
+        () =>
+            columnMap
+                .map((c) => ({
+                    field: c.field,
+                    headerName: c.label,
+                    cells: createdRows[c.field] || [],
+                }))
+                .sort((a, b) => appliedColumnOrder.indexOf(a.field) - appliedColumnOrder.indexOf(b.field)),
+        [createdRows, appliedColumnOrder]
     );
 
-    useDebugValue({ dataGridParams, hasPlannedNextPage, generateDropClassname });
+    useDebugValue({ data, hasPlannedNextPage, generateDropClassname, appliedColumnOrder });
 
-    return { dataGridParams, dndProviderProps, draggedItem };
+    return { data, dndProviderProps, draggedItem, fetchNextPage };
 };
 
 export default useRoadmapList;

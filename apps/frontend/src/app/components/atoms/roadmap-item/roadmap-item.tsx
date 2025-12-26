@@ -1,41 +1,33 @@
-import { useDraggable, useDroppable } from "@dnd-kit/core";
+import { useDraggable } from "@dnd-kit/core";
 import { Button, Skeleton, styled, Typography } from "@mui/material";
 import clsx from "clsx";
 import type { RoadmapStatus, TRoadmapItem } from "../../../../types/redux/roadmap";
 
 const RoadmapItemContainer = styled("div")(({ theme }) => ({
-    margin: theme.spacing(1, 0, 1, 0),
-    padding: theme.spacing(1, 4, 1, 4),
+    margin: theme.spacing(1, 1, 1, 1),
+    padding: theme.spacing(1, 2, 1, 2),
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "space-between",
-    transition: "background-color 0.3s ease border 0.3s ease opacity 0.3s ease",
-    border: "2px solid rgba(255,255,255,1)",
-    backgroundColor: "rgba(255,255,255,1)",
+    transition: "background-color 0.3s ease, outline 0.3s ease, opacity 0.3s ease",
+    outline: `1px solid ${theme.palette.primary.main}`,
+    backgroundColor: theme.palette.background.paper,
     opacity: 0.7,
     height: "90px",
     borderRadius: theme.shape.borderRadius,
     "&:hover": {
-        backgroundColor: theme.palette.primary.light,
-        border: "2px solid rgba(255,255,255,0.5)",
+        outline: `2px solid ${theme.palette.primary.light}`,
         opacity: 1,
+        cursor: "grab",
     },
     "&.dragged": {
         opacity: 0.3,
+        cursor: "grabbing",
     },
     "&.overlay": {
+        outline: `2px solid ${theme.palette.primary.light}`,
         opacity: 0.5,
-    },
-    "&.dropable": {
-        borderColor: "rgba(20,234,1,1)",
-    },
-    "&.over": {
-        borderColor: "rgba(25,142,33,1)",
-        backgroundColor: "rgba(20,234,1,0.3)",
-    },
-    "&.invisible": {
-        visibility: "hidden",
     },
 }));
 
@@ -58,14 +50,9 @@ type Props = {
 const RoadmapItem = ({ type, item, triggerLoadMore, status, isOverlay }: Props) => {
     const dragProps = useDraggable({
         id: item.id,
-        data: item,
-    });
-    const dropProps = useDroppable({
-        id: item.id,
-        data: item,
+        data: { ...item, type: "item" },
     });
     const isActiveItem = dragProps.isDragging;
-    const disableDrag = !isActiveItem && dragProps.active?.id !== dragProps.over?.id;
 
     const draggingProps = {
         ref: dragProps.setNodeRef,
@@ -73,16 +60,6 @@ const RoadmapItem = ({ type, item, triggerLoadMore, status, isOverlay }: Props) 
         ...dragProps.attributes,
         ...dragProps.listeners,
     };
-
-    const droppingProps = {
-        ref: dropProps.setNodeRef,
-        className: clsx({
-            dropable: dragProps.active && dragProps.active.id !== item.id,
-            over: item.id === dropProps.over?.id,
-        }),
-    };
-
-    const usedProps = disableDrag ? droppingProps : draggingProps;
 
     switch (type) {
         case "loading":
@@ -134,14 +111,11 @@ const RoadmapItem = ({ type, item, triggerLoadMore, status, isOverlay }: Props) 
                     </Button>
                 </div>
             );
-        case "fake": {
-            return <RoadmapItemContainer {...droppingProps} className="invisible" />;
-        }
         default:
             break;
     }
     return (
-        <RoadmapItemContainer {...usedProps} key={item.id}>
+        <RoadmapItemContainer {...draggingProps} key={item.id}>
             <RoadmapItemHeader variant="h4">{item.title}</RoadmapItemHeader>
             <RoadmapItemTarget variant="body1">
                 Target: {new Date(item.target_date).toLocaleDateString()}
