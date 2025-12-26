@@ -1,0 +1,856 @@
+[
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-04-27T12:00:00Z",
+      "updated_at": "2025-04-27T12:00:00Z",
+      "title": "feat: initialize WoWCastRotation project with Vite and React",
+      "description": "- Add main application structure with App component and CSS styles.",
+      "target_date": "2025-04-27",
+      "status": "completed",
+      "order": 1,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-05-25T12:00:00Z",
+      "updated_at": "2025-05-25T12:00:00Z",
+      "title": "feat: Initial monorepo setup with Nx, Django (Ruff) and React (Vite, Vitest, Playwright)",
+      "description": "Implemented in commit 713f1572",
+      "target_date": "2025-05-25",
+      "status": "completed",
+      "order": 2,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-05-25T12:00:00Z",
+      "updated_at": "2025-05-25T12:00:00Z",
+      "title": "feat: remove unused files and clean up project structure",
+      "description": "- Deleted App.css, App.tsx, and index.css as they were no longer needed.",
+      "target_date": "2025-05-25",
+      "status": "completed",
+      "order": 3,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-05-25T12:00:00Z",
+      "updated_at": "2025-05-25T12:00:00Z",
+      "title": "feat: Initial monorepo setup with Nx, Django (Ruff) and React (Vite, Vitest, Playwright) - Corrected Structure",
+      "description": "Implemented in commit 199a6103",
+      "target_date": "2025-05-25",
+      "status": "completed",
+      "order": 4,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-05-25T12:00:00Z",
+      "updated_at": "2025-05-25T12:00:00Z",
+      "title": "chore: Remove node_modules, venv, and dist from git tracking via .gitignore",
+      "description": "Implemented in commit f6162bdc",
+      "target_date": "2025-05-25",
+      "status": "completed",
+      "order": 5,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 6,
+    "fields": {
+      "created_at": "2025-05-25T12:00:00Z",
+      "updated_at": "2025-05-25T12:00:00Z",
+      "title": "refactor: standardize quotes and formatting in configuration files",
+      "description": "- Updated pnpm-workspace.yaml to use double quotes for package paths.",
+      "target_date": "2025-05-25",
+      "status": "completed",
+      "order": 6,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 7,
+    "fields": {
+      "created_at": "2025-05-25T12:00:00Z",
+      "updated_at": "2025-05-25T12:00:00Z",
+      "title": "feat(backend): Implementiere Portfolio-App mit Modellen, Serializern und API-Endpunkten",
+      "description": "Implemented in commit 3357d9ea",
+      "target_date": "2025-05-25",
+      "status": "completed",
+      "order": 7,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 8,
+    "fields": {
+      "created_at": "2025-05-25T12:00:00Z",
+      "updated_at": "2025-05-25T12:00:00Z",
+      "title": "refactor: Entferne unn\u00f6tige Navigationselemente aus der App-Komponente",
+      "description": "Implemented in commit 64326831",
+      "target_date": "2025-05-25",
+      "status": "completed",
+      "order": 8,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-05-25T12:00:00Z",
+      "updated_at": "2025-05-25T12:00:00Z",
+      "title": "refactor: Entferne \u00fcberfl\u00fcssige Kommentare zur Release-Bedingung im CI-Workflow",
+      "description": "Implemented in commit 947e2a5a",
+      "target_date": "2025-05-25",
+      "status": "completed",
+      "order": 9,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 10,
+    "fields": {
+      "created_at": "2025-05-25T12:00:00Z",
+      "updated_at": "2025-05-25T12:00:00Z",
+      "title": "refactor: Entferne \u00fcberfl\u00fcssige Kommentare und verbessere die Lesbarkeit im CI-Workflow",
+      "description": "Implemented in commit 93c01350",
+      "target_date": "2025-05-25",
+      "status": "completed",
+      "order": 10,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 11,
+    "fields": {
+      "created_at": "2025-05-25T12:00:00Z",
+      "updated_at": "2025-05-25T12:00:00Z",
+      "title": "refactor: Entferne \u00fcberfl\u00fcssigen Test f\u00fcr den Begr\u00fc\u00dfungstitel in der App-Komponente",
+      "description": "Implemented in commit 96dea01d",
+      "target_date": "2025-05-25",
+      "status": "completed",
+      "order": 11,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 12,
+    "fields": {
+      "created_at": "2025-05-25T12:00:00Z",
+      "updated_at": "2025-05-25T12:00:00Z",
+      "title": "feat: F\u00fcge Initialisierung des Python-venv hinzu, wenn nicht vorhanden",
+      "description": "Implemented in commit 3fd1a3df",
+      "target_date": "2025-05-25",
+      "status": "completed",
+      "order": 12,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 13,
+    "fields": {
+      "created_at": "2025-05-25T12:00:00Z",
+      "updated_at": "2025-05-25T12:00:00Z",
+      "title": "refactor: Initialisiere Python-venv in der App-Komponente, wenn nicht vorhanden, und installiere Abh\u00e4ngigkeiten",
+      "description": "Implemented in commit fe4fd3e0",
+      "target_date": "2025-05-25",
+      "status": "completed",
+      "order": 13,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 14,
+    "fields": {
+      "created_at": "2025-05-25T12:00:00Z",
+      "updated_at": "2025-05-25T12:00:00Z",
+      "title": "feat: F\u00fcge Pillow-Bibliothek zu den Anforderungen hinzu",
+      "description": "Implemented in commit 106ef4a6",
+      "target_date": "2025-05-25",
+      "status": "completed",
+      "order": 14,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 15,
+    "fields": {
+      "created_at": "2025-05-29T12:00:00Z",
+      "updated_at": "2025-05-29T12:00:00Z",
+      "title": "feat: F\u00fcge Technologie-Modell und zugeh\u00f6rige Migrationen hinzu; aktualisiere Projektmodell mit neuen Feldern und verbessere die API-Ansichten",
+      "description": "Implemented in commit 4a6a16b8",
+      "target_date": "2025-05-29",
+      "status": "completed",
+      "order": 15,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 16,
+    "fields": {
+      "created_at": "2025-05-29T12:00:00Z",
+      "updated_at": "2025-05-29T12:00:00Z",
+      "title": "feat: F\u00fcge Technologie-Modell, Serializer und ViewSet hinzu; aktualisiere Admin- und URL-Konfigurationen sowie Paginierung f\u00fcr API-Ansichten",
+      "description": "Implemented in commit 28a8880c",
+      "target_date": "2025-05-29",
+      "status": "completed",
+      "order": 16,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 17,
+    "fields": {
+      "created_at": "2025-06-01T12:00:00Z",
+      "updated_at": "2025-06-01T12:00:00Z",
+      "title": "feat: add NavigationIcon component with tests",
+      "description": "- Implemented NavigationIcon component to render different icons based on the type prop.",
+      "target_date": "2025-06-01",
+      "status": "completed",
+      "order": 17,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 18,
+    "fields": {
+      "created_at": "2025-06-01T12:00:00Z",
+      "updated_at": "2025-06-01T12:00:00Z",
+      "title": "feat: f\u00fcge Authentifizierungs- und CORS-Konfigurationen hinzu; aktualisiere Anforderungen und URLs f\u00fcr die API",
+      "description": "Implemented in commit 552f25b6",
+      "target_date": "2025-06-01",
+      "status": "completed",
+      "order": 18,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 19,
+    "fields": {
+      "created_at": "2025-06-01T12:00:00Z",
+      "updated_at": "2025-06-01T12:00:00Z",
+      "title": "feat: f\u00fcge Redux Toolkit und React-Redux hinzu; aktualisiere package.json und pnpm-lock.yaml",
+      "description": "Implemented in commit fc1b2e24",
+      "target_date": "2025-06-01",
+      "status": "completed",
+      "order": 19,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 20,
+    "fields": {
+      "created_at": "2025-06-01T12:00:00Z",
+      "updated_at": "2025-06-01T12:00:00Z",
+      "title": "feat: f\u00fcge TypeScript-Pr\u00e4ferenz f\u00fcr relative Modul-Spezifizierer hinzu; aktualisiere VSCode-Einstellungen",
+      "description": "Implemented in commit 9aa63a8e",
+      "target_date": "2025-06-01",
+      "status": "completed",
+      "order": 20,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 21,
+    "fields": {
+      "created_at": "2025-07-19T12:00:00Z",
+      "updated_at": "2025-07-19T12:00:00Z",
+      "title": "chore: update pnpm workspace configuration and add path mapping for components",
+      "description": "- Modified pnpm-workspace.yaml to simplify package paths and specify only built dependencies (esbuild, nx).",
+      "target_date": "2025-07-19",
+      "status": "completed",
+      "order": 21,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 22,
+    "fields": {
+      "created_at": "2025-07-20T12:00:00Z",
+      "updated_at": "2025-07-20T12:00:00Z",
+      "title": "fix: update path mapping in tsconfig.base.json to point @utils to the correct index file",
+      "description": "Implemented in commit 09d5c93c",
+      "target_date": "2025-07-20",
+      "status": "completed",
+      "order": 22,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 23,
+    "fields": {
+      "created_at": "2025-08-03T12:00:00Z",
+      "updated_at": "2025-08-03T12:00:00Z",
+      "title": "feat: f\u00fcge Biome-Konfigurationen hinzu und aktualisiere Projektdateien f\u00fcr Linting",
+      "description": "Implemented in commit 0d4629b5",
+      "target_date": "2025-08-03",
+      "status": "completed",
+      "order": 23,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 24,
+    "fields": {
+      "created_at": "2025-08-03T12:00:00Z",
+      "updated_at": "2025-08-03T12:00:00Z",
+      "title": "refactor: reorganize imports and improve code consistency across components",
+      "description": "- Updated import statements to use type imports where applicable.",
+      "target_date": "2025-08-03",
+      "status": "completed",
+      "order": 24,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 25,
+    "fields": {
+      "created_at": "2025-08-03T12:00:00Z",
+      "updated_at": "2025-08-03T12:00:00Z",
+      "title": "fix: update CI workflow to run biome-lint instead of lint for affected projects",
+      "description": "Implemented in commit ca25b1e2",
+      "target_date": "2025-08-03",
+      "status": "completed",
+      "order": 25,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 26,
+    "fields": {
+      "created_at": "2025-08-03T12:00:00Z",
+      "updated_at": "2025-08-03T12:00:00Z",
+      "title": "refactor: update CI workflow and reorganize imports for improved consistency",
+      "description": "Implemented in commit d86f5928",
+      "target_date": "2025-08-03",
+      "status": "completed",
+      "order": 26,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 27,
+    "fields": {
+      "created_at": "2025-08-03T12:00:00Z",
+      "updated_at": "2025-08-03T12:00:00Z",
+      "title": "fix: update biome check command to use default config path",
+      "description": "Implemented in commit 847691c2",
+      "target_date": "2025-08-03",
+      "status": "completed",
+      "order": 27,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 28,
+    "fields": {
+      "created_at": "2025-08-03T12:00:00Z",
+      "updated_at": "2025-08-03T12:00:00Z",
+      "title": "fix: remove unnecessary config path from biome check command",
+      "description": "Implemented in commit a70b1e2f",
+      "target_date": "2025-08-03",
+      "status": "completed",
+      "order": 28,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 29,
+    "fields": {
+      "created_at": "2025-08-03T12:00:00Z",
+      "updated_at": "2025-08-03T12:00:00Z",
+      "title": "fix: update navigation icon test to use shorthand type and adjust snapshot for login button tabindex",
+      "description": "Implemented in commit 0c6e3495",
+      "target_date": "2025-08-03",
+      "status": "completed",
+      "order": 29,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 30,
+    "fields": {
+      "created_at": "2025-08-03T12:00:00Z",
+      "updated_at": "2025-08-03T12:00:00Z",
+      "title": "refactor: simplify README structure and enhance project description",
+      "description": "Implemented in commit e6c0e877",
+      "target_date": "2025-08-03",
+      "status": "completed",
+      "order": 30,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 31,
+    "fields": {
+      "created_at": "2025-08-03T12:00:00Z",
+      "updated_at": "2025-08-03T12:00:00Z",
+      "title": "fix: update linter configuration to use biome and remove unnecessary ESLint files from production inputs",
+      "description": "Implemented in commit 9eb3a775",
+      "target_date": "2025-08-03",
+      "status": "completed",
+      "order": 31,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 32,
+    "fields": {
+      "created_at": "2025-08-03T12:00:00Z",
+      "updated_at": "2025-08-03T12:00:00Z",
+      "title": "fix: streamline scope-enum definition in commitlint configuration",
+      "description": "Implemented in commit 4dcddc2e",
+      "target_date": "2025-08-03",
+      "status": "completed",
+      "order": 32,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 33,
+    "fields": {
+      "created_at": "2025-08-03T12:00:00Z",
+      "updated_at": "2025-08-03T12:00:00Z",
+      "title": "feat: add roadmap functionality and improve user experience (#8)",
+      "description": "- Implemented roadmap queries and integrated them into the Redux store.",
+      "target_date": "2025-08-03",
+      "status": "completed",
+      "order": 33,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 34,
+    "fields": {
+      "created_at": "2025-12-14T12:00:00Z",
+      "updated_at": "2025-12-14T12:00:00Z",
+      "title": "feat(backend): Setup initial backend environment and configuration (#9)",
+      "description": "* feat: Configures Nx agent and guidelines",
+      "target_date": "2025-12-14",
+      "status": "completed",
+      "order": 34,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 35,
+    "fields": {
+      "created_at": "2025-12-16T12:00:00Z",
+      "updated_at": "2025-12-16T12:00:00Z",
+      "title": "fix(core): fix wrong package manager in deply action",
+      "description": "Implemented in commit 0af1d9ed",
+      "target_date": "2025-12-16",
+      "status": "completed",
+      "order": 35,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 36,
+    "fields": {
+      "created_at": "2025-12-16T12:00:00Z",
+      "updated_at": "2025-12-16T12:00:00Z",
+      "title": "feat(core): Update to v 0.0.1",
+      "description": "Implemented in commit 5e1deaea",
+      "target_date": "2025-12-16",
+      "status": "completed",
+      "order": 36,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 37,
+    "fields": {
+      "created_at": "2025-12-16T12:00:00Z",
+      "updated_at": "2025-12-16T12:00:00Z",
+      "title": "fix(ci): ignore .env on backend deploy",
+      "description": "Implemented in commit 825b5541",
+      "target_date": "2025-12-16",
+      "status": "completed",
+      "order": 37,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 38,
+    "fields": {
+      "created_at": "2025-12-17T12:00:00Z",
+      "updated_at": "2025-12-17T12:00:00Z",
+      "title": "fix(ci): set VITE_API_URL for frontend build",
+      "description": "Implemented in commit e333161e",
+      "target_date": "2025-12-17",
+      "status": "completed",
+      "order": 38,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 39,
+    "fields": {
+      "created_at": "2025-12-17T12:00:00Z",
+      "updated_at": "2025-12-17T12:00:00Z",
+      "title": "fix(auth): Fix unnecessary calls of user endpoint when unauthorised",
+      "description": "Implemented in commit 797465af",
+      "target_date": "2025-12-17",
+      "status": "completed",
+      "order": 39,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 40,
+    "fields": {
+      "created_at": "2025-12-21T12:00:00Z",
+      "updated_at": "2025-12-21T12:00:00Z",
+      "title": "chore: Add deploy keys to .gitignore and update dependencies",
+      "description": "Adds GitHub Actions deploy keys to .gitignore to prevent them from being committed.",
+      "target_date": "2025-12-21",
+      "status": "completed",
+      "order": 40,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 41,
+    "fields": {
+      "created_at": "2025-12-21T12:00:00Z",
+      "updated_at": "2025-12-21T12:00:00Z",
+      "title": "refactor(logger): Rename logger.ts to useLogger.ts and update index",
+      "description": "Renamed the logger utility file from `logger.ts` to `useLogger.ts` to better reflect its nature as a React hook.",
+      "target_date": "2025-12-21",
+      "status": "completed",
+      "order": 41,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 42,
+    "fields": {
+      "created_at": "2025-12-25T12:00:00Z",
+      "updated_at": "2025-12-25T12:00:00Z",
+      "title": "ci: enable e2e and coverage checks on dev branch (#11)",
+      "description": "* feat(frontend): Implement user detail editing functionality",
+      "target_date": "2025-12-25",
+      "status": "completed",
+      "order": 42,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 43,
+    "fields": {
+      "created_at": "2025-12-25T12:00:00Z",
+      "updated_at": "2025-12-25T12:00:00Z",
+      "title": "fix(pnpm): Reinstall all packages and prune unused (#15)",
+      "description": "Co-authored-by: dominic.seel <dominic.seel@futurenext.de>",
+      "target_date": "2025-12-25",
+      "status": "completed",
+      "order": 43,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 44,
+    "fields": {
+      "created_at": "2025-12-25T12:00:00Z",
+      "updated_at": "2025-12-25T12:00:00Z",
+      "title": "Fix/fix deploy cd (#16)",
+      "description": "* fix(pnpm): Reinstall all packages and prune unused",
+      "target_date": "2025-12-25",
+      "status": "completed",
+      "order": 44,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 45,
+    "fields": {
+      "created_at": "2025-12-25T12:00:00Z",
+      "updated_at": "2025-12-25T12:00:00Z",
+      "title": "docs: add branch naming conventions to AGENTS.md",
+      "description": "Implemented in commit 32ba9609",
+      "target_date": "2025-12-25",
+      "status": "completed",
+      "order": 45,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 46,
+    "fields": {
+      "created_at": "2025-12-25T12:00:00Z",
+      "updated_at": "2025-12-25T12:00:00Z",
+      "title": "ci(deploy): add createcachetable step",
+      "description": "Implemented in commit 323288c5",
+      "target_date": "2025-12-25",
+      "status": "completed",
+      "order": 46,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 47,
+    "fields": {
+      "created_at": "2025-12-25T12:00:00Z",
+      "updated_at": "2025-12-25T12:00:00Z",
+      "title": "feat(backend): add volume mappings for static and media files",
+      "description": "Implemented in commit c64d227f",
+      "target_date": "2025-12-25",
+      "status": "completed",
+      "order": 47,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 48,
+    "fields": {
+      "created_at": "2025-12-25T12:00:00Z",
+      "updated_at": "2025-12-25T12:00:00Z",
+      "title": "feat(backend): add filtering, searching and ordering to RoadmapItemViewSet",
+      "description": "Implemented in commit 1de428e5",
+      "target_date": "2025-12-25",
+      "status": "completed",
+      "order": 48,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 49,
+    "fields": {
+      "created_at": "2025-12-25T12:00:00Z",
+      "updated_at": "2025-12-25T12:00:00Z",
+      "title": "fix(frontend): revert api base query to use import.meta.env",
+      "description": "Implemented in commit 339f2b88",
+      "target_date": "2025-12-25",
+      "status": "completed",
+      "order": 49,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 50,
+    "fields": {
+      "created_at": "2025-12-25T12:00:00Z",
+      "updated_at": "2025-12-25T12:00:00Z",
+      "title": "refactor(utils): support ignored fields in data grid filter parser",
+      "description": "Implemented in commit fe6b41c6",
+      "target_date": "2025-12-25",
+      "status": "completed",
+      "order": 50,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 51,
+    "fields": {
+      "created_at": "2025-12-25T12:00:00Z",
+      "updated_at": "2025-12-25T12:00:00Z",
+      "title": "feat(frontend): add infinite query support for roadmap api",
+      "description": "Implemented in commit 698aa86e",
+      "target_date": "2025-12-25",
+      "status": "completed",
+      "order": 51,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 52,
+    "fields": {
+      "created_at": "2025-12-25T12:00:00Z",
+      "updated_at": "2025-12-25T12:00:00Z",
+      "title": "feat(frontend): implement kanban-style infinite scroll roadmap list",
+      "description": "Implemented in commit e391b38a",
+      "target_date": "2025-12-25",
+      "status": "completed",
+      "order": 52,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 53,
+    "fields": {
+      "created_at": "2025-12-25T12:00:00Z",
+      "updated_at": "2025-12-25T12:00:00Z",
+      "title": "chore(frontend): setup storybook with vite",
+      "description": "Implemented in commit fd46f8af",
+      "target_date": "2025-12-25",
+      "status": "completed",
+      "order": 53,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 54,
+    "fields": {
+      "created_at": "2025-12-25T12:00:00Z",
+      "updated_at": "2025-12-25T12:00:00Z",
+      "title": "feat(frontend): add storybook stories for atom components",
+      "description": "Implemented in commit f085a081",
+      "target_date": "2025-12-25",
+      "status": "completed",
+      "order": 54,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 55,
+    "fields": {
+      "created_at": "2025-12-25T12:00:00Z",
+      "updated_at": "2025-12-25T12:00:00Z",
+      "title": "feat(frontend): add storybook stories for basic molecule components",
+      "description": "Implemented in commit 863935a2",
+      "target_date": "2025-12-25",
+      "status": "completed",
+      "order": 55,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 56,
+    "fields": {
+      "created_at": "2025-12-25T12:00:00Z",
+      "updated_at": "2025-12-25T12:00:00Z",
+      "title": "feat(frontend): add storybook stories for organisms, templates, and pages",
+      "description": "Implemented in commit 453ca8ac",
+      "target_date": "2025-12-25",
+      "status": "completed",
+      "order": 56,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 57,
+    "fields": {
+      "created_at": "2025-12-25T12:00:00Z",
+      "updated_at": "2025-12-25T12:00:00Z",
+      "title": "chore(frontend): update storybook addons and improve mock store setup",
+      "description": "Implemented in commit 3dec988b",
+      "target_date": "2025-12-25",
+      "status": "completed",
+      "order": 57,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 58,
+    "fields": {
+      "created_at": "2025-12-26T12:00:00Z",
+      "updated_at": "2025-12-26T12:00:00Z",
+      "title": "feat(frontend): Adds drag-and-drop to roadmap list",
+      "description": "Implements drag-and-drop functionality for roadmap items, allowing users to intuitively change an item's status by dragging it between columns.",
+      "target_date": "2025-12-26",
+      "status": "completed",
+      "order": 58,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 59,
+    "fields": {
+      "created_at": "2025-12-26T12:00:00Z",
+      "updated_at": "2025-12-26T12:00:00Z",
+      "title": "chore(core): update nx mcp server configuration",
+      "description": "Implemented in commit eb8bdf25",
+      "target_date": "2025-12-26",
+      "status": "completed",
+      "order": 59,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 60,
+    "fields": {
+      "created_at": "2025-12-26T12:00:00Z",
+      "updated_at": "2025-12-26T12:00:00Z",
+      "title": "feat(backend): add related_project to RoadmapItem model",
+      "description": "Implemented in commit 1c1308e2",
+      "target_date": "2025-12-26",
+      "status": "completed",
+      "order": 60,
+      "related_project": null
+    }
+  },
+  {
+    "model": "portfolio.roadmapitem",
+    "pk": 61,
+    "fields": {
+      "created_at": "2025-12-26T12:00:00Z",
+      "updated_at": "2025-12-26T12:00:00Z",
+      "title": "feat(frontend): refactor roadmap list to custom kanban board and add column reordering",
+      "description": "Implemented in commit 7f418d1e",
+      "target_date": "2025-12-26",
+      "status": "completed",
+      "order": 61,
+      "related_project": null
+    }
+  }
+]
