@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import type { PaginationQueryParams } from "../../types/common";
-import type { TRoadmapList } from "../../types/redux/roadmap";
+import type { TRoadmapItem, TRoadmapList } from "../../types/redux/roadmap";
 import { paginatedEndpoint } from "../helpers/endpoint";
 import baseQuery from "./api/base-query";
 
@@ -10,21 +10,6 @@ const roadmapQueries = createApi({
     tagTypes: ["Roadmap"],
     refetchOnMountOrArgChange: true,
     endpoints: (builder) => ({
-        getRoadmap: builder.query<TRoadmapList, PaginationQueryParams>({
-            query: (params) => ({
-                url: paginatedEndpoint("/roadmap/", params),
-            }),
-            providesTags: (result, _error, params) => {
-                return [
-                    ...(result?.results || []).map(({ id }) => ({
-                        type: "Roadmap" as const,
-                        id,
-                        params: JSON.stringify({ ...params }),
-                    })),
-                    { type: "Roadmap", id: "LIST", params: JSON.stringify({ ...params }) },
-                ];
-            },
-        }),
         listRoadmap: builder.infiniteQuery<
             TRoadmapList,
             Omit<PaginationQueryParams, "page" | "page_size">,
@@ -49,12 +34,19 @@ const roadmapQueries = createApi({
                 },
                 initialPageParam: {
                     page: 1,
-                    page_size: 1,
+                    page_size: 25,
                 },
             },
+        }),
+        partialUpdateRoadmapItem: builder.mutation<TRoadmapItem, Partial<TRoadmapItem> & Pick<TRoadmapItem, "id">>({
+            query: (roadmapData) => ({
+                url: `/roadmap/${roadmapData.id}/`,
+                method: "PATCH",
+                body: roadmapData,
+            }),
         }),
     }),
 });
 
-export const { useLazyGetRoadmapQuery, useListRoadmapInfiniteQuery } = roadmapQueries;
+export const { useListRoadmapInfiniteQuery, usePartialUpdateRoadmapItemMutation } = roadmapQueries;
 export default roadmapQueries;

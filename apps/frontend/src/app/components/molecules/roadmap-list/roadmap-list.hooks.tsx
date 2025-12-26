@@ -1,10 +1,13 @@
+import type { DragEndEvent, DragStartEvent } from "@dnd-kit/core";
+import type { Props } from "@dnd-kit/core/dist/components/DndContext/DndContext";
 import { Divider } from "@mui/material";
 import type { DataGridProps, GridColDef, GridColType, GridFilterModel } from "@mui/x-data-grid";
 import { GridLogicOperator, GridRow } from "@mui/x-data-grid";
 import { useCallback, useDebugValue, useMemo } from "react";
 import { useImmer } from "use-immer";
 import { parseFilterModel } from "../../../../../../../libs/utils/src";
-import { useListRoadmapInfiniteQuery } from "../../../../redux/queries/roadmap";
+import { theme } from "../../../../main";
+import { useListRoadmapInfiniteQuery, usePartialUpdateRoadmapItemMutation } from "../../../../redux/queries/roadmap";
 import type { PaginationQueryParams } from "../../../../types/common";
 import type { RoadmapStatus, TRoadmapItem, TRoadmapList } from "../../../../types/redux/roadmap";
 import DataGridPagination from "../../atoms/data-grid-pagination/data-grid-pagination";
@@ -12,13 +15,13 @@ import RoadmapItem from "../../atoms/roadmap-item/roadmap-item";
 import { LOAD_MORE_ITEM, LOADING_ITEM } from "./roadmap-list.constants";
 import { RoadmapAdditionalItems } from "./roadmap-list.enums";
 
-type ItemDef = {
+export type ItemDef = {
     id: string;
-    type: "item" | "loading" | "load_more";
+    type: "item" | "loading" | "load_more" | "fake";
     item: TRoadmapItem;
 };
 
-type RowDef = {
+export type RowDef = {
     id: number;
     planned: ItemDef | null;
     in_progress: ItemDef | null;
@@ -26,74 +29,45 @@ type RowDef = {
     on_hold: ItemDef | null;
 };
 
+const columnMap: Array<{ field: RoadmapStatus; label: string }> = [
+    {
+        field: "on_hold",
+        label: "On Hold",
+    },
+    {
+        field: "planned",
+        label: "Planned",
+    },
+    {
+        field: "in_progress",
+        label: "In Progress",
+    },
+    {
+        field: "completed",
+        label: "Completed",
+    },
+];
+
 const useRoadmapList = () => {
     const columns = useCallback(
-        (triggerLoadMore: (type: RoadmapStatus) => void): GridColDef<RowDef>[] => [
-            {
-                field: "planned",
-                headerName: "Planed",
+        (triggerLoadMore: (type: RoadmapStatus) => void): GridColDef<RowDef>[] =>
+            columnMap.map((c) => ({
+                field: c.field,
+                headerName: c.label,
                 flex: 1,
-                align: "center",
                 headerAlign: "center",
+                disableColumnMenu: true,
+                sortable: false,
                 renderCell: (params) =>
-                    params.row.planned ? (
+                    params.row[c.field] ? (
                         <RoadmapItem
-                            type={params.row.planned.type}
-                            item={params.row.planned.item}
+                            type={params.row[c.field]?.type || "loading"}
+                            item={params.row[c.field]?.item || LOADING_ITEM}
                             triggerLoadMore={triggerLoadMore}
-                            status="planned"
+                            status={c.field}
                         />
                     ) : null,
-            },
-            {
-                field: "in_progress",
-                headerName: "In Progress",
-                flex: 1,
-                align: "center",
-                headerAlign: "center",
-                renderCell: (params) =>
-                    params.row.in_progress ? (
-                        <RoadmapItem
-                            type={params.row.in_progress.type}
-                            item={params.row.in_progress.item}
-                            triggerLoadMore={triggerLoadMore}
-                            status="in_progress"
-                        />
-                    ) : null,
-            },
-            {
-                field: "completed",
-                headerName: "Completed",
-                flex: 1,
-                align: "center",
-                headerAlign: "center",
-                renderCell: (params) =>
-                    params.row.completed ? (
-                        <RoadmapItem
-                            type={params.row.completed.type}
-                            item={params.row.completed.item}
-                            triggerLoadMore={triggerLoadMore}
-                            status="completed"
-                        />
-                    ) : null,
-            },
-            {
-                field: "on_hold",
-                headerName: "On Hold",
-                flex: 1,
-                align: "center",
-                headerAlign: "center",
-                renderCell: (params) =>
-                    params.row.on_hold ? (
-                        <RoadmapItem
-                            type={params.row.on_hold.type}
-                            item={params.row.on_hold.item}
-                            triggerLoadMore={triggerLoadMore}
-                            status="on_hold"
-                        />
-                    ) : null,
-            },
-        ],
+            })),
         []
     );
 
@@ -101,6 +75,8 @@ const useRoadmapList = () => {
         items: [],
         logicOperator: GridLogicOperator.And,
     });
+
+    const [draggedItem, setDraggedItem] = useImmer<DragStartEvent | null>(null);
 
     const columnByType: Record<string, GridColType> = useMemo(
         () =>
@@ -147,22 +123,84 @@ const useRoadmapList = () => {
         isFetching: isFetchingPlanned,
         fetchNextPage: fetchPlannedNextPage,
         hasNextPage: hasPlannedNextPage,
+        refetch: refetchPlanned,
     } = useListRoadmapInfiniteQuery(plannedQueryParams);
     const {
         data: inProgress,
         isFetching: isFetchingInProgress,
         fetchNextPage: fetchInProgressNextPage,
+        refetch: refetchInProgress,
     } = useListRoadmapInfiniteQuery(inProgressQueryParams);
     const {
         data: completed,
         isFetching: isFetchingCompleted,
         fetchNextPage: fetchCompletedNextPage,
+        refetch: refetchCompleted,
     } = useListRoadmapInfiniteQuery(completedQueryParams);
     const {
         data: onHold,
         isFetching: isFetchingOnHold,
         fetchNextPage: fetchOnHoldNextPage,
+        refetch: refetchOnHold,
     } = useListRoadmapInfiniteQuery(onHoldQueryParams);
+
+    const refetchInfinityQueries = useCallback(
+        (include: Array<RoadmapStatus | "all">) => {
+            const isAll = include.includes("all");
+            if (include.includes("completed") || isAll) {
+                refetchCompleted();
+            }
+            if (include.includes("on_hold") || isAll) {
+                refetchOnHold();
+            }
+            if (include.includes("in_progress") || isAll) {
+                refetchInProgress();
+            }
+            if (include.includes("planned") || isAll) {
+                refetchPlanned();
+            }
+        },
+        [refetchCompleted, refetchOnHold, refetchInProgress, refetchPlanned]
+    );
+
+    const [updateRoadmapItem] = usePartialUpdateRoadmapItemMutation();
+
+    const onDragStart = useCallback(
+        (item: DragStartEvent) => {
+            setDraggedItem(item);
+        },
+        [setDraggedItem]
+    );
+
+    const onDragEnd = useCallback(
+        (item: DragEndEvent | null) => {
+            console.table({ item, draggedItem });
+            if (
+                item?.over &&
+                (item.over.data.current as TRoadmapItem).status !==
+                    (draggedItem?.active.data.current as TRoadmapItem).status
+            ) {
+                updateRoadmapItem({
+                    id: (draggedItem?.active.data.current as TRoadmapItem).id,
+                    status: (item.over.data.current as TRoadmapItem).status,
+                })
+                    .unwrap()
+                    .then(() => {
+                        refetchInfinityQueries(["all"]);
+                    });
+            }
+            setDraggedItem(null);
+        },
+        [setDraggedItem, draggedItem, updateRoadmapItem, refetchInfinityQueries]
+    );
+
+    const dndProviderProps = useMemo(
+        (): Props => ({
+            onDragEnd,
+            onDragStart,
+        }),
+        [onDragEnd, onDragStart]
+    );
 
     const fetchNextPage = useCallback(
         (type: RoadmapStatus) => {
@@ -203,14 +241,42 @@ const useRoadmapList = () => {
         return lastPage || undefined;
     }, []);
 
-    const getItemType = useCallback((item: TRoadmapItem | null) => {
+    const getItemType = useCallback((item: TRoadmapItem | null): "item" | "loading" | "load_more" => {
         if (!item) return "item";
         if (item.title === RoadmapAdditionalItems.LOADING) return "loading";
         if (item.title === RoadmapAdditionalItems.LOAD_MORE) return "load_more";
         return "item";
     }, []);
 
-    const createdRows = useMemo(() => {
+    const createColumnCss = useCallback((status: RoadmapStatus) => {
+        let color = theme.palette.primary.main;
+        switch (status) {
+            case "completed":
+                color = theme.palette.primary.main;
+                break;
+            case "in_progress":
+                color = theme.palette.success.main;
+                break;
+            case "planned":
+                color = theme.palette.warning.main;
+                break;
+            case "on_hold":
+                color = theme.palette.error.main;
+                break;
+            default:
+                break;
+        }
+
+        return {
+            transition: "background-color 0.2s ease-in-out",
+            background: `linear-gradient(to right, ${color} 0%, ${color} 2%, transparent 8%, transparent 92%, ${color} 98%, ${color} 100%)`,
+            [`&.dropable-${status}`]: {
+                background: `linear-gradient(to right, ${color} 0%, ${color} 8%, transparent 13%, transparent 87%, ${color} 92%, ${color} 100%)`,
+            },
+        };
+    }, []);
+
+    const createdRows = useMemo((): RowDef[] => {
         // We need to know, if there are nore items in the related status
         // We will archive this, by getting the last fetched page and check if there is "next" defined
         const plannedHaveMore = !!getLastPageItem(planned?.pages)?.next;
@@ -253,31 +319,31 @@ const useRoadmapList = () => {
         // item = { id: item.id, type: "item" | "loading" | "load_more", item: item }
         // First we create an array based on the amount of the kighest item map.
         const itemArray = Array.from({ length: highestAmount }, (_, index) => index);
-        return itemArray.map((idx) => {
+        return itemArray.map((idx): RowDef => {
             const p = flatPlanned[idx]
                 ? {
-                      id: flatPlanned[idx].id,
+                      id: flatPlanned[idx].id.toString(),
                       type: getItemType(flatPlanned[idx]),
                       item: flatPlanned[idx],
                   }
                 : null;
             const iP = flatInProgress[idx]
                 ? {
-                      id: flatInProgress[idx].id,
+                      id: flatInProgress[idx].id.toString(),
                       type: getItemType(flatInProgress[idx]),
                       item: flatInProgress[idx],
                   }
                 : null;
             const c = flatCompleted[idx]
                 ? {
-                      id: flatCompleted[idx].id,
+                      id: flatCompleted[idx].id.toString(),
                       type: getItemType(flatCompleted[idx]),
                       item: flatCompleted[idx],
                   }
                 : null;
             const oH = flatOnHold[idx]
                 ? {
-                      id: flatOnHold[idx].id,
+                      id: flatOnHold[idx].id.toString(),
                       type: getItemType(flatOnHold[idx]),
                       item: flatOnHold[idx],
                   }
@@ -305,10 +371,21 @@ const useRoadmapList = () => {
         getItemType,
     ]);
 
+    const generateDropClassname = useMemo(() => {
+        if (!draggedItem) return "";
+        const classes: Array<RoadmapStatus> = ["completed", "in_progress", "on_hold", "planned"];
+        const draggedStatus = (draggedItem.active.data.current as TRoadmapItem).status;
+        return classes
+            .filter((c) => c !== draggedStatus)
+            .map((c) => `dropable-${c}`)
+            .join(" ");
+    }, [draggedItem]);
+
     const dataGridParams = useMemo(
-        (): DataGridProps => ({
+        (): DataGridProps<RowDef> => ({
             rows: createdRows,
             columns: columns(fetchNextPage),
+            rowHeight: 130,
             sortingMode: "server",
             sortingOrder: ["asc", "desc"],
             slots: {
@@ -329,13 +406,23 @@ const useRoadmapList = () => {
             filterMode: "server",
             filterModel,
             onFilterModelChange: setFilterModel,
+            getCellClassName: (params) => `${params.colDef.field} ${generateDropClassname}`,
+            sx: {
+                "& .completed": createColumnCss("completed"),
+                "& .in_progress": createColumnCss("in_progress"),
+                "& .planned": createColumnCss("planned"),
+                "& .on_hold": createColumnCss("on_hold"),
+                "& .pointer": {
+                    cursor: "pointer",
+                },
+            },
         }),
-        [columns, createdRows, filterModel, setFilterModel, fetchNextPage]
+        [columns, createdRows, filterModel, setFilterModel, fetchNextPage, createColumnCss, generateDropClassname]
     );
 
-    useDebugValue({ dataGridParams, hasPlannedNextPage });
+    useDebugValue({ dataGridParams, hasPlannedNextPage, generateDropClassname });
 
-    return { dataGridParams };
+    return { dataGridParams, dndProviderProps, draggedItem };
 };
 
 export default useRoadmapList;
