@@ -32,17 +32,28 @@ test.describe("Public Access", () => {
 
         // Mock Roadmap API (assuming similar structure)
         await page.route("*/**/api/roadmap/**", async (route) => {
+            const url = new URL(route.request().url());
+            const statusFilter = url.searchParams.get("status");
+
+            const allItems = [
+                {
+                    id: 1,
+                    title: "Roadmap Item 1",
+                    description: "Todo",
+                    status: "planned",
+                    target_date: "2025-01-01",
+                    created_at: "2023-01-01T00:00:00Z",
+                    updated_at: "2023-01-01T00:00:00Z",
+                },
+            ];
+
+            const filteredResults = statusFilter ? allItems.filter((item) => item.status === statusFilter) : allItems;
+
             const json = {
-                count: 1,
-                results: [
-                    {
-                        id: 1,
-                        title: "Roadmap Item 1",
-                        description: "Todo",
-                        status: "planned",
-                        target_date: "2025-01-01",
-                    },
-                ],
+                count: filteredResults.length,
+                next: null,
+                previous: null,
+                results: filteredResults,
             };
             await route.fulfill({ json });
         });
