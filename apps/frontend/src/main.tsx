@@ -30,10 +30,7 @@ export const themeOptions: ThemeOptions = {
         fontFamily: "Fira Code",
     },
     spacing: 8,
-    direction: "rtl",
-    shape: {
-        borderRadius: 4,
-    },
+    direction: "ltr",
 };
 
 export const theme = createTheme(themeOptions);

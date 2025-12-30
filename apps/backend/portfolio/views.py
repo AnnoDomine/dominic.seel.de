@@ -86,6 +86,7 @@ class UserViewSet(viewsets.ModelViewSet):
         # User objects are not dicts, use getattr.
         # Handle cases like "superuser" -> "is_superuser"
         attr_name = key
+        # Note: This currently only supports a predefined list of attributes.
         if not key.startswith("is_") and key in ["superuser", "staff", "active"]:
             attr_name = f"is_{key}"
         return getattr(self.request.user, attr_name, False)

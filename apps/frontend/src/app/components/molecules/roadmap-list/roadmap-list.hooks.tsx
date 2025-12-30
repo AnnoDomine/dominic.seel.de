@@ -212,15 +212,11 @@ const useRoadmapList = () => {
                 updateRoadmapItem({
                     id: draggedItem.active.id as number,
                     status: item.over.id as RoadmapStatus,
-                })
-                    .unwrap()
-                    .then(() => {
-                        refetchInfinityQueries(["all"]);
-                    });
+                }).unwrap();
             }
             setDraggedItem(null);
         },
-        [setDraggedItem, draggedItem, updateRoadmapItem, refetchInfinityQueries, handleColumOrderChanges]
+        [setDraggedItem, draggedItem, updateRoadmapItem, handleColumOrderChanges]
     );
 
     const onDragOver = useCallback(
@@ -241,7 +237,6 @@ const useRoadmapList = () => {
 
     const fetchNextPage = useCallback(
         (type: RoadmapStatus) => {
-            console.log(`fetch next page (${type})`);
             switch (type) {
                 case "planned":
                     fetchPlannedNextPage();
