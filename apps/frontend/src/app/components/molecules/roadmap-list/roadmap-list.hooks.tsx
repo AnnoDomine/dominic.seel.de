@@ -212,11 +212,18 @@ const useRoadmapList = () => {
                 updateRoadmapItem({
                     id: draggedItem.active.id as number,
                     status: item.over.id as RoadmapStatus,
-                }).unwrap();
+                })
+                    .unwrap()
+                    .then(() => {
+                        refetchInfinityQueries([
+                            item.over?.id as RoadmapStatus,
+                            draggedItem.active.data.current?.status,
+                        ]);
+                    });
             }
             setDraggedItem(null);
         },
-        [setDraggedItem, draggedItem, updateRoadmapItem, handleColumOrderChanges]
+        [setDraggedItem, draggedItem, updateRoadmapItem, handleColumOrderChanges, refetchInfinityQueries]
     );
 
     const onDragOver = useCallback(
