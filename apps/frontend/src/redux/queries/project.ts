@@ -67,6 +67,7 @@ const projectQueries = createApi({
     }),
 });
 
-export const { useGetProjectQuery, useLazyGetProjectQuery, useLazyListProjectsQuery } = projectQueries;
+export const { useGetProjectQuery, useLazyGetProjectQuery, useLazyListProjectsQuery, useUpdateProjectMutation } =
+    projectQueries;
 
 export default projectQueries;

@@ -1,6 +1,8 @@
 import { useDraggable, useDroppable } from "@dnd-kit/core";
 import { Divider } from "@mui/material";
 import { theme } from "../../../../main";
+import useUser from "../../../../redux/hooks/useUser.hooks";
+import { useGetUserQuery } from "../../../../redux/queries/user";
 import type { RoadmapStatus, TRoadmapItem } from "../../../../types/redux/roadmap";
 import RoadmapItem from "../../atoms/roadmap-item/roadmap-item";
 import type { ItemDef } from "../roadmap-list/roadmap-list.hooks";
@@ -16,6 +18,8 @@ type Props = {
 export type RoadmapBoardProps = Props & { type: "status" | "item" };
 
 const RoadmapBoard = ({ field, cells, headerName, fetchNextPage, isOverlay }: Props) => {
+    const { isSuperuser } = useUser();
+
     const {
         setNodeRef: setDragNodeRef,
         listeners,
@@ -25,11 +29,12 @@ const RoadmapBoard = ({ field, cells, headerName, fetchNextPage, isOverlay }: Pr
     } = useDraggable({
         id: field,
         data: { field, cells, headerName, fetchNextPage: () => null, type: "status" },
+        disabled: !isSuperuser,
     });
 
     const { setNodeRef: setDropNodeRef, isOver } = useDroppable({
         id: field,
-        disabled: !!active && active.data.current?.status === field,
+        disabled: (!!active && active.data.current?.status === field) || !isSuperuser,
     });
 
     const isDropable = active && active.data.current?.status !== field;

@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User
 from django_filters.rest_framework import DjangoFilterBackend  # type: ignore
 from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
-from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
 
 from .filtersets import UserFilterSet
 from .models import Certificate, Project, RoadmapItem, Technology
@@ -79,3 +81,21 @@ class UserViewSet(viewsets.ModelViewSet):
         if self.action == "list":
             return UserListSerializer
         return super().get_serializer_class()
+
+    def get_requested_value(self, key: str) -> bool:
+        # User objects are not dicts, use getattr.
+        # Handle cases like "superuser" -> "is_superuser"
+        attr_name = key
+        if not key.startswith("is_") and key in ["superuser", "staff", "active"]:
+            attr_name = f"is_{key}"
+        return getattr(self.request.user, attr_name, False)
+
+    @action(detail=False, methods=["get"], url_path="permission", permission_classes=[IsAuthenticated])
+    def check_user_permission(self, request):
+        """
+        Check if the currently authenticated user has a specific permission/attribute.
+        Default is 'superuser'.
+        """
+        request_type: str = request.query_params.get("type", "superuser")
+        has_permission = self.get_requested_value(request_type)
+        return Response({"has_permission": has_permission})

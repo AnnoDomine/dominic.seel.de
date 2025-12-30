@@ -4,10 +4,12 @@ import type { LoginResponse, SingleUserItem, UserListItem } from "../../types/re
 import { paginatedEndpoint } from "../helpers/endpoint";
 import baseQuery from "./api/base-query";
 
+type ReqetsablePermissions = "superuser";
+
 const userQueries = createApi({
     reducerPath: "userQueries",
     baseQuery: baseQuery,
-    tagTypes: ["User", "Users", "SingleUser"],
+    tagTypes: ["User", "Users", "SingleUser", "Permission"],
     endpoints: (builder) => ({
         getUser: builder.query<LoginResponse, void, LoginResponse>({
             query: () => ({
@@ -54,7 +56,7 @@ const userQueries = createApi({
                 method: "POST",
                 body: {},
             }),
-            invalidatesTags: () => ["User"],
+            invalidatesTags: () => ["User", "Users", "SingleUser", "Permission"],
             async onQueryStarted(_, { queryFulfilled }) {
                 try {
                     await queryFulfilled;
@@ -99,6 +101,24 @@ const userQueries = createApi({
                 return [];
             },
         }),
+        requestPermission: builder.query<Record<"has_permission", boolean>, ReqetsablePermissions>({
+            query: (arg) => ({
+                url: `/users/permission/`,
+                method: "GET",
+                params: {
+                    type: arg,
+                },
+            }),
+            providesTags: (result, error, arg) => {
+                if (error) {
+                    return [];
+                }
+                if (result) {
+                    return [{ type: "Permission", id: arg }];
+                }
+                return [];
+            },
+        }),
     }),
 });
 
@@ -110,5 +130,6 @@ export const {
     useListUsersQuery,
     useGetSingleUserQuery,
     useLazyListUsersQuery,
+    useRequestPermissionQuery,
 } = userQueries;
 export default userQueries;

@@ -1,14 +1,17 @@
 import { useCallback, useDebugValue, useMemo } from "react";
 import { useLoginMutation } from "../queries/auth";
-import { useGetUserQuery, useLogoutMutation } from "../queries/user";
+import { useGetUserQuery, useLogoutMutation, useRequestPermissionQuery } from "../queries/user";
 
 const useUser = () => {
     const { data: user, refetch: fetchUser } = useGetUserQuery();
+    const { data: iSU } = useRequestPermissionQuery("superuser", { skip: !user });
     const [login] = useLoginMutation();
     const [logout] = useLogoutMutation();
 
     const isAuthenticated = useMemo(() => !!user, [user]);
     const userData = user;
+
+    const isSuperuser = useMemo(() => !!iSU?.has_permission, [iSU]);
 
     const handleLogin = useCallback(
         async (credentials: Record<"email" | "password", string>) => {
@@ -32,6 +35,7 @@ const useUser = () => {
         isAuthenticated,
         handleLogin,
         logout,
+        isSuperuser,
     };
 };
 

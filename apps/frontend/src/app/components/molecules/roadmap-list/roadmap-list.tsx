@@ -81,6 +81,7 @@ const RoadmapList = () => {
                     onChange={handleChangeSearch}
                     variant="standard"
                     placeholder="Search..."
+                    fullWidth
                     slotProps={{
                         input: {
                             startAdornment: !searchValue ? (

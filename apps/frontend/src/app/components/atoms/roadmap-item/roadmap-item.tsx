@@ -2,6 +2,7 @@ import { useDraggable } from "@dnd-kit/core";
 import { Button, Skeleton, styled, Typography } from "@mui/material";
 import clsx from "clsx";
 import { useState } from "react";
+import useUser from "../../../../redux/hooks/useUser.hooks";
 import type { RoadmapStatus, TRoadmapItem } from "../../../../types/redux/roadmap";
 import RoadmapDetails from "../roadmap-details/roadmap-details";
 
@@ -51,9 +52,13 @@ type Props = {
 
 const RoadmapItem = ({ type, item, triggerLoadMore, status, isOverlay }: Props) => {
     const [isDetailsOpen, setIsDetailsOpen] = useState<boolean>(false);
+
+    const { isSuperuser } = useUser();
+
     const dragProps = useDraggable({
         id: item.id,
         data: { ...item, type: "item" },
+        disabled: !isSuperuser,
     });
     const isActiveItem = dragProps.isDragging;
 

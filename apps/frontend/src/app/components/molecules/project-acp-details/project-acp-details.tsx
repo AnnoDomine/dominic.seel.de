@@ -11,10 +11,11 @@ import {
     Typography,
     useMediaQuery,
 } from "@mui/material";
+import ProjectAcpTechnoliogies from "../project-acp-technologies/project-acp-technologies";
 import { ROLE_MENU, STATUS_MENU, TYPE_MENU } from "./project-acp-details.constants";
 import useProjectAcpDetails from "./project-acp-details.hooks";
 
-const ProjectContainer = styled("div")(() => ({
+const ProjectContainer = styled("form")(() => ({
     display: "flex",
     flexDirection: "column",
     gap: "16px",
@@ -72,7 +73,8 @@ const ActionContainer = styled("div")(({ theme }) => ({
 }));
 
 const ProjectAcpDetails = () => {
-    const { project, isLoading, handleChangeValue, changedValues, hasAnyChanges } = useProjectAcpDetails();
+    const { project, isLoading, handleChangeValue, changedValues, hasAnyChanges, handleSubmit } =
+        useProjectAcpDetails();
     const downMd = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
     const baseInforDividerOrientation = !downMd ? "vertical" : "horizontal";
     if (isLoading) {
@@ -82,7 +84,7 @@ const ProjectAcpDetails = () => {
         return <div>Project not found</div>;
     }
     return (
-        <ProjectContainer>
+        <ProjectContainer onSubmit={handleSubmit}>
             <BaseInfoContainer>
                 <Typography>ID: {project.id}</Typography>
                 <Divider flexItem orientation={baseInforDividerOrientation} />
@@ -190,11 +192,11 @@ const ProjectAcpDetails = () => {
             />
             {!downMd && <Divider flexItem />}
             <ActionContainer>
-                <Button variant="outlined">Technologies</Button>
-                <Button variant="outlined" color="secondary">
+                <ProjectAcpTechnoliogies id={project.id} />
+                <Button variant="outlined" color="secondary" type="button">
                     Add new
                 </Button>
-                <Button variant="contained" disabled={!hasAnyChanges} color="primary">
+                <Button variant="contained" disabled={!hasAnyChanges} color="primary" type="submit">
                     Update
                 </Button>
             </ActionContainer>

@@ -1,0 +1,38 @@
+[
+{
+  "model": "portfolio.project",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-07-20T10:45:50.688Z",
+    "updated_at": "2025-12-30T13:56:58.112Z",
+    "title": "Homepage",
+    "description": "<div><h3>Portfolio - Dominic Seel</h3><p>A comprehensive monorepo for my personal portfolio, engineered with a robust <strong>Python/Django</strong> backend and a dynamic <strong>React/TypeScript</strong> frontend.This project showcases modern web development practices, leveraging <strong>Nx</strong> for efficient monorepo management.</p><h4>Key Architecture</h4><ul><li><strong>Backend:</strong> Powered by <em>Django</em> (Python 3.13), ensuring high performance and security. Code quality is strictly maintained via <em>Ruff</em> and tested with <em>pytest</em>.</li><li><strong>Frontend:</strong> Built with <em>React 19</em> and <em>TypeScript</em>, bundled with <em>Vite</em> for lightning-fast development. Includes extensive testing with <em>Vitest</em> (unit) and <em>Playwright</em> (E2E).</li><li><strong>Infrastructure:</strong> Dockerized environment running on Ubuntu, with CI/CD pipelines via GitHub Actions.</li></ul><h4>Core Technologies</h4><p>Python, Django, Node.js, React, TypeScript, Redux, Sass, PostgreSQL, and Docker.</p></div>",
+    "start_date": "2025-06-03",
+    "end_date": null,
+    "project_url": "https://www.dominic-seel.de",
+    "github_url": "https://github.com/AnnoDomine/dominic.seel.de",
+    "image": "projects/logo_transparent.png",
+    "status": "active",
+    "type": "private",
+    "role": "full_stack",
+    "is_featured": true,
+    "technologies": [
+      17,
+      2,
+      113,
+      5,
+      15,
+      16,
+      3,
+      62,
+      12,
+      72,
+      9,
+      1,
+      4,
+      59,
+      6
+    ]
+  }
+}
+]

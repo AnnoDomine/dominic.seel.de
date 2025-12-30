@@ -31,11 +31,13 @@ const RowContainer = styled("div")({
 });
 
 const DescriptionContainer = styled("div")({
-    height: "100%",
+    overflow: "auto",
+    maxHeight: "inherit",
+    height: "470px",
 });
 
 const DescriptionOuterContainer = styled("div")({
-    height: "100%",
+    height: "inherit",
 });
 
 const InformationContainer = styled("div")({
