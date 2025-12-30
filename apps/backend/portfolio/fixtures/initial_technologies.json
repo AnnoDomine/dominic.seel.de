@@ -1,0 +1,1245 @@
+[
+{
+  "model": "portfolio.technology",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "python",
+    "human_readable_name": "Python",
+    "description": "A versatile programming language."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "django",
+    "human_readable_name": "Django",
+    "description": "A high-level Python web framework."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 3,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "javascript",
+    "human_readable_name": "JavaScript",
+    "description": "A programming language for web development."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 4,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "react",
+    "human_readable_name": "React",
+    "description": "A JavaScript library for building user interfaces."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 5,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "docker",
+    "human_readable_name": "Docker",
+    "description": "A platform for developing, shipping, and running applications in containers."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 6,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "typescript",
+    "human_readable_name": "TypeScript",
+    "description": "A typed superset of JavaScript that compiles to plain JavaScript."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 7,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "kubernetes",
+    "human_readable_name": "Kubernetes",
+    "description": "An open-source system for automating deployment, scaling, and management of containerized applications."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 8,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "graphql",
+    "human_readable_name": "GraphQL",
+    "description": "A query language for APIs and a runtime for executing those queries with your existing data."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 9,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "postgresql",
+    "human_readable_name": "PostgreSQL",
+    "description": "A powerful, open source object-relational database system."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 10,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "mysql",
+    "human_readable_name": "MySQL",
+    "description": "An open-source relational database management system."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 11,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "redis",
+    "human_readable_name": "Redis",
+    "description": "An in-memory data structure store, used as a database, cache, and message broker."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 12,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "nginx",
+    "human_readable_name": "Nginx",
+    "description": "A high-performance HTTP server and reverse proxy."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 13,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "aws",
+    "human_readable_name": "Amazon Web Services (AWS)",
+    "description": "A comprehensive cloud computing platform provided by Amazon."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 14,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "azure",
+    "human_readable_name": "Microsoft Azure",
+    "description": "A cloud computing service created by Microsoft for building, testing, deploying, and managing applications through Microsoft-managed data centers."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 15,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "git",
+    "human_readable_name": "Git",
+    "description": "A distributed version control system for tracking changes in source code during software development."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 16,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "html",
+    "human_readable_name": "HTML",
+    "description": "The standard markup language for documents designed to be displayed in a web browser."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 17,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "css",
+    "human_readable_name": "CSS",
+    "description": "A style sheet language used for describing the presentation of a document written in HTML or XML."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 18,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "flutter",
+    "human_readable_name": "Flutter",
+    "description": "An open-source UI software development toolkit created by Google for building natively compiled applications for mobile, web, and desktop from a single codebase."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 19,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "swift",
+    "human_readable_name": "Swift",
+    "description": "A powerful and intuitive programming language for iOS, macOS, watchOS, and tvOS app development."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 20,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "kotlin",
+    "human_readable_name": "Kotlin",
+    "description": "A modern programming language that makes developers happier, used for Android development."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 21,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "vuejs",
+    "human_readable_name": "Vue.js",
+    "description": "A progressive JavaScript framework for building user interfaces."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 22,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "tailwindcss",
+    "human_readable_name": "Tailwind CSS",
+    "description": "A utility-first CSS framework for creating custom designs without leaving your HTML."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 23,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "nextjs",
+    "human_readable_name": "Next.js",
+    "description": "A React framework for production with server-side rendering and static site generation."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 24,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "flask",
+    "human_readable_name": "Flask",
+    "description": "A lightweight WSGI web application framework in Python."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 25,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "springboot",
+    "human_readable_name": "Spring Boot",
+    "description": "An extension of the Spring framework that simplifies the setup and development of new applications."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 26,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "laravel",
+    "human_readable_name": "Laravel",
+    "description": "A PHP framework for web artisans, providing an elegant syntax and powerful features."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 27,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "csharp",
+    "human_readable_name": "C#",
+    "description": "A modern, object-oriented programming language developed by Microsoft."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 28,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "ruby",
+    "human_readable_name": "Ruby",
+    "description": "A dynamic, open source programming language with a focus on simplicity and productivity."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 29,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "golang",
+    "human_readable_name": "Go",
+    "description": "An open-source programming language designed for simplicity and efficiency."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 30,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "rust",
+    "human_readable_name": "Rust",
+    "description": "A systems programming language focused on safety and performance."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 31,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "tensorflow",
+    "human_readable_name": "TensorFlow",
+    "description": "An end-to-end open source platform for machine learning."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 32,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "pytorch",
+    "human_readable_name": "PyTorch",
+    "description": "An open source machine learning library based on the Torch library."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 33,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "scikit-learn",
+    "human_readable_name": "Scikit-learn",
+    "description": "A machine learning library for Python that features various classification, regression, and clustering algorithms."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 34,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "opencv",
+    "human_readable_name": "OpenCV",
+    "description": "An open source computer vision and machine learning software library."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 35,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark",
+    "human_readable_name": "Apache Spark",
+    "description": "An open-source unified analytics engine for large-scale data processing."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 36,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "elasticsearch",
+    "human_readable_name": "Elasticsearch",
+    "description": "A distributed, RESTful search and analytics engine capable of addressing a growing number of use cases."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 37,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "grafana",
+    "human_readable_name": "Grafana",
+    "description": "An open-source platform for monitoring and observability."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 38,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "prometheus",
+    "human_readable_name": "Prometheus",
+    "description": "An open-source systems monitoring and alerting toolkit originally built at SoundCloud."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 39,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "ansible",
+    "human_readable_name": "Ansible",
+    "description": "An open-source automation tool for software provisioning, configuration management, and application deployment."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 40,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "terraform",
+    "human_readable_name": "Terraform",
+    "description": "An open-source infrastructure as code software tool created by HashiCorp."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 41,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "jenkins",
+    "human_readable_name": "Jenkins",
+    "description": "An open-source automation server for continuous integration and continuous delivery."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 42,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "circleci",
+    "human_readable_name": "CircleCI",
+    "description": "A continuous integration and continuous delivery platform that automates development workflows."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 43,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "gitlab_ci",
+    "human_readable_name": "GitLab CI/CD",
+    "description": "A built-in continuous integration and deployment tool in GitLab."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 44,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_kafka",
+    "human_readable_name": "Apache Kafka",
+    "description": "A distributed event streaming platform capable of handling trillions of events a day."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 45,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "rabbitmq",
+    "human_readable_name": "RabbitMQ",
+    "description": "An open-source message broker software that originally implemented the Advanced Message Queuing Protocol (AMQP)."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 46,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_cassandra",
+    "human_readable_name": "Apache Cassandra",
+    "description": "A free and open-source distributed NoSQL database management system designed to handle large amounts of data across many commodity servers."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 47,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "mongodb",
+    "human_readable_name": "MongoDB",
+    "description": "A source-available cross-platform document-oriented database program."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 48,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "clickhouse",
+    "human_readable_name": "ClickHouse",
+    "description": "A columnar database management system for online analytical processing (OLAP)."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 49,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_hadoop",
+    "human_readable_name": "Apache Hadoop",
+    "description": "An open-source software framework for storing and processing large datasets."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 50,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_airflow",
+    "human_readable_name": "Apache Airflow",
+    "description": "A platform to programmatically author, schedule, and monitor workflows."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 51,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "fastapi",
+    "human_readable_name": "FastAPI",
+    "description": "A modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 52,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "svelte",
+    "human_readable_name": "Svelte",
+    "description": "A modern JavaScript framework for building user interfaces."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 53,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "nuxtjs",
+    "human_readable_name": "Nuxt.js",
+    "description": "A framework for creating Vue.js applications with server-side rendering capabilities."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 54,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "ionic",
+    "human_readable_name": "Ionic",
+    "description": "A complete open-source SDK for hybrid mobile app development."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 55,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "flutter_web",
+    "human_readable_name": "Flutter Web",
+    "description": "A web implementation of the Flutter framework for building web applications."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 56,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "electron",
+    "human_readable_name": "Electron",
+    "description": "A framework for building cross-platform desktop applications using web technologies."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 57,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "blazor",
+    "human_readable_name": "Blazor",
+    "description": "A framework for building interactive web applications using C# instead of JavaScript."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 58,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "vuex",
+    "human_readable_name": "Vuex",
+    "description": "A state management pattern + library for Vue.js applications."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 59,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "redux",
+    "human_readable_name": "Redux",
+    "description": "A predictable state container for JavaScript apps."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 60,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "mobx",
+    "human_readable_name": "MobX",
+    "description": "A simple, scalable state management solution for JavaScript applications."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 61,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "styled_components",
+    "human_readable_name": "Styled Components",
+    "description": "A library for React and React Native that allows you to use component-level styles in your application."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 62,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "material_ui",
+    "human_readable_name": "Material-UI",
+    "description": "A popular React UI framework that implements Google's Material Design."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 63,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "ant_design",
+    "human_readable_name": "Ant Design",
+    "description": "A design system with a set of high-quality React components out of the box."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 64,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "bootstrap",
+    "human_readable_name": "Bootstrap",
+    "description": "The most popular HTML, CSS, and JS library in the world for responsive, mobile-first projects on the web."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 65,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "bulma",
+    "human_readable_name": "Bulma",
+    "description": "A modern CSS framework based on Flexbox."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 66,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "foundation",
+    "human_readable_name": "Foundation",
+    "description": "A responsive front-end framework similar to Bootstrap."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 67,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "d3js",
+    "human_readable_name": "D3.js",
+    "description": "A JavaScript library for producing dynamic, interactive data visualizations in web browsers."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 68,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "threejs",
+    "human_readable_name": "Three.js",
+    "description": "A cross-browser JavaScript library and application programming interface used to create and display animated 3D computer graphics in a web browser."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 69,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "socketio",
+    "human_readable_name": "Socket.IO",
+    "description": "A JavaScript library for real-time web applications, enabling real-time, bidirectional and event-based communication."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 70,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "websockets",
+    "human_readable_name": "WebSockets",
+    "description": "A protocol providing full-duplex communication channels over a single TCP connection."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 71,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "graphql_subscriptions",
+    "human_readable_name": "GraphQL Subscriptions",
+    "description": "A way to push updates to clients in real-time using GraphQL."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 72,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "oauth2",
+    "human_readable_name": "OAuth 2.0",
+    "description": "An open standard for access delegation commonly used for token-based authentication and authorization."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 73,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "jwt",
+    "human_readable_name": "JSON Web Tokens (JWT)",
+    "description": "A compact, URL-safe means of representing claims to be transferred between two parties."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 74,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "openid_connect",
+    "human_readable_name": "OpenID Connect",
+    "description": "An authentication layer on top of OAuth 2.0 that allows clients to verify the identity of an end-user based on the authentication performed by an authorization server."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 75,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "saml",
+    "human_readable_name": "SAML (Security Assertion Markup Language)",
+    "description": "An open standard for exchanging authentication and authorization data between parties, particularly between an identity provider and a service provider."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 76,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_httpd",
+    "human_readable_name": "Apache HTTP Server",
+    "description": "A free and open-source cross-platform web server software."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 77,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "nginx_ingress_controller",
+    "human_readable_name": "Nginx Ingress Controller",
+    "description": "An Nginx-based ingress controller for Kubernetes."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 78,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "haproxy",
+    "human_readable_name": "HAProxy",
+    "description": "A free, open-source software that provides a high availability load balancer and proxy server for TCP and HTTP-based applications."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 79,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "caddy",
+    "human_readable_name": "Caddy",
+    "description": "A modern web server with automatic HTTPS."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 80,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_maven",
+    "human_readable_name": "Apache Maven",
+    "description": "A build automation tool used primarily for Java projects."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 81,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "gradle",
+    "human_readable_name": "Gradle",
+    "description": "An open-source build automation tool that is designed to be flexible enough to build almost any type of software."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 82,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "ant",
+    "human_readable_name": "Apache Ant",
+    "description": "A Java library and command-line tool used for automating software build processes."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 83,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "makefile",
+    "human_readable_name": "Makefile",
+    "description": "A file containing a set of directives used with the make build automation tool."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 84,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "cmake",
+    "human_readable_name": "CMake",
+    "description": "A cross-platform free and open-source software tool for managing the build process of software using a compiler-independent method."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 85,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "bazel",
+    "human_readable_name": "Bazel",
+    "description": "A build and test tool that supports multiple languages and platforms."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 86,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "vagrant",
+    "human_readable_name": "Vagrant",
+    "description": "An open-source tool for building and maintaining portable virtual software development environments."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 87,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "kafka_streams",
+    "human_readable_name": "Kafka Streams",
+    "description": "A client library for building applications and microservices, where the input and output data are stored in Kafka clusters."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 88,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_flume",
+    "human_readable_name": "Apache Flume",
+    "description": "A distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log data."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 89,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_streaming",
+    "human_readable_name": "Apache Spark Streaming",
+    "description": "An extension of the core Spark API that enables scalable, high-throughput, fault-tolerant stream processing of live data streams."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 90,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_kafka_connect",
+    "human_readable_name": "Apache Kafka Connect",
+    "description": "A tool for scalably and reliably streaming data between Apache Kafka and other systems."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 91,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_kafka_streams",
+    "human_readable_name": "Apache Kafka Streams",
+    "description": "A client library for building applications and microservices, where the input and output data are stored in Kafka clusters."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 92,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_sql",
+    "human_readable_name": "Apache Spark SQL",
+    "description": "A module in Apache Spark for structured data processing."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 93,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_ml",
+    "human_readable_name": "Apache Spark MLlib",
+    "description": "A scalable machine learning library in Apache Spark."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 94,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_graphx",
+    "human_readable_name": "Apache Spark GraphX",
+    "description": "A component of Apache Spark for graphs and graph-parallel computation."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 95,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_rdd",
+    "human_readable_name": "Apache Spark RDD",
+    "description": "Resilient Distributed Dataset, a fundamental data structure of Apache Spark."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 96,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_dataframe",
+    "human_readable_name": "Apache Spark DataFrame",
+    "description": "A distributed collection of data organized into named columns."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 97,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_dataset",
+    "human_readable_name": "Apache Spark Dataset",
+    "description": "A distributed collection of data that provides the benefits of both RDDs and DataFrames."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 98,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_graphframes",
+    "human_readable_name": "Apache Spark GraphFrames",
+    "description": "A package for Apache Spark that provides DataFrame-based graphs."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 99,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_mllib",
+    "human_readable_name": "Apache Spark MLlib",
+    "description": "A scalable machine learning library in Apache Spark."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 100,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_ml_pipeline",
+    "human_readable_name": "Apache Spark ML Pipeline",
+    "description": "A tool for building machine learning pipelines in Apache Spark."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 101,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_sql_query",
+    "human_readable_name": "Apache Spark SQL Query",
+    "description": "A module in Apache Spark for structured data processing."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 102,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_sql_dataframe",
+    "human_readable_name": "Apache Spark SQL DataFrame",
+    "description": "A distributed collection of data organized into named columns."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 103,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_sql_dataset",
+    "human_readable_name": "Apache Spark SQL Dataset",
+    "description": "A distributed collection of data that provides the benefits of both RDDs and DataFrames."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 104,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_sql_rdd",
+    "human_readable_name": "Apache Spark SQL RDD",
+    "description": "Resilient Distributed Dataset, a fundamental data structure of Apache Spark."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 105,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_sql_graphx",
+    "human_readable_name": "Apache Spark SQL GraphX",
+    "description": "A component of Apache Spark for graphs and graph-parallel computation."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 106,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_sql_mllib",
+    "human_readable_name": "Apache Spark SQL MLlib",
+    "description": "A scalable machine learning library in Apache Spark."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 107,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_sql_streaming",
+    "human_readable_name": "Apache Spark SQL Streaming",
+    "description": "An extension of the core Spark API that enables scalable, high-throughput, fault-tolerant stream processing of live data streams."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 108,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_sql_graphframes",
+    "human_readable_name": "Apache Spark SQL GraphFrames",
+    "description": "A package for Apache Spark that provides DataFrame-based graphs."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 109,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_sql_mllib_pipeline",
+    "human_readable_name": "Apache Spark SQL MLlib Pipeline",
+    "description": "A tool for building machine learning pipelines in Apache Spark."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 110,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_sql_streaming_pipeline",
+    "human_readable_name": "Apache Spark SQL Streaming Pipeline",
+    "description": "A tool for building streaming pipelines in Apache Spark."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 111,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_sql_graphx_pipeline",
+    "human_readable_name": "Apache Spark SQL GraphX Pipeline",
+    "description": "A component of Apache Spark for graphs and graph-parallel computation."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 112,
+  "fields": {
+    "created_at": "2025-05-29T09:59:20.586Z",
+    "updated_at": "2025-05-29T09:59:20.588Z",
+    "name": "apache_spark_sql_graphframes_pipeline",
+    "human_readable_name": "Apache Spark SQL GraphFrames Pipeline",
+    "description": "A package for Apache Spark that provides DataFrame-based graphs."
+  }
+},
+{
+  "model": "portfolio.technology",
+  "pk": 113,
+  "fields": {
+    "created_at": "2025-07-20T13:59:09.501Z",
+    "updated_at": "2025-07-20T13:59:09.502Z",
+    "name": "djangorf",
+    "human_readable_name": "Django REST framework",
+    "description": "Powerful and flexible toolkit for building Web APIs."
+  }
+}
+]

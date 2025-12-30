@@ -20,7 +20,7 @@ class ProjectViewSetTest(APITestCase):
     def test_list_projects(self):
         response = self.client.get(self.list_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data["results"]), 1)
+        self.assertEqual(len(response.data["results"]), 2)
 
     def test_create_project_authenticated(self):
         self.client.force_authenticate(user=self.user)
@@ -33,7 +33,7 @@ class ProjectViewSetTest(APITestCase):
         }
         response = self.client.post(self.list_url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Project.objects.count(), 2)
+        self.assertEqual(Project.objects.count(), 3)
 
     def test_create_project_unauthenticated(self):
         data = {
