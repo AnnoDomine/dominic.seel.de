@@ -19,6 +19,16 @@ const roadmapQueries = createApi({
                 url: paginatedEndpoint("/roadmap/", {}),
                 params: { ...pageParam, ...args, ...filters },
             }),
+            providesTags: (result) => {
+                return result
+                    ? [
+                          ...result.pages.flatMap((page) =>
+                              page.results.map(({ id }) => ({ type: "Roadmap" as const, id }))
+                          ),
+                          { type: "Roadmap", id: "LIST" },
+                      ]
+                    : [{ type: "Roadmap", id: "LIST" }];
+            },
             infiniteQueryOptions: {
                 getNextPageParam: (lastPage) => {
                     const next = lastPage.next;
@@ -44,6 +54,10 @@ const roadmapQueries = createApi({
                 method: "PATCH",
                 body: roadmapData,
             }),
+            invalidatesTags: (_result, _error, { id }) => [
+                { type: "Roadmap", id },
+                { type: "Roadmap", id: "LIST" },
+            ],
         }),
     }),
 });

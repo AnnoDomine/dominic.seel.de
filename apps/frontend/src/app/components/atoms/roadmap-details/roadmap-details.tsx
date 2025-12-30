@@ -1,4 +1,5 @@
 import { Dialog, DialogContent, Divider, Typography } from "@mui/material";
+import DOMPurify from "dompurify";
 import type { TRoadmapItem } from "../../../../types/redux/roadmap";
 
 type Props = {
@@ -39,7 +40,11 @@ const RoadmapDetails = ({ item, ...props }: Props) => {
                         {title}
                     </Typography>
                     <Divider></Divider>
-                    <Typography variant="body1" component="div" dangerouslySetInnerHTML={{ __html: description }} />
+                    <Typography
+                        variant="body1"
+                        component="div"
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}
+                    />
                     <Divider></Divider>
                     <Typography
                         variant="body1"

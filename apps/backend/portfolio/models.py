@@ -41,7 +41,7 @@ class RoadmapItem(BaseModel):
     status: models.CharField = models.CharField(max_length=20, choices=STATUS_CHOICES, default="planned")
     order: models.IntegerField = models.IntegerField(default=0, help_text="Order in which items appear")
     related_project: models.ForeignKey = models.ForeignKey(
-        "Project", on_delete=models.CASCADE, blank=True, null=True, help_text="Related project", default=None
+        "Project", on_delete=models.SET_NULL, blank=True, null=True, help_text="Related project", default=None
     )
 
     class Meta:

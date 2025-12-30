@@ -75,27 +75,18 @@ const useProjectAcpDetails = () => {
             if (!project) return;
             e.preventDefault();
             e.stopPropagation();
-            const changedFields = Object.entries(project).reduce(
-                (a, c) => {
-                    const [k, v] = c;
-                    if (["id"].includes(k)) {
-                        // @ts-expect-error k is a key of ProjectDetails, but TypeScript can't infer it here
-                        a[k] = v;
-                        return a;
-                    }
-                    // @ts-expect-error k is a key of ProjectDetails, but TypeScript can't infer it here
-                    if (k in hasFieldChanges && hasFieldChanges[k]) {
-                        // @ts-expect-error k is a key of ProjectDetails, but TypeScript can't infer it here
-                        a[k] = v;
-                        return a;
-                    }
-                    return a;
-                },
-                {} as Partial<ProjectDetails> & Pick<ProjectDetails, "id">
-            );
-            console.table({ changedFields });
+
+            const payload: Partial<ProjectDetails> & Pick<ProjectDetails, "id"> = { id: project.id };
+
+            for (const key in hasFieldChanges) {
+                if (hasFieldChanges[key as keyof typeof hasFieldChanges]) {
+                    const fieldKey = key as keyof ProjectDetails;
+                    payload[fieldKey] = project[fieldKey];
+                }
+            }
+
             try {
-                await updateProject(changedFields);
+                await updateProject(payload);
             } catch (error) {
                 console.error("Error updating project:", error);
             }

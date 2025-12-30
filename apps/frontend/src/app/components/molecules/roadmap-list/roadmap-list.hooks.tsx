@@ -155,7 +155,6 @@ const useRoadmapList = () => {
             const dropIdx = draft.indexOf(dropId);
 
             const currentColumnOrder = [...draft];
-            console.table({ currentColumnOrder, draggedIdx, dropIdx });
             currentColumnOrder.splice(dropIdx, 0, currentColumnOrder.splice(draggedIdx, 1)[0]);
             return currentColumnOrder;
         },

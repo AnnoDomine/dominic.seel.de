@@ -112,7 +112,6 @@ const RoadmapItem = ({ type, item, triggerLoadMore, status, isOverlay }: Props) 
                         onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
-                            console.log(`load more triggered (${status})`);
                             triggerLoadMore(status);
                         }}
                     >

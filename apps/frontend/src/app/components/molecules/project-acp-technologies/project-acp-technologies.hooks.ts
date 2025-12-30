@@ -42,7 +42,6 @@ const useProjectAcpTechnologies = (id: number) => {
 
     const onDragStart = useCallback(
         (event: DragStartEvent) => {
-            console.table({ event });
             setDraggedItem(event.active.data.current as unknown as TechnologyListItem);
         },
         [setDraggedItem]

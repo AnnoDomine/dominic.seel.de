@@ -6,7 +6,7 @@ import TechIcon from "../tech-icon/tech-icon";
 type Props = { item: TechnologyListItem };
 
 const Item = styled("div")(({ theme }) => ({
-    width: "300px",
+    width: "100%",
     padding: "8px",
     outline: "1px solid black",
     borderRadius: "4px",
