@@ -2,7 +2,7 @@
 
 exports[`LayoutContainer > renders without crashing 1`] = `
 <div
-  class="css-1c5db69"
+  class="css-103e08y"
   data-testid="layout-container"
 >
   Content
