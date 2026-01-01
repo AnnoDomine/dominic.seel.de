@@ -36,6 +36,7 @@ export default defineConfig(() => ({
         commonjsOptions: {
             transformMixedEsModules: true,
         },
+        target: "esnext",
     },
     test: {
         watch: false,
