@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User
 from django_filters.rest_framework import DjangoFilterBackend  # type: ignore
 from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
-from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
 
 from .filtersets import UserFilterSet
 from .models import Certificate, Project, RoadmapItem, Technology
@@ -29,7 +31,11 @@ class RoadmapItemViewSet(viewsets.ModelViewSet):
     serializer_class = RoadmapItemSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     pagination_class = StandardResultsSetPagination
-    filter_backends = [OrderingFilter, SearchFilter]
+    filter_backends = [OrderingFilter, SearchFilter, DjangoFilterBackend]
+    filterset_fields = ["status"]
+    search_fields = ["title", "description"]
+    ordering_fields = ["target_date", "order", "status", "created_at"]
+    ordering = ["order", "target_date"]
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -71,7 +77,64 @@ class UserViewSet(viewsets.ModelViewSet):
     ordering = ["id"]
     read_only_fields = ("id", "email", "last_login", "date_joined", "is_staff", "is_active", "is_superuser")
 
+    # Safe allow-list to prevent probing for arbitrary user attributes.
+    ALLOWED_ATTRIBUTES = ["is_superuser", "is_staff", "is_active"]
+
+    PERMISSION_MAP = {
+        "superuser": "is_superuser",
+        "staff": "is_staff",
+        "active": "is_active",
+    }
+
     def get_serializer_class(self):
         if self.action == "list":
             return UserListSerializer
         return super().get_serializer_class()
+
+    @staticmethod
+    def _get_requested_value(user: User, key: str) -> bool:
+        """
+        Safely retrieve a boolean attribute from a user object.
+
+        This method uses a whitelist (`ALLOWED_ATTRIBUTES`) to prevent
+        arbitrary attribute access, which is a security risk. It maps
+        friendly keys (e.g., 'superuser') to actual attribute names.
+
+        Args:
+            user: The user instance.
+            key: The permission key to check (e.g., 'superuser', 'is_staff').
+
+        Returns:
+            The boolean value of the attribute, or False if the attribute
+            is not allowed or does not exist.
+        """
+        # User objects are not dicts, use getattr.
+        # Safe allow-list to prevent probing for arbitrary user attributes.
+        ALLOWED_ATTRIBUTES = ["is_superuser", "is_staff", "is_active"]
+
+        PERMISSION_MAP = {
+            "superuser": "is_superuser",
+            "staff": "is_staff",
+            "active": "is_active",
+        }
+
+        # Stricter check: only allow mapped permissions
+        if key not in PERMISSION_MAP:
+            return False
+
+        attr_name = PERMISSION_MAP.get(key)
+
+        if attr_name not in ALLOWED_ATTRIBUTES:
+            return False
+
+        return getattr(user, attr_name, False)
+
+    @action(detail=False, methods=["get"], url_path="permission", permission_classes=[IsAuthenticated])
+    def check_user_permission(self, request):
+        """
+        Check if the currently authenticated user has a specific permission/attribute.
+        Default is 'superuser'.
+        """
+        request_type: str = request.query_params.get("type", "superuser")
+        has_permission = self._get_requested_value(request.user, request_type)
+        return Response({"has_permission": has_permission})

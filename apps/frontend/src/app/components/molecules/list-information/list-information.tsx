@@ -44,7 +44,6 @@ const ListInformationValue = styled(Typography)({
     wordBreak: "break-word",
     "&.max-height": {
         height: "100%",
-        overflow: "auto",
     },
 });
 

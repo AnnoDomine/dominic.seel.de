@@ -125,12 +125,18 @@ export const parseFilterValue = (value: string | number | boolean | undefined, t
 
 export const parseFilterModel = (
     filterModel: GridFilterModel,
-    filterTypeMap: Record<string, GridColType>
+    filterTypeMap: Record<string, GridColType>,
+    ignoredFields?: string[]
 ): Record<string, string | number | boolean | undefined> | undefined => {
     const filters: Record<string, string | number | boolean | undefined> = {};
     const excludes: Record<string, string | number | boolean | undefined> = {};
 
     filterModel.items.forEach((item) => {
+        if (ignoredFields?.includes(item.field)) {
+            // Skip ignored fields
+            return;
+        }
+
         const colType = filterTypeMap[item.field] || "string";
         const lookup = getFilterParser(item.operator, colType);
 

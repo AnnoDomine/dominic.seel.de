@@ -138,3 +138,6 @@ pip-wheel-metadata/
 # Python virtual environment
 # Python cache
 apps/backend/staticfiles/
+
+
+storybook-static

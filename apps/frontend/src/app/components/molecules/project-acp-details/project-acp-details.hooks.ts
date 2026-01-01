@@ -2,7 +2,7 @@ import type { SelectChangeEvent } from "@mui/material";
 import { useCallback, useEffect, useMemo } from "react";
 import { useParams } from "react-router";
 import { useImmer } from "use-immer";
-import { useLazyGetProjectQuery } from "../../../../redux/queries/project";
+import { useLazyGetProjectQuery, useUpdateProjectMutation } from "../../../../redux/queries/project";
 import type { ProjectDetails } from "../../../../types/redux/project";
 
 const useProjectAcpDetails = () => {
@@ -11,7 +11,11 @@ const useProjectAcpDetails = () => {
 
     const [project, setProject] = useImmer<ProjectDetails | null>(null);
 
-    const [fetchProject, { currentData: cachedData, isLoading }] = useLazyGetProjectQuery();
+    const [fetchProject, { currentData: cachedData, isLoading: isProjectFetching }] = useLazyGetProjectQuery();
+
+    const [updateProject, { isLoading: isProjectUpdating }] = useUpdateProjectMutation();
+
+    const isLoading = isProjectFetching || isProjectUpdating;
 
     const handleChangeValue = useCallback(
         <K extends keyof ProjectDetails = keyof ProjectDetails>(field: K, value: ProjectDetails[K]) =>
@@ -40,14 +44,55 @@ const useProjectAcpDetails = () => {
         [project, cachedData]
     );
 
-    const untrackedFields: Array<keyof ProjectDetails> = ["created_at", "id", "end_date", "start_date", "updated_at"];
+    const untrackedFields: Array<keyof ProjectDetails> = [
+        "created_at",
+        "id",
+        "end_date",
+        "start_date",
+        "updated_at",
+        "technologies", // Techs auto update on change with optimistic UI
+        "image",
+    ];
 
-    const hasAnyChanges = useMemo(
+    const hasFieldChanges = useMemo(
         () =>
             Object.entries(changedValues)
                 .filter(([k, _v]) => !untrackedFields.includes(k as keyof ProjectDetails))
-                .some(([_, v]) => v),
+                .reduce(
+                    (a, [k, v]) => {
+                        a[k as keyof ProjectDetails] = v;
+                        return a;
+                    },
+                    {} as Record<keyof ProjectDetails, boolean>
+                ),
         [changedValues]
+    );
+
+    const hasAnyChanges = useMemo(() => Object.entries(hasFieldChanges).some(([_, v]) => v), [hasFieldChanges]);
+
+    const handleSubmit = useCallback(
+        async (e: React.FormEvent<HTMLFormElement>) => {
+            if (!project) return;
+            e.preventDefault();
+            e.stopPropagation();
+
+            const payload: Partial<ProjectDetails> & Pick<ProjectDetails, "id"> = { id: project.id };
+
+            for (const key in hasFieldChanges) {
+                if (hasFieldChanges[key as keyof typeof hasFieldChanges]) {
+                    const fieldKey = key as keyof ProjectDetails;
+                    payload[fieldKey] = project[fieldKey];
+                }
+            }
+
+            try {
+                await updateProject(payload).unwrap();
+            } catch (error) {
+                console.error("Error updating project:", error);
+                alert("Failed to update project. Please check the console for details.");
+            }
+        },
+        [updateProject, project, hasFieldChanges]
     );
 
     useEffect(() => {
@@ -65,6 +110,7 @@ const useProjectAcpDetails = () => {
         isLoading,
         handleChangeValue,
         changedValues,
+        handleSubmit,
         hasAnyChanges,
     };
 };

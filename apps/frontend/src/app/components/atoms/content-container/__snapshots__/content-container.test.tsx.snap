@@ -2,7 +2,7 @@
 
 exports[`ContentContainer > renders without crashing 1`] = `
 <div
-  class="css-13mi9bo-content-container-root"
+  class="css-123009l-content-container-root"
   data-testid="content-container"
 >
   Content

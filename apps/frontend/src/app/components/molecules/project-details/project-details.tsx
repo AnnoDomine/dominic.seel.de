@@ -40,7 +40,8 @@ const DescriptionOuterContainer = styled("div")({
 
 const InformationContainer = styled("div")({
     "&.description": {
-        height: "-webkit-fill-available",
+        flex: 1,
+        overflow: "auto",
     },
     "&.sub-information": {
         margin: "0px 12px",

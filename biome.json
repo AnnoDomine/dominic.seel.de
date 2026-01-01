@@ -50,6 +50,7 @@
   },
   "javascript": {
     "formatter": {
+      "enabled": true,
       "jsxQuoteStyle": "double",
       "quoteProperties": "asNeeded",
       "trailingCommas": "es5",
@@ -117,6 +118,9 @@
   ],
   "assist": {
     "enabled": true,
-    "actions": { "source": { "organizeImports": "on" } }
+    "actions": {
+      "source": { "organizeImports": "on", "recommended": true },
+      "recommended": true
+    }
   }
 }

@@ -5,6 +5,7 @@ const NavigationContainer = styled(AppBar)(({ theme }) => ({
     flexDirection: "row",
     padding: "16px",
     borderBottom: `1px solid ${theme.palette.divider}`,
+    backgroundColor: theme.palette.background.paper,
 }));
 
 export default NavigationContainer;

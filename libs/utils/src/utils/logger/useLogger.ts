@@ -162,21 +162,20 @@ export const useLogger = () => {
         [logGroup, groupName, setGroupName, setLogGroup, generateLog]
     );
 
-    class Logger {
-        private id: string;
+    const createLogger = useCallback(
+        (name: string) => {
+            const id = startLog(name);
+            return {
+                log: (type: ConsoleMethodKeys, ...message: Parameters<ConsoleInstance[ConsoleMethodKeys]>) => {
+                    addToLog(id)(type, message);
+                },
+                show: async () => {
+                    await showLog(id);
+                },
+            };
+        },
+        [startLog, addToLog, showLog]
+    );
 
-        constructor(name: string) {
-            this.id = startLog(name);
-        }
-
-        public log(type: ConsoleMethodKeys, ...message: Parameters<ConsoleInstance[ConsoleMethodKeys]>) {
-            addToLog(this.id)(type, message);
-        }
-
-        public async show() {
-            await showLog(this.id);
-        }
-    }
-
-    return Logger;
+    return { createLogger };
 };

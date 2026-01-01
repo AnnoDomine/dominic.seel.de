@@ -7,6 +7,7 @@
     "charliermarsh.ruff",
     "matangover.mypy",
     "batisteo.vscode-django",
-    "tamasfe.even-better-toml"
+    "tamasfe.even-better-toml",
+    "esbenp.prettier-vscode"
   ]
 }
