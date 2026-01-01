@@ -9,7 +9,7 @@ const ContentContainer = styled("div", {
     height: "-webkit-fill-available",
     backgroundColor: theme.palette.background.default,
     padding: "16px",
-    overflow: "hidden",
+    overflow: "auto",
 }));
 
 export default ContentContainer;

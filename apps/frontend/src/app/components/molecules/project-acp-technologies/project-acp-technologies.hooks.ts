@@ -35,7 +35,6 @@ const useProjectAcpTechnologies = (id: number) => {
                 // setOpen(false);
             } catch (error) {
                 console.error("Error updating project:", error);
-                alert("Failed to update project technologies. Please check the console for details.");
             }
         },
         [id, updateTechs]
@@ -78,7 +77,7 @@ const useProjectAcpTechnologies = (id: number) => {
         updateProject,
         open,
         setOpen,
-        dndProps,
+        dndProviderProps: dndProps,
         draggedItem,
     };
 };

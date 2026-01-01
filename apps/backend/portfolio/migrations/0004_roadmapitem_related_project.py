@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='roadmapitem',
             name='related_project',
-            field=models.ForeignKey(blank=True, default=None, help_text='Related project', null=True, on_delete=django.db.models.deletion.CASCADE, to='portfolio.project'),
+            field=models.ForeignKey(blank=True, default=None, help_text='Related project', null=True, on_delete=django.db.models.deletion.SET_NULL, to='portfolio.project'),
         ),
     ]

@@ -31,17 +31,17 @@ const RowContainer = styled("div")({
 });
 
 const DescriptionContainer = styled("div")({
-    overflow: "auto",
-    flex: 1,
+    height: "100%",
 });
 
 const DescriptionOuterContainer = styled("div")({
-    height: "inherit",
+    height: "100%",
 });
 
 const InformationContainer = styled("div")({
     "&.description": {
-        height: "-webkit-fill-available",
+        flex: 1,
+        overflow: "auto",
     },
     "&.sub-information": {
         margin: "0px 12px",

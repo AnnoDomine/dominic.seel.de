@@ -84,14 +84,17 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_requested_value(self, key: str) -> bool:
         # User objects are not dicts, use getattr.
-        # Handle cases like "superuser" -> "is_superuser"
-        attr_name = key
-        # Note: This currently only supports a predefined list of attributes.
-        if not key.startswith("is_") and key in ["superuser", "staff", "active"]:
-            attr_name = f"is_{key}"
-
         # Safe allow-list to prevent probing for arbitrary user attributes.
         ALLOWED_ATTRIBUTES = ["is_superuser", "is_staff", "is_active"]
+
+        PERMISSION_MAP = {
+            "superuser": "is_superuser",
+            "staff": "is_staff",
+            "active": "is_active",
+        }
+
+        attr_name = PERMISSION_MAP.get(key, key)
+
         if attr_name not in ALLOWED_ATTRIBUTES:
             return False
 

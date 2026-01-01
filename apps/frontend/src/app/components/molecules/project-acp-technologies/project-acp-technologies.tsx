@@ -19,7 +19,7 @@ const ListContainer = styled("div")(({ theme }) => ({
 }));
 
 const ProjectAcpTechnoliogies = ({ id }: Props) => {
-    const { open, setOpen, includedTechs, excludedTechs, isLoading, dndProps, draggedItem } =
+    const { open, setOpen, includedTechs, excludedTechs, isLoading, dndProviderProps, draggedItem } =
         useProjectAcpTechnologies(id);
     return (
         <>
@@ -39,7 +39,7 @@ const ProjectAcpTechnoliogies = ({ id }: Props) => {
                     >
                         {isLoading && <LinearProgress />}
                     </div>
-                    <DndContext {...dndProps}>
+                    <DndContext {...dndProviderProps}>
                         <ListContainer>
                             <ProjectAcpTechList items={excludedTechs} id="list-zone-excluded" />
                             <ProjectAcpTechList items={includedTechs} id="list-zone-included" />
