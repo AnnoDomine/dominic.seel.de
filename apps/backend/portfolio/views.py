@@ -77,6 +77,15 @@ class UserViewSet(viewsets.ModelViewSet):
     ordering = ["id"]
     read_only_fields = ("id", "email", "last_login", "date_joined", "is_staff", "is_active", "is_superuser")
 
+    # Safe allow-list to prevent probing for arbitrary user attributes.
+    ALLOWED_ATTRIBUTES = ["is_superuser", "is_staff", "is_active"]
+
+    PERMISSION_MAP = {
+        "superuser": "is_superuser",
+        "staff": "is_staff",
+        "active": "is_active",
+    }
+
     def get_serializer_class(self):
         if self.action == "list":
             return UserListSerializer

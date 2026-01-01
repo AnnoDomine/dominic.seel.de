@@ -42,6 +42,21 @@ const columnMap: Array<{ field: RoadmapStatus; label: string }> = [
     },
 ];
 
+const orderSetterHelper = (draft: Array<RoadmapStatus>, dropId: RoadmapStatus, draggedId: RoadmapStatus) => {
+    const currentOrder = [...draft];
+    const fromIndex = currentOrder.indexOf(draggedId);
+    const toIndex = currentOrder.indexOf(dropId);
+
+    if (fromIndex === -1 || toIndex === -1) {
+        return currentOrder;
+    }
+
+    const [removed] = currentOrder.splice(fromIndex, 1);
+    currentOrder.splice(toIndex, 0, removed);
+
+    return currentOrder;
+};
+
 const useRoadmapList = () => {
     const [getPreferences, setPreferences] = useLocalPreferences();
 
@@ -107,44 +122,22 @@ const useRoadmapList = () => {
         isFetching: isFetchingPlanned,
         fetchNextPage: fetchPlannedNextPage,
         hasNextPage: hasPlannedNextPage,
-        refetch: refetchPlanned,
     } = useListRoadmapInfiniteQuery(plannedQueryParams);
     const {
         data: inProgress,
         isFetching: isFetchingInProgress,
         fetchNextPage: fetchInProgressNextPage,
-        refetch: refetchInProgress,
     } = useListRoadmapInfiniteQuery(inProgressQueryParams);
     const {
         data: completed,
         isFetching: isFetchingCompleted,
         fetchNextPage: fetchCompletedNextPage,
-        refetch: refetchCompleted,
     } = useListRoadmapInfiniteQuery(completedQueryParams);
     const {
         data: onHold,
         isFetching: isFetchingOnHold,
         fetchNextPage: fetchOnHoldNextPage,
-        refetch: refetchOnHold,
     } = useListRoadmapInfiniteQuery(onHoldQueryParams);
-
-    const orderSetterHelper = useCallback(
-        (draft: Array<RoadmapStatus>, dropId: RoadmapStatus, draggedId: RoadmapStatus) => {
-            const currentOrder = [...draft];
-            const fromIndex = currentOrder.indexOf(draggedId);
-            const toIndex = currentOrder.indexOf(dropId);
-
-            if (fromIndex === -1 || toIndex === -1) {
-                return currentOrder;
-            }
-
-            const [removed] = currentOrder.splice(fromIndex, 1);
-            currentOrder.splice(toIndex, 0, removed);
-
-            return currentOrder;
-        },
-        []
-    );
 
     const handleColumOrderChanges = useCallback(
         (item: DragMoveEvent | DragEndEvent, apply = false) => {
@@ -174,7 +167,7 @@ const useRoadmapList = () => {
                 );
             }
         },
-        [draggedItem, setPreferences, orderSetterHelper, usedColumnOrder, columnOrder]
+        [draggedItem, setPreferences, usedColumnOrder, columnOrder]
     );
 
     const [updateRoadmapItem] = usePartialUpdateRoadmapItemMutation();

@@ -48,20 +48,29 @@ const useProjectAcpTechnologies = (id: number) => {
 
     const onDragEnd = useCallback(
         (event: DragEndEvent) => {
-            const currentTechs = [...(project?.technologies || [])];
-            switch (event.over?.id as ListZoneId) {
-                case "list-zone-included":
-                    if (draggedItem && !currentTechs.includes(draggedItem.id)) currentTechs.push(draggedItem.id);
-                    break;
-                case "list-zone-excluded":
-                    if (draggedItem && currentTechs.includes(draggedItem.id))
-                        currentTechs.splice(currentTechs.indexOf(draggedItem.id), 1);
-                    break;
-                default:
-                    // Cancle if no id is in "over"
-                    return;
+            if (!event.over || !draggedItem) {
+                setDraggedItem(null);
+                return;
             }
-            updateProject(currentTechs);
+
+            const originalTechs = project?.technologies || [];
+            const isIncluded = originalTechs.includes(draggedItem.id);
+            const dropZone = event.over.id as ListZoneId;
+
+            let newTechs = [...originalTechs];
+            let changed = false;
+
+            if (dropZone === "list-zone-included" && !isIncluded) {
+                newTechs.push(draggedItem.id);
+                changed = true;
+            } else if (dropZone === "list-zone-excluded" && isIncluded) {
+                newTechs = newTechs.filter((id) => id !== draggedItem.id);
+                changed = true;
+            }
+
+            if (changed) {
+                updateProject(newTechs);
+            }
             setDraggedItem(null);
         },
         [setDraggedItem, draggedItem, project?.technologies, updateProject]
