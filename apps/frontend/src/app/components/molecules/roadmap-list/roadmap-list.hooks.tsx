@@ -70,10 +70,10 @@ const useRoadmapList = () => {
     const [draggedItem, setDraggedItem] = useImmer<DragStartEvent | null>(null);
 
     const [columnOrder, setColumnOrder] = useState<Array<(typeof columnMap)[number]["field"]> | null>(
-        getPreferences("roadmap_column_order") || columnMap.map((c) => c.field)
+        getPreferences("roadmap_column_order")
     );
     const [usedColumnOrder, setUsedColumnOrder] = useState<Array<(typeof columnMap)[number]["field"]>>(
-        getPreferences("roadmap_column_order") || columnMap.map((c) => c.field)
+        getPreferences("roadmap_column_order")
     );
 
     const appliedColumnOrder = useMemo(() => {
@@ -187,7 +187,7 @@ const useRoadmapList = () => {
     );
 
     const onDragEnd = useCallback(
-        (item: DragEndEvent | null) => {
+        (item: DragEndEvent) => {
             if (!draggedItem) return;
             if (item && (draggedItem.active.data.current?.type as unknown as string) === "status") {
                 handleColumOrderChanges(item, true);

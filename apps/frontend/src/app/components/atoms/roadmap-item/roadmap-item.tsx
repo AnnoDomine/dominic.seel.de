@@ -147,7 +147,7 @@ const RoadmapItem = ({ type, item, triggerLoadMore, status, isOverlay }: Props) 
                     {item.title}
                 </RoadmapItemHeader>
                 <RoadmapItemTarget variant="body1">
-                    Target: {new Date(item.target_date).toLocaleDateString()}
+                    Target: {new Date(item.target_date.replace(/-/g, "/")).toLocaleDateString()}
                 </RoadmapItemTarget>
                 <div
                     style={{
