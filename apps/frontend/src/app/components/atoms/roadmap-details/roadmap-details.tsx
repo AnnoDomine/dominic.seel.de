@@ -10,7 +10,7 @@ type Props = {
 
 const RoadmapDetails = ({ item, ...props }: Props) => {
     const { title, description, target_date, status, related_project } = item;
-    const isTargetDateAfterToday = new Date(item.target_date) > new Date();
+    const isTargetDateAfterToday = new Date(item.target_date).setHours(0, 0, 0, 0) >= new Date().setHours(0, 0, 0, 0);
     const formatedStatus = (status.charAt(0).toUpperCase() + status.slice(1)).replace("_", " ");
     if (!props.open) {
         return null;

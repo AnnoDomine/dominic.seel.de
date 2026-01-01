@@ -128,25 +128,6 @@ const useRoadmapList = () => {
         refetch: refetchOnHold,
     } = useListRoadmapInfiniteQuery(onHoldQueryParams);
 
-    const refetchInfinityQueries = useCallback(
-        (include: Array<RoadmapStatus | "all">) => {
-            const isAll = include.includes("all");
-            if (include.includes("completed") || isAll) {
-                refetchCompleted();
-            }
-            if (include.includes("on_hold") || isAll) {
-                refetchOnHold();
-            }
-            if (include.includes("in_progress") || isAll) {
-                refetchInProgress();
-            }
-            if (include.includes("planned") || isAll) {
-                refetchPlanned();
-            }
-        },
-        [refetchCompleted, refetchOnHold, refetchInProgress, refetchPlanned]
-    );
-
     const orderSetterHelper = useCallback(
         (draft: Array<RoadmapStatus>, dropId: RoadmapStatus, draggedId: RoadmapStatus) => {
             const currentOrder = [...draft];

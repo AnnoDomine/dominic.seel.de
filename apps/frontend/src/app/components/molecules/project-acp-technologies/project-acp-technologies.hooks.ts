@@ -32,7 +32,6 @@ const useProjectAcpTechnologies = (id: number) => {
         async (techs: number[]) => {
             try {
                 await updateTechs({ id, technologies: techs }).unwrap();
-                // setOpen(false);
             } catch (error) {
                 console.error("Error updating project:", error);
             }

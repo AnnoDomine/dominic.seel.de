@@ -82,7 +82,8 @@ class UserViewSet(viewsets.ModelViewSet):
             return UserListSerializer
         return super().get_serializer_class()
 
-    def get_requested_value(self, key: str) -> bool:
+    @staticmethod
+    def _get_requested_value(user: User, key: str) -> bool:
         # User objects are not dicts, use getattr.
         # Safe allow-list to prevent probing for arbitrary user attributes.
         ALLOWED_ATTRIBUTES = ["is_superuser", "is_staff", "is_active"]
@@ -98,7 +99,7 @@ class UserViewSet(viewsets.ModelViewSet):
         if attr_name not in ALLOWED_ATTRIBUTES:
             return False
 
-        return getattr(self.request.user, attr_name, False)
+        return getattr(user, attr_name, False)
 
     @action(detail=False, methods=["get"], url_path="permission", permission_classes=[IsAuthenticated])
     def check_user_permission(self, request):
@@ -107,5 +108,5 @@ class UserViewSet(viewsets.ModelViewSet):
         Default is 'superuser'.
         """
         request_type: str = request.query_params.get("type", "superuser")
-        has_permission = self.get_requested_value(request_type)
+        has_permission = self._get_requested_value(request.user, request_type)
         return Response({"has_permission": has_permission})
