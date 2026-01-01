@@ -51,13 +51,12 @@ const useLocalPreferences = (): Return => {
         [localStoragePreferences, setPreferences]
     );
 
-    // biome-ignore lint/correctness/useExhaustiveDependencies: Should only run initial
     useEffect(() => {
         const preferences = localStoragePreferences();
         if (Object.keys(preferences).length === 0) {
             setPreferences(DEFAULT_PREFERENCE);
         }
-    }, []);
+    }, [localStoragePreferences, setPreferences]);
 
     return [getPreference, changePreference];
 };

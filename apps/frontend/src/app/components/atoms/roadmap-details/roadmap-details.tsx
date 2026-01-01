@@ -10,7 +10,8 @@ type Props = {
 
 const RoadmapDetails = ({ item, ...props }: Props) => {
     const { title, description, target_date, status, related_project } = item;
-    const isTargetDateAfterToday = new Date(item.target_date).setHours(0, 0, 0, 0) >= new Date().setHours(0, 0, 0, 0);
+    const today = new Date().toISOString().split("T")[0];
+    const isTargetDateAfterToday = item.target_date >= today;
     const formatedStatus = (status.charAt(0).toUpperCase() + status.slice(1)).replace("_", " ");
     if (!props.open) {
         return null;
@@ -56,7 +57,7 @@ const RoadmapDetails = ({ item, ...props }: Props) => {
                             overflow: "auto",
                         }}
                     >
-                        Target Date: {new Date(target_date).toLocaleDateString()}
+                        Target Date: {new Date(target_date.replace(/-/g, "/")).toLocaleDateString()}
                     </Typography>
                     {related_project && (
                         <>

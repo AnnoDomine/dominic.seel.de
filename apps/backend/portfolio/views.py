@@ -84,6 +84,21 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @staticmethod
     def _get_requested_value(user: User, key: str) -> bool:
+        """
+        Safely retrieve a boolean attribute from a user object.
+
+        This method uses a whitelist (`ALLOWED_ATTRIBUTES`) to prevent
+        arbitrary attribute access, which is a security risk. It maps
+        friendly keys (e.g., 'superuser') to actual attribute names.
+
+        Args:
+            user: The user instance.
+            key: The permission key to check (e.g., 'superuser', 'is_staff').
+
+        Returns:
+            The boolean value of the attribute, or False if the attribute
+            is not allowed or does not exist.
+        """
         # User objects are not dicts, use getattr.
         # Safe allow-list to prevent probing for arbitrary user attributes.
         ALLOWED_ATTRIBUTES = ["is_superuser", "is_staff", "is_active"]
@@ -94,7 +109,11 @@ class UserViewSet(viewsets.ModelViewSet):
             "active": "is_active",
         }
 
-        attr_name = PERMISSION_MAP.get(key, key)
+        # Stricter check: only allow mapped permissions
+        if key not in PERMISSION_MAP:
+            return False
+
+        attr_name = PERMISSION_MAP.get(key)
 
         if attr_name not in ALLOWED_ATTRIBUTES:
             return False
