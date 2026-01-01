@@ -5,7 +5,7 @@ import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
 
-console.table({
+console.log({
     process: process.env,
     meta: import.meta.env,
 });
