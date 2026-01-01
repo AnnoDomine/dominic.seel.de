@@ -31,10 +31,11 @@ const useProjectAcpTechnologies = (id: number) => {
     const updateProject = useCallback(
         async (techs: number[]) => {
             try {
-                await updateTechs({ id, technologies: techs });
+                await updateTechs({ id, technologies: techs }).unwrap();
                 // setOpen(false);
             } catch (error) {
                 console.error("Error updating project:", error);
+                alert("Failed to update project technologies. Please check the console for details.");
             }
         },
         [id, updateTechs]

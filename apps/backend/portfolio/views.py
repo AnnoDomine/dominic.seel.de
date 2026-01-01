@@ -89,6 +89,12 @@ class UserViewSet(viewsets.ModelViewSet):
         # Note: This currently only supports a predefined list of attributes.
         if not key.startswith("is_") and key in ["superuser", "staff", "active"]:
             attr_name = f"is_{key}"
+
+        # Safe allow-list to prevent probing for arbitrary user attributes.
+        ALLOWED_ATTRIBUTES = ["is_superuser", "is_staff", "is_active"]
+        if attr_name not in ALLOWED_ATTRIBUTES:
+            return False
+
         return getattr(self.request.user, attr_name, False)
 
     @action(detail=False, methods=["get"], url_path="permission", permission_classes=[IsAuthenticated])

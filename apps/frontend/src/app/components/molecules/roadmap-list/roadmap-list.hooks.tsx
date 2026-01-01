@@ -149,14 +149,18 @@ const useRoadmapList = () => {
 
     const orderSetterHelper = useCallback(
         (draft: Array<RoadmapStatus>, dropId: RoadmapStatus, draggedId: RoadmapStatus) => {
-            // Get the current index of the dragged item
-            const draggedIdx = draft.indexOf(draggedId);
-            // Get the index of the dropped item. Over means always befor the column
-            const dropIdx = draft.indexOf(dropId);
+            const currentOrder = [...draft];
+            const fromIndex = currentOrder.indexOf(draggedId);
+            const toIndex = currentOrder.indexOf(dropId);
 
-            const currentColumnOrder = [...draft];
-            currentColumnOrder.splice(dropIdx, 0, currentColumnOrder.splice(draggedIdx, 1)[0]);
-            return currentColumnOrder;
+            if (fromIndex === -1 || toIndex === -1) {
+                return currentOrder;
+            }
+
+            const [removed] = currentOrder.splice(fromIndex, 1);
+            currentOrder.splice(toIndex, 0, removed);
+
+            return currentOrder;
         },
         []
     );
@@ -212,18 +216,11 @@ const useRoadmapList = () => {
                 updateRoadmapItem({
                     id: draggedItem.active.id as number,
                     status: item.over.id as RoadmapStatus,
-                })
-                    .unwrap()
-                    .then(() => {
-                        refetchInfinityQueries([
-                            item.over?.id as RoadmapStatus,
-                            draggedItem.active.data.current?.status,
-                        ]);
-                    });
+                }).unwrap();
             }
             setDraggedItem(null);
         },
-        [setDraggedItem, draggedItem, updateRoadmapItem, handleColumOrderChanges, refetchInfinityQueries]
+        [setDraggedItem, draggedItem, updateRoadmapItem, handleColumOrderChanges]
     );
 
     const onDragOver = useCallback(

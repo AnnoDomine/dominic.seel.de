@@ -32,8 +32,7 @@ const RowContainer = styled("div")({
 
 const DescriptionContainer = styled("div")({
     overflow: "auto",
-    maxHeight: "inherit",
-    height: "470px",
+    flex: 1,
 });
 
 const DescriptionOuterContainer = styled("div")({

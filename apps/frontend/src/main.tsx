@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router";
 import App from "./app/app";
 import store from "./redux/store";
 
+// Polyfill for Node.js Buffer, required by some dependencies (e.g. for certain dev tools or Storybook compatibility)
 globalThis.Buffer = Buffer;
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);

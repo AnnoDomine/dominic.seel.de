@@ -8,6 +8,7 @@ from rest_framework.test import APITestCase
 class ProjectViewSetTest(APITestCase):
     def setUp(self):
         self.user = User.objects.create_superuser(username="admin", password="password")
+        self.initial_count = Project.objects.count()
         self.project = Project.objects.create(
             title="Test Project",
             description="Test Description",
@@ -20,7 +21,8 @@ class ProjectViewSetTest(APITestCase):
     def test_list_projects(self):
         response = self.client.get(self.list_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data["results"]), 2)
+        # Verify that the count in the response results matches our newly created project plus existing ones
+        self.assertEqual(len(response.data["results"]), self.initial_count + 1)
 
     def test_create_project_authenticated(self):
         self.client.force_authenticate(user=self.user)
@@ -33,7 +35,7 @@ class ProjectViewSetTest(APITestCase):
         }
         response = self.client.post(self.list_url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Project.objects.count(), 3)
+        self.assertEqual(Project.objects.count(), self.initial_count + 2)
 
     def test_create_project_unauthenticated(self):
         data = {

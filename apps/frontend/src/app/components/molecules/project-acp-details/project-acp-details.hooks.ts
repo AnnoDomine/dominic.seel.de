@@ -86,9 +86,10 @@ const useProjectAcpDetails = () => {
             }
 
             try {
-                await updateProject(payload);
+                await updateProject(payload).unwrap();
             } catch (error) {
                 console.error("Error updating project:", error);
+                alert("Failed to update project. Please check the console for details.");
             }
         },
         [updateProject, project, hasFieldChanges]
